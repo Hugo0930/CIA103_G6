@@ -1,4 +1,4 @@
-package MA;
+package ma;
 
 public class MAMA {
 	public static void main(String[] args) {
