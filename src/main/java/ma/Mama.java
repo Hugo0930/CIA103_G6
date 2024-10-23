@@ -1,6 +1,6 @@
 package ma;
 
-public class MAMA {
+public class Mama {
 	public static void main(String[] args) {
 		String s = "Hello World";
 
