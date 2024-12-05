@@ -16,7 +16,7 @@ package Hugo.reservation;
 	        this.rentalDate = rentalDate; 
 	        this.returnDate = returnDate;
 	    }
-//sssss
+
 	    public String getBorrowerName() {
 	        return borrowerName;
 	    }
