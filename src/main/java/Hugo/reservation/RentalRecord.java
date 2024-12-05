@@ -13,10 +13,10 @@ package Hugo.reservation;
 	    public RentalRecord(String borrowerName, String itemName, String rentalDate, String returnDate) {
 	        this.borrowerName = borrowerName;
 	        this.itemName = itemName;
-	        this.rentalDate = rentalDate;
+	        this.rentalDate = rentalDate; 
 	        this.returnDate = returnDate;
 	    }
-
+//sssss
 	    public String getBorrowerName() {
 	        return borrowerName;
 	    }
