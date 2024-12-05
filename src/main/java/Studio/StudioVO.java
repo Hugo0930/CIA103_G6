@@ -3,7 +3,8 @@ package Studio;
 public class StudioVO {
 	String name;
 	String loc;
-	String date;
+  String date;
+
 	public String getName() {
 		return name;
 	}
@@ -16,5 +17,6 @@ public class StudioVO {
 	public void setLoc(String loc) {
 		this.loc = loc;
 	}
+
 	
 }
