@@ -3,6 +3,7 @@ package Studio;
 public class StudioVO {
 	String name;
 	String loc;
+	String Date;
 	public String getName() {
 		return name;
 	}
