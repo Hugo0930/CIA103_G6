@@ -9,6 +9,7 @@ package Hugo.reservation;
 	    private String itemName;
 	    private String rentalDate;
 	    private String returnDate;
+	    private String sexy;
 
 	    public RentalRecord(String borrowerName, String itemName, String rentalDate, String returnDate) {
 	        this.borrowerName = borrowerName;
