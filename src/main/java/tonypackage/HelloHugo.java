@@ -1,4 +1,4 @@
-package TonyPackage;
+package tonypackage;
 
 public class HelloHugo {
 	private Integer BigDaddy;
