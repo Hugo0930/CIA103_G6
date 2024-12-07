@@ -60,6 +60,7 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>6.2.1</version>
+
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
 		<dependency>
@@ -68,12 +69,7 @@
 			<version>2.9.0</version>
 		</dependency>
 
-		<!-- Logback 配置 -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.6</version>
-		</dependency>
+
 		<!-- MySQL JDBC 驅動 -->
 		<dependency>
 			<groupId>mysql</groupId>
