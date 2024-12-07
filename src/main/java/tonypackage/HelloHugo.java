@@ -1,8 +1,8 @@
-package TonyPackage;
+package tonypackage;
 
 public class HelloHugo {
 	private Integer BigDaddy;
-
+	private Integer DigDaddy;
 	public Integer getBigDaddy() {
 		return BigDaddy;
 	}
