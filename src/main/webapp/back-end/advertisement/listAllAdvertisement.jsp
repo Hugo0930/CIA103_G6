@@ -5,7 +5,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-AdvertisementService memberSvc = new AdvertisementService();
+AdvertisementService advertisementSvc = new AdvertisementService();
     List<AdvertisementVO> list = advertisementSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
@@ -24,7 +24,7 @@ AdvertisementService memberSvc = new AdvertisementService();
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>	
-		 <h3>所有員工資料 - listAllAdvertisement.jsp</h3>
+		 <h3>所有廣告資料 - listAllAdvertisement.jsp</h3>
 		 <h4>
 		 <a href="select_page.jsp"><img src="<%=request.getContextPath()%>/back-end/advertisement/images/back1.gif"  width="100" height="32" border="0">回首頁</a>
 		 </h4>
