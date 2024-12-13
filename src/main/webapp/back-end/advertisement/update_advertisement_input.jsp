@@ -87,7 +87,7 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="memberId" value="<%=memberVO.getMemberId()%>">
+<input type="hidden" name="memberId" value="<%=advertisementVO.getAdvertisementId()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 
@@ -95,13 +95,21 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
+<% 
+  java.sql.Date strDate = null;
+  try {
+	  strDate = advertisementVO.getStrDate();
+   } catch (Exception e) {
+	   strDate = new java.sql.Date(System.currentTimeMillis());
+   }
+%>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
   .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
+           width: 600px;   /* width:  600px; */
   }
   .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
            height: 151px;   /* height:  151px; */
@@ -109,23 +117,61 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 </style>
 
 <script>
+
 $(document).ready(function() {
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
-           theme: '',              //theme: 'dark',
- 	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '<%=memberVO.getMemberBth()%>', // value:   new Date(),
+	       theme: '',              //theme: 'dark',
+	       timepicker:false,       //timepicker:true,
+	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+		   value: '<%=strDate%>'    
+		   // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
            //minDate:               '-1970-01-01', // 去除今日(不含)之前
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
-});
+});    
         
-        
-   
+<% 
+java.sql.Date endDate = null;
+try {
+	endDate = advertisementVO.getEndDate();
+ } catch (Exception e) {
+	 endDate = new java.sql.Date(System.currentTimeMillis());
+ }
+%>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.datetimepicker.full.js"></script>
+
+<style>
+.xdsoft_datetimepicker .xdsoft_datepicker {
+         width:  300px;   /* width:  300px; */
+}
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+         height: 151px;   /* height:  151px; */
+}
+</style>
+
+<script>
+
+$(document).ready(function() {
+      $.datetimepicker.setLocale('zh');
+      $('#f_date2').datetimepicker({
+	       theme: '',              //theme: 'dark',
+	       timepicker:false,       //timepicker:true,
+	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+		   value: '<%=endDate%>'    
+		   // value:   new Date(),
+         //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+         //startDate:	            '2017/07/10',  // 起始日
+         //minDate:               '-1970-01-01', // 去除今日(不含)之前
+         //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+      });
+});    
         // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
 
         //      1.以下為某一天之前的日期無法選擇
