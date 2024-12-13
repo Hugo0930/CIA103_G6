@@ -60,6 +60,7 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>6.2.1</version>
+
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
 		<dependency>
@@ -68,12 +69,17 @@
 			<version>2.9.0</version>
 		</dependency>
 
-		<!-- Logback 配置 -->
 		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.6</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.32</version> <!-- SLF4J API 的版本 -->
 		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.14.1</version> <!-- log4j2 版本 -->
+		</dependency>
+
 		<!-- MySQL JDBC 驅動 -->
 		<dependency>
 			<groupId>mysql</groupId>
