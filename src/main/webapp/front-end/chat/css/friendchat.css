@@ -1,0 +1,284 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+	
+}
+
+html{
+	width: 100vw;
+	height: 100vh;
+}
+body {
+	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif,
+		Microsoft JhengHei;
+	width: 100%;
+	height: 100%;
+	background: #eeeeda;
+
+}
+/****************名字******************/
+div.name_block{
+	height:100px;
+	background-color: #ff8040;
+}
+/****************聊天室******************/
+div.chat{
+	/*border:1px solid red;*/
+	width:500px;
+	height:700px;
+	background-color: #fff;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	border-radius: 10px;
+}
+
+div.panel {
+	/*
+	border: 1px solid yellow;
+	*/
+	background-color: #ffffff;
+	resize: none;
+	position: relative;
+	height:calc(100% - 550px);
+}
+
+div#messagesArea{
+	/*border:1px solid green;*/
+	height:450px;
+	background-color: #fed1c7;
+    overflow: auto;
+    width:100%;
+    padding:0 10px 0 10px;
+    
+}
+
+div#messagesArea::-webkit-scrollbar{
+    display: none; /* Chrome, Safari 和 Edge: 隱藏滾動條 */
+}
+
+div.icon_block{
+	position: absolute;
+	top:20px;;
+	right:5%;
+}
+div.icon_block i{
+	display:inline-block;
+	vertical-align: middle;
+	font-size: 20px;
+	margin-left:10px;
+	cursor:pointer;
+}
+div.icon_block i:first-child{
+	position: relateive;
+	padding-bottom: 15px;
+}
+
+div.content{
+	/*padding: 0 8px;*/
+	border:1px;
+    border-top-style: solid;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-right-style: none;
+}
+/****************輸入框******************/
+input.text-field {
+	/*
+	border: 1px solid grey;
+	*/
+	display:block;
+	padding: 13px;
+	width:100%;
+	font-size:24px;
+	outline: none;
+	border:1px; 
+	border-top-style: solid;
+	border-bottom-style: none;
+	border-left-style:none;
+	border-right-style:none;
+}
+
+.statusOutput {
+	/*
+	border: 1px solid grey;
+	*/
+	line-height:50px;
+	height:50px;
+	background: #fff;
+	text-align: center;
+	color: black;
+	padding: 5px;
+	box-shadow: 0 0 5px #000000;
+	width: 40%;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50px;
+
+}
+
+/****************按鈕******************/
+div#input_block{
+	/*border:1px solid green;*/
+	height:100px;
+	position: relative;
+}
+div#input_block #upload_audio{
+	display:none;
+}
+input#sendMessage,
+button#match_btn,
+button#audio_btn{
+	position: relative;
+	top:50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color:#fff;
+	border: none;
+}
+
+button#match_btn,
+button#audio_btn{
+	left:30px;
+	margin-right:10px;
+	background-color: #fff;
+}
+
+button i.fa-solid{
+	color:orange;
+}
+i.fa-paper-plane{
+	color: white;
+}
+div#input_block span{
+	position: absolute;
+	top:50%;
+	right:19%;
+	transform: translateY(-50%);
+}
+input#sendMessage{
+	width:100px;
+	height:40px;
+	border-radius:10px;
+	left:60%;
+	background-color: orange;
+}
+div.match_block{
+	font-size:0px;
+}
+div.match_block p{
+	font-size: 22px;
+	font-weight: 700;
+	margin-bottom: 5px;
+}
+
+div.match_block button[type="button"]{
+	width:70px;
+	height:30px;
+	font-size: 20px;
+	background-color: gray;
+	color:white;
+	border:none;
+	border-radius: 5px;
+	cursor:pointer;
+	margin-left: 5px;
+}
+
+div.match_block.last_match button.agreed{
+	background-color: #80ff80;
+}
+
+div.match_block.last_match button.disagreed{
+	background-color: #ff0d0d;
+}
+
+
+/****************好友列表******************/
+#row {
+	float: left;
+	width:200px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5%;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+}
+/****************聊天訊息******************/
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li{
+  display:inline-block;
+  clear: both;
+  padding: 10px;
+  border-radius: 15px;
+  margin-bottom: 7px;
+  font-size: 22px;
+  font-family: Helvetica, Arial, sans-serif;
+  position:relative;
+}
+
+.friend{
+  background: #f99253;
+  float: left;
+  color: white;
+}
+
+.me{
+  float: right;
+  background: #eee;
+  color: black;
+}
+li.friend_audio{
+	float:left;
+	clear:both;
+	margin-bottom: 7px;
+}
+li.me_audio{
+	float:right;
+	clear:both;
+	margin-bottom: 7px;
+}
+span.me,
+span.friend{
+	background:none;
+	position:absolute;
+	font-size: 18px;
+}
+
+span.me{
+	left:-55px;
+}
+span.friend{
+	right:-55px;
+}
+
+span.mysound{
+	left:-45px;
+	top: 25px;
+}
+
+span.yoursound{
+	right:-45px;
+	top:25px;
+}
+span.mymatch{
+	position:absolute; 
+	left:-65px; 
+	bottom:5px;
+}
+span.yourmatch{
+	position:absolute; 
+	right:-65px; 
+	bottom:5px;
+}
