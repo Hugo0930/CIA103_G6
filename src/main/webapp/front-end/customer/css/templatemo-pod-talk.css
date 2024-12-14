@@ -235,7 +235,7 @@ main {
   SITE HEADER    網站頁首樣式          
 -----------------------------------------*/
 .site-header {
-  background-image: url('http://localhost:8081/CIA103G6/front-end/customer/images/taobao_microphone.jpg'), linear-gradient(#348CD2, #FFFFFF);;
+  background-image: url('http://localhost:8081/CIA103g6/front-end/customer/images/taobao_microphone.jpg'), linear-gradient(#348CD2, #FFFFFF);;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -461,7 +461,7 @@ main {
   CAROUSEL  橫向輪播效果的樣式設定      
 -----------------------------------------*/
 .hero-section {
-  background-image: url('http://localhost:8081/CIA103G6/front-end/customer/images/taobao_microphone.jpg'), linear-gradient(#526e10, #FFFFFF);
+  background-image: url('http://localhost:8081/CIA103g6/front-end/customer/images/taobao_microphone.jpg'), linear-gradient(#526e10, #FFFFFF);
   background-repeat: no-repeat;
   background-size: 108% 76%;
   background-position: top;
@@ -1077,7 +1077,7 @@ Q$A
 將網站頁尾（SITE FOOTER） 
 -----------------------------------------*/
 .site-footer {
-  background-image: url('http://localhost:8081/CIA103G6/front-end/customer/images/taobao_microphone.jpg'), linear-gradient(#FFFFFF, #348CD2);
+  background-image: url('http://localhost:8081/CIA103g6/front-end/customer/images/taobao_microphone.jpg'), linear-gradient(#FFFFFF, #348CD2);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

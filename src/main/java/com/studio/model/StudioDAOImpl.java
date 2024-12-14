@@ -16,7 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import util.HibernateUtil;
+import com.util.HibernateUtil;
 
 public class StudioDAOImpl implements StudioDAO {
 	SessionFactory sessionFactory;

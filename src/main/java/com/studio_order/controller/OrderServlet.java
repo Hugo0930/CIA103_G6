@@ -29,7 +29,7 @@ import com.studio_order.model.OrderService;
 import com.studio_order.model.OrderVO;
 
 
-import util.HibernateUtil;
+import com.util.HibernateUtil;
 
 
 @WebServlet("/OrderServlet")
