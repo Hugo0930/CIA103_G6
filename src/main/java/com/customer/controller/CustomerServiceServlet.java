@@ -24,7 +24,7 @@ import org.hibernate.SessionFactory;
 import com.customer.model.CustomerService;
 import com.customer.model.CustomerServiceVO;
 
-import util.HibernateUtil;
+import com.util.HibernateUtil;
 
 /**
  * Servlet implementation class CustomerServiceServlet

@@ -30,7 +30,7 @@ import com.studio.model.StudioPicVO;
 import com.studio.model.StudioService;
 import com.studio.model.StudioVO;
 
-import util.HibernateUtil;
+import com.util.HibernateUtil;
 
 /**
  * Servlet implementation class MyStudioServlet

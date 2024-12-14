@@ -16,7 +16,7 @@ import org.hibernate.query.Query;
 
 import com.studio_order.model.OrderVO;
 
-import util.HibernateUtil;
+import com.util.HibernateUtil;
 
 public class CustomerServiceDAOImpl implements CustomerServiceDAO {
 	
