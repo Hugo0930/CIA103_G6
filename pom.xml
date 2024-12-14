@@ -6,21 +6,21 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.voicebus</groupId>
-	<artifactId>CIA103_G6</artifactId>
+	<artifactId>CIA103g6</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>CIA103_G6 Maven Webapp</name>
+	<name>CIA103g6 Maven Webapp</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
+	</properties>
 
-<dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -53,48 +53,77 @@
 			<artifactId>junit</artifactId>
 			<version>4.13.1</version>
 			<scope>test</scope>
+
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>6.2.1</version>
+
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
-
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>2.9.0</version>
 		</dependency>
-		
+	    <dependency>
+		   <groupId>org.json</groupId>
+		   <artifactId>json</artifactId>
+		   <version>20231013</version>  <!--使用最新穩定版 -->
+	    </dependency>
 		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20231013</version>  <!--使用最新穩定版 -->
-		</dependency>
-
-		<!--				<dependency>-->
-		<!--				    <groupId>redis.clients</groupId>-->
-		<!--				    <artifactId>jedis</artifactId>-->
-		<!--				    <version>5.2.0</version>-->
-		<!--				</dependency>-->
-
-		<!-- https://mvnrepository.com/artifact/com.walterjwhite.java.dependencies/hibernate-hikari -->
-		<dependency>
-		    <groupId>com.walterjwhite.java.dependencies</groupId>
-		    <artifactId>hibernate-hikari</artifactId>
-		    <version>0.0.17</version>
-		    <type>pom</type>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.32</version> <!-- SLF4J API 的版本 -->
 		</dependency>
 		<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.29</version>
-</dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.14.1</version> <!-- log4j2 版本 -->
+		</dependency>
 
-		
-
-
-
-</dependencies>
+		<!-- MySQL JDBC 驅動 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.29</version> <!-- 確保使用最新的版本 -->
+		</dependency>
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.6.15.Final</version>
+		</dependency>
+		<!-- JSTL -->
+		<dependency>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>taglibs</groupId>
+		    <artifactId>standard</artifactId>
+		    <version>1.1.2</version>
+		</dependency>
+		<!-- Gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.3.1</version>
+		</dependency>
+		<!-- WebSocket -->
+		<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version> <!-- 或者其他版本，如 1.0 -->
+		    <scope>provided</scope>
+		</dependency>
+   </dependencies>
 
 	<build>
-		<finalName>CIA103_G6</finalName>
+		<finalName>CIA103g6</finalName>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven
 			defaults (may be moved to parent pom) -->
 			<plugins>
@@ -132,8 +161,3 @@
 		</pluginManagement>
 	</build>
 </project>
-
-
-
-
-
