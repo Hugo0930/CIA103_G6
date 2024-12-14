@@ -5,10 +5,10 @@ import java.sql.*;
 import java.sql.Date;
 
 public class MemberJDBCDAO implements MemberDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "tony797977";
+	private static final String URL = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
+	private static final String USER = "root";
+	private static final String PASSWORD = "vincent888";
+	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	private static final String INSERT_STMT = "INSERT INTO member (mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status FROM member order by mem_id";
@@ -24,8 +24,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setInt(1, memberVO.getMemberId());
@@ -77,8 +77,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
 			//因為主鍵所以不用更新
@@ -132,8 +132,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setInt(1, memberId);
@@ -176,8 +176,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setInt(1, memberId);
@@ -244,8 +244,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -304,56 +304,56 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 
-		// 新增
-		MemberVO memberVO1 = new MemberVO();
-		memberVO1.setMemberId(6);
-		memberVO1.setMemberLvId((byte) 1);
-		memberVO1.setMemberName("湯姆布魯斯");
-		memberVO1.setMemberUid("A111111111");
-		memberVO1.setMemberBth(Date.valueOf("1999-12-31"));
-		memberVO1.setMemberGender((byte)1);
-		memberVO1.setMemberEmail("s77777@gamil.com");
-		memberVO1.setMemberTel("050000000");
-		memberVO1.setMemberAdd("中壢區復興路1號");
-		memberVO1.setMemberAcc("11111111");
-		memberVO1.setMemberPw("111111");
-		memberVO1.setMemberStatus((byte)1);
-		dao.insert(memberVO1);
-
-		// 修改
-		MemberVO memberVO2 = new MemberVO();
-		memberVO2.setMemberId(2);
-		memberVO2.setMemberLvId((byte)0);
-		memberVO2.setMemberName("萊恩布萊諾");
-		memberVO2.setMemberUid("B111111111");
-		memberVO2.setMemberBth(Date.valueOf("2000-12-31"));
-		memberVO2.setMemberGender((byte)0);
-		memberVO2.setMemberEmail("t11111111111@yahoo.com.tw");
-		memberVO2.setMemberTel("050000000");
-		memberVO2.setMemberAdd("中壢區復興路5號");
-		memberVO2.setMemberAcc("222222222");
-		memberVO2.setMemberPw("222222");
-		memberVO2.setMemberStatus((byte)0);
-		dao.update(memberVO2);
-
-		// 刪除
-		dao.delete(6);
-
-		// 單一查詢
-		MemberVO memberVO3 = dao.findByPrimaryKey(1);
-		System.out.print(memberVO3.getMemberId() + ",");
-		System.out.print(memberVO3.getMemberLvId() + ",");
-		System.out.print(memberVO3.getMemberName() + ",");
-		System.out.print(memberVO3.getMemberUid() + ",");
-		System.out.print(memberVO3.getMemberBth() + ",");
-		System.out.print(memberVO3.getMemberGender() + ",");
-		System.out.print(memberVO3.getMemberEmail() + ",");
-		System.out.print(memberVO3.getMemberTel() + ",");
-		System.out.print(memberVO3.getMemberAdd() + ",");
-		System.out.print(memberVO3.getMemberAcc() + ",");
-		System.out.print(memberVO3.getMemberPw() + ",");
-		System.out.print(memberVO3.getMemberStatus());
-		System.out.println("---------------------");
+//		// 新增
+//		MemberVO memberVO1 = new MemberVO();
+//		memberVO1.setMemberId(6);
+//		memberVO1.setMemberLvId((byte) 1);
+//		memberVO1.setMemberName("湯姆布魯斯");
+//		memberVO1.setMemberUid("A111111111");
+//		memberVO1.setMemberBth(Date.valueOf("1999-12-31"));
+//		memberVO1.setMemberGender((byte)1);
+//		memberVO1.setMemberEmail("s77777@gamil.com");
+//		memberVO1.setMemberTel("050000000");
+//		memberVO1.setMemberAdd("中壢區復興路1號");
+//		memberVO1.setMemberAcc("11111111");
+//		memberVO1.setMemberPw("111111");
+//		memberVO1.setMemberStatus((byte)1);
+//		dao.insert(memberVO1);
+//
+//		// 修改
+//		MemberVO memberVO2 = new MemberVO();
+//		memberVO2.setMemberId(2);
+//		memberVO2.setMemberLvId((byte)0);
+//		memberVO2.setMemberName("萊恩布萊諾");
+//		memberVO2.setMemberUid("B111111111");
+//		memberVO2.setMemberBth(Date.valueOf("2000-12-31"));
+//		memberVO2.setMemberGender((byte)0);
+//		memberVO2.setMemberEmail("t11111111111@yahoo.com.tw");
+//		memberVO2.setMemberTel("050000000");
+//		memberVO2.setMemberAdd("中壢區復興路5號");
+//		memberVO2.setMemberAcc("222222222");
+//		memberVO2.setMemberPw("222222");
+//		memberVO2.setMemberStatus((byte)0);
+//		dao.update(memberVO2);
+//
+//		// 刪除
+//		dao.delete(6);
+//
+//		// 單一查詢
+//		MemberVO memberVO3 = dao.findByPrimaryKey(1);
+//		System.out.print(memberVO3.getMemberId() + ",");
+//		System.out.print(memberVO3.getMemberLvId() + ",");
+//		System.out.print(memberVO3.getMemberName() + ",");
+//		System.out.print(memberVO3.getMemberUid() + ",");
+//		System.out.print(memberVO3.getMemberBth() + ",");
+//		System.out.print(memberVO3.getMemberGender() + ",");
+//		System.out.print(memberVO3.getMemberEmail() + ",");
+//		System.out.print(memberVO3.getMemberTel() + ",");
+//		System.out.print(memberVO3.getMemberAdd() + ",");
+//		System.out.print(memberVO3.getMemberAcc() + ",");
+//		System.out.print(memberVO3.getMemberPw() + ",");
+//		System.out.print(memberVO3.getMemberStatus());
+//		System.out.println("---------------------");
 
 		// 查詢
 		List<MemberVO> list = dao.getAll();
