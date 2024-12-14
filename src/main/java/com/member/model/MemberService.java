@@ -11,9 +11,9 @@ public class MemberService {
 		dao = new MemberJDBCDAO();
 	}
 
-	public MemberVO addMember(Integer memberId, Byte memberLvId, String memberName, String memberUid,
-			Date memberBth, Byte memberGender, String memberEmail, String memberTel, String memberAdd,
-			String memberAcc, String memberPw, Byte memberStatus) {
+	public MemberVO addMember(Integer memberId, Byte memberLvId, String memberName, String memberUid, Date memberBth,
+			Byte memberGender, String memberEmail, String memberTel, String memberAdd, String memberAcc,
+			String memberPw, Byte memberStatus) {
 
 		MemberVO MemberVO = new MemberVO();
 
@@ -29,15 +29,15 @@ public class MemberService {
 		MemberVO.setMemberAcc(memberAcc);
 		MemberVO.setMemberPw(memberPw);
 		MemberVO.setMemberStatus(memberStatus);
-		
+
 		dao.insert(MemberVO);
 
 		return MemberVO;
 	}
 
-	public MemberVO updateMember(Integer memberId, Byte memberLvId, String memberName, String memberUid,
-			Date memberBth, Byte memberGender, String memberEmail, String memberTel, String memberAdd,
-			String memberAcc, String memberPw, Byte memberStatus) {
+	public MemberVO updateMember(Integer memberId, Byte memberLvId, String memberName, String memberUid, Date memberBth,
+			Byte memberGender, String memberEmail, String memberTel, String memberAdd, String memberAcc,
+			String memberPw, Byte memberStatus) {
 
 		MemberVO MemberVO = new MemberVO();
 

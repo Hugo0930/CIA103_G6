@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -33,14 +34,39 @@
 
 <body>
 
-<script>
+	<script>
     // 從後端頁面取得訊息
-    var addedToCart = "<%= request.getAttribute("addedToCart") != null ? request.getAttribute("addedToCart") : "" %>";
+    var addedToCart = "<%=request.getAttribute("addedToCart") != null ? request.getAttribute("addedToCart") : ""%>";
 
     // 如果有成功訊息，顯示它
     if (addedToCart) {
         alert(addedToCart); // 彈跳視窗顯示訊息
     }
+    
+    function addToCart(prodId) {
+        const qty = $("#qty-" + prodId).val(); // 獲取數量
+        $.ajax({
+            type: "POST",
+            url: "<%=request.getContextPath()%>/prod/prod.do",
+            data: {
+                action: "add_to_cart",
+                prodId: prodId,
+                cartlistQty: qty
+            },
+            success: function(response) {
+                alert("商品已成功加入購物車！");
+                // 更新購物車數量顯示
+                const cartTotal = response.cartTotal || 0;
+                $(".badge").text(cartTotal);
+            },
+            error: function() {
+                alert("加入購物車失敗，請稍後再試。");
+            }
+        });
+    }
+    
+    
+    
 </script>
 
 	<!-- Navigation-->
@@ -71,16 +97,24 @@
 								href="<%=request.getContextPath()%>/prod/prod.do?action=get_by_type&prodTypeId=2">周邊</a></li>
 						</ul></li>
 				</ul>
+				<div class="d-flex align-items-center me-3">
+					<span class="me-3">會員編號: ${param.memId != null ? param.memId : "3"}</span>
+					<a
+						href="<%= request.getContextPath() %>/orders/orders.do?action=get_member_orders"
+						class="btn btn-outline-dark me-2"> <i
+						class="bi bi-file-text me-1"></i>我的訂單
+					</a>
+				</div>
 				<!-- 顯示購物車數量 -->
-				<form action="<%=request.getContextPath()%>/prod/prod.do" method="POST" class="d-flex">
-    <input type="hidden" name="action" value="view_cart" />
-    <button class="btn btn-outline-dark" type="submit">
-        <i class="bi-cart-fill me-1"></i> Cart
-        <span class="badge bg-dark text-white ms-1 rounded-pill">
-            ${sessionScope.cartTotal != null ? sessionScope.cartTotal : 0}
-        </span>
-    </button>
-</form>
+				<form action="<%=request.getContextPath()%>/prod/prod.do"
+					method="POST" class="d-flex">
+					<input type="hidden" name="action" value="view_cart" />
+					<button class="btn btn-outline-dark" type="submit">
+						<i class="bi-cart-fill me-1"></i> Cart <span
+							class="badge bg-dark text-white ms-1 rounded-pill">
+							${sessionScope.cartTotal != null ? sessionScope.cartTotal : 0} </span>
+					</button>
+				</form>
 			</div>
 		</div>
 	</nav>
@@ -99,84 +133,113 @@
 		<div class="container px-4 px-lg-5 mt-5">
 			<div
 				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-				
-<c:forEach var="prodVO" items="${list}">
-    <div class="col mb-5">
-        <div class="card h-100">
-            <!-- 商品圖片 -->
-            <img class="card-img-top" 
-                 src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=${prodVO.prodId}" 
-                 alt="..." />
-            <!-- 商品資訊 -->
-            <div class="card-body p-4">
-                <div class="text-center">
-                    <h5 class="fw-bolder">${prodVO.prodName}</h5>
-                    ${prodVO.prodPrice}
-                </div>
-            </div>
-            <!-- 商品操作 -->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                    <form action="<%=request.getContextPath()%>/prod/prod.do" method="POST">
-                        <input type="hidden" name="action" value="add_to_cart" />
-                        <input type="hidden" name="prodId" value="${prodVO.prodId}" />
-                        <input type="number" name="cartlistQty" min="1" value="1" class="form-control mb-2" />
-                        <button type="submit" class="btn btn-outline-dark mt-auto">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</c:forEach>
 
-				
+				<c:forEach var="prodVO" items="${list}">
+					<div class="col mb-5">
+						<div class="card h-100">
+							<!-- 商品圖片 -->
+							<img class="card-img-top"
+								src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=${prodVO.prodId}"
+								alt="..." />
+							<!-- 商品資訊 -->
+							<div class="card-body p-4">
+								<div class="text-center">
+									<h5 class="fw-bolder">${prodVO.prodName}</h5>
+									${prodVO.prodPrice}
+								</div>
+							</div>
+							<!-- 商品操作 -->
+							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+								<div class="text-center">
+									<input type="number" name="cartlistQty" min="1" value="1"
+										class="form-control mb-2" id="qty-${prodVO.prodId}" />
+									<button type="button" class="btn btn-outline-dark mt-auto"
+										onclick="addToCart(${prodVO.prodId})">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 
 
 
-				
-<!-- 這板可以寫入資料庫 -->
-<%-- 				<c:forEach var="prodVO" items="${list}"> --%>
-<!-- 					<div class="col mb-5"> -->
-<!-- 						<div class="card h-100"> -->
-<!-- <!-- 							Product image --> 
-<!-- 							<img class="card-img-top" -->
-<%-- 								src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=${prodVO.prodId}" --%>
-<!-- 								alt="..." /> -->
-<!-- <!-- 							Product details --> 
-<!-- 							<div class="card-body p-4"> -->
-<!-- 								<div class="text-center"> -->
-<%-- 									<h5 class="fw-bolder">${prodVO.prodName}</h5> --%>
-<%-- 									${prodVO.prodPrice} --%>
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- <!-- 							Product actions --> 
-<!-- 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-<!-- 								<div class="text-center"> -->
-								
-								
-<!-- <!-- 									Add to Cart form --> 
-<%-- 									<form action="${pageContext.request.contextPath}/prod/prod.do" --%>
-<!-- 										method="post"> -->
-<!-- 										<input type="hidden" name="action" value="add_to_cart"> -->
-<%-- 										<input type="hidden" name="prodId" value="${prodVO.prodId}"> --%>
-<!-- 										<input type="number" name="cartlistQty" min="1" value="1" -->
-<!-- 											class="form-control mb-2"> -->
-<!-- 										<button class="btn btn-outline-dark mt-auto" type="submit">Add -->
-<!-- 											to Cart</button> -->
-<!-- 									</form> -->
-<!-- <!-- 									Add to Cart form 加在這一段程式碼 --> 
-									
-<!-- <!-- 																		<a class="btn btn-outline-dark mt-auto" href="#">Add to --> 
-<!-- <!-- 																			Cart</a> --> 
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<%-- 				</c:forEach> --%>
-				
-<!-- 				結束行可以寫入資料庫 -->
+				<%-- <c:forEach var="prodVO" items="${list}"> --%>
+				<!--     <div class="col mb-5"> -->
+				<!--         <div class="card h-100"> -->
+				<!--             商品圖片 -->
+				<!--             <img class="card-img-top"  -->
+				<%--                  src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=${prodVO.prodId}"  --%>
+				<!--                  alt="..." /> -->
+				<!--             商品資訊 -->
+				<!--             <div class="card-body p-4"> -->
+				<!--                 <div class="text-center"> -->
+				<%--                     <h5 class="fw-bolder">${prodVO.prodName}</h5> --%>
+				<%--                     ${prodVO.prodPrice} --%>
+				<!--                 </div> -->
+				<!--             </div> -->
+				<!--             商品操作 -->
+				<!--             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
+				<!--                 <div class="text-center"> -->
+				<%--                     <form action="<%=request.getContextPath()%>/prod/prod.do" method="POST"> --%>
+				<!--                         <input type="hidden" name="action" value="add_to_cart" /> -->
+				<%--                         <input type="hidden" name="prodId" value="${prodVO.prodId}" /> --%>
+				<!--                         <input type="number" name="cartlistQty" min="1" value="1" class="form-control mb-2" /> -->
+				<!--                         <button type="submit" class="btn btn-outline-dark mt-auto">Add to Cart</button> -->
+				<!--                     </form> -->
+				<!--                 </div> -->
+				<!--             </div> -->
+				<!--         </div> -->
+				<!--     </div> -->
+				<%-- </c:forEach> --%>
 
-<%-- 				                	<c:forEach var="prodVO" items="${list}"> --%>
+
+
+
+
+
+				<!-- 這板可以寫入資料庫 -->
+				<%-- 				<c:forEach var="prodVO" items="${list}"> --%>
+				<!-- 					<div class="col mb-5"> -->
+				<!-- 						<div class="card h-100"> -->
+				<!-- <!-- 							Product image -->
+				<!-- 							<img class="card-img-top" -->
+				<%-- 								src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=${prodVO.prodId}" --%>
+				<!-- 								alt="..." /> -->
+				<!-- <!-- 							Product details -->
+				<!-- 							<div class="card-body p-4"> -->
+				<!-- 								<div class="text-center"> -->
+				<%-- 									<h5 class="fw-bolder">${prodVO.prodName}</h5> --%>
+				<%-- 									${prodVO.prodPrice} --%>
+				<!-- 								</div> -->
+				<!-- 							</div> -->
+				<!-- <!-- 							Product actions -->
+				<!-- 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
+				<!-- 								<div class="text-center"> -->
+
+
+				<!-- <!-- 									Add to Cart form -->
+				<%-- 									<form action="${pageContext.request.contextPath}/prod/prod.do" --%>
+				<!-- 										method="post"> -->
+				<!-- 										<input type="hidden" name="action" value="add_to_cart"> -->
+				<%-- 										<input type="hidden" name="prodId" value="${prodVO.prodId}"> --%>
+				<!-- 										<input type="number" name="cartlistQty" min="1" value="1" -->
+				<!-- 											class="form-control mb-2"> -->
+				<!-- 										<button class="btn btn-outline-dark mt-auto" type="submit">Add -->
+				<!-- 											to Cart</button> -->
+				<!-- 									</form> -->
+				<!-- <!-- 									Add to Cart form 加在這一段程式碼 -->
+
+				<!-- <!-- 																		<a class="btn btn-outline-dark mt-auto" href="#">Add to -->
+				<!-- <!-- 																			Cart</a> -->
+				<!-- 								</div> -->
+				<!-- 							</div> -->
+				<!-- 						</div> -->
+				<!-- 					</div> -->
+				<%-- 				</c:forEach> --%>
+
+				<!-- 				結束行可以寫入資料庫 -->
+
+				<%-- 				                	<c:forEach var="prodVO" items="${list}"> --%>
 				<!--                 		<div class="col mb-5"> -->
 				<!--                         <div class="card h-100"> -->
 				<!--                             Product image -->
@@ -386,7 +449,7 @@
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
 		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; </p>
+			<p class="m-0 text-center text-white">Copyright &copy;</p>
 		</div>
 	</footer>
 	<!-- Bootstrap core JS-->
@@ -396,6 +459,6 @@
 	<script
 		src="<%=request.getContextPath()%>/front-end/browsestore/js/scripts.js">
 		</script>
-	
+
 </body>
 </html>

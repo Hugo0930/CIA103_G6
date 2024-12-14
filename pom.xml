@@ -6,17 +6,21 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.voicebus</groupId>
-	<artifactId>CIA103g6</artifactId>
+	<artifactId>CIA103_G6</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>CIA103g6 Maven Webapp</name>
+	<name>CIA103_G6 Maven Webapp</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
-	<properties>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
+<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -49,11 +53,48 @@
 			<artifactId>junit</artifactId>
 			<version>4.13.1</version>
 			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
 
-	</dependencies>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20231013</version>  <!--使用最新穩定版 -->
+		</dependency>
+
+		<!--				<dependency>-->
+		<!--				    <groupId>redis.clients</groupId>-->
+		<!--				    <artifactId>jedis</artifactId>-->
+		<!--				    <version>5.2.0</version>-->
+		<!--				</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/com.walterjwhite.java.dependencies/hibernate-hikari -->
+		<dependency>
+		    <groupId>com.walterjwhite.java.dependencies</groupId>
+		    <artifactId>hibernate-hikari</artifactId>
+		    <version>0.0.17</version>
+		    <type>pom</type>
+		</dependency>
+		<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.29</version>
+</dependency>
+
+		
+
+
+
+</dependencies>
 
 	<build>
-		<finalName>CIA103g6</finalName>
+		<finalName>CIA103_G6</finalName>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven
 			defaults (may be moved to parent pom) -->
 			<plugins>
@@ -91,3 +132,8 @@
 		</pluginManagement>
 	</build>
 </project>
+
+
+
+
+

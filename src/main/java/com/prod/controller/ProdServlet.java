@@ -33,12 +33,14 @@ public class ProdServlet extends HttpServlet {
 			getByType(req, res);
 		} else if ("add_to_cart".equals(action)) { // 新增加入購物車功能
 			addToCart(req, res);
-		}else if ("view_cart".equals(action)) { // 新增處理查看購物車的功能
-	        viewCart(req, res);
-	    }
+		} else if ("view_cart".equals(action)) { // 新增處理查看購物車的功能
+			viewCart(req, res);
+		} else if ("update_qty".equals(action)) {
+			updateQty(req, res);
+		} else if ("remove_from_cart".equals(action)) {
+		    removeFromCart(req, res);
+		}
 	}
-
-
 
 	private void getAll(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		ProdService prodSvc = new ProdService();
@@ -81,81 +83,141 @@ public class ProdServlet extends HttpServlet {
 		RequestDispatcher successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 	}
-	
+
 	private void addToCart(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-	    res.setContentType("text/html; charset=UTF-8");
+		res.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		JSONObject result = new JSONObject();
 
-	    try {
-	        // 暫時固定會員編號
-	        Integer memId = 3; 
-//	        Integer memId = (Integer) req.getSession().getAttribute("memId");
-//	        if (memId == null) {
-//	            res.sendRedirect(req.getContextPath() + "/login.jsp");
-//	            return;
-//	        }
-	        Integer prodId = Integer.valueOf(req.getParameter("prodId"));
-	        Integer cartlistQty = Integer.valueOf(req.getParameter("cartlistQty"));
+		try {
+			HttpSession session = req.getSession(false);
+			Integer memId = 3; // 若未登入，使用固定的測試值 3
+			Integer prodId = Integer.valueOf(req.getParameter("prodId"));
+			Integer cartlistQty = Integer.valueOf(req.getParameter("cartlistQty"));
 
-	        // 呼叫 Service 將商品加入或更新至購物車
-	        ShopCartListService cartSvc = new ShopCartListService();
-	        cartSvc.addProductToCart(memId, prodId, cartlistQty);
+			// 呼叫 Service 將商品加入或更新至購物車
+			ShopCartListService cartSvc = new ShopCartListService();
+			cartSvc.addProductToCart(memId, prodId, cartlistQty);
 
-	        // 將購物車總數量儲存在 Session
-	        int cartTotal = cartSvc.getCartTotalItems(memId);
-	        req.getSession().setAttribute("cartTotal", cartTotal);
-	        
-	        
-	        req.setAttribute("addedToCart", "商品已加入購物車");
+			// 將購物車總數量儲存在 Session
+			int cartTotal = cartSvc.getCartTotalItems(memId);
+			req.getSession().setAttribute("cartTotal", cartTotal);
 
-	        // 轉發回商品頁面，或者返回成功訊息頁面
-	        String url = req.getContextPath() + "/prod/prod.do?action=get_all";
-	        res.sendRedirect(url); // 使用重導來避免表單重送
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        req.setAttribute("errorMsg", "加入購物車失敗：" + e.getMessage());
-	        RequestDispatcher failureView = req.getRequestDispatcher("/error.jsp");
-	        failureView.forward(req, res);
-	    }
+			// 準備 JSON 回應
+			result.put("status", "success");
+			result.put("cartTotal", cartTotal);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		out.print(result.toString());
+		out.flush();
 	}
-	
+
 	private void viewCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	    // 從 session 獲取會員 ID
-		
-		Integer memId = 3; 
-		
-		
+		// 從 session 獲取會員 ID
+
+		Integer memId = 3;
+
 //		Integer memId = (Integer) req.getSession().getAttribute("memId");
 //		if (memId == null) {
 //		    res.sendRedirect(req.getContextPath() + "/login.jsp");
 //		    return;
 //		}
 
-	    // 取得該會員的所有購物車商品
-	    ShopCartListService cartSvc = new ShopCartListService();
-	    List<ShopCartListVO> cartItems = cartSvc.getByMemId(memId); // 假設有這個方法來取得購物車的所有商品
+		// 使用服務類別獲取購物車資料
+		ShopCartListService cartSvc = new ShopCartListService();
+		List<ShopCartListVO> cartItems = cartSvc.getByMemId(memId); // 假設此方法存在
+		   // 更新購物車數量到 session
+	    int cartTotal = cartSvc.getCartTotalItems(memId);
+	    req.getSession().setAttribute("cartTotal", cartTotal);
+		
+		// 獲取購物車內產品的詳細資訊
+		List<ProdVO> prodList = new ArrayList<>();
+		ProdService prodSvc = new ProdService();
 
-	    
-	    List<ProdVO> prodList = new ArrayList<>();
-	    ProdService prodSvc = new ProdService();
-	    
-	    for (ShopCartListVO cartItem : cartItems) {
-	        ProdVO prod = prodSvc.getOneProd(cartItem.getProdId());
-	        prodList.add(prod);
-	    }
-	    req.setAttribute("cartItems", cartItems);  // 設置購物車商品列表
-	    req.setAttribute("prodList", prodList);    // 產品詳細資訊
-	    String url = "/front-end/browsestore/shopCartList.jsp"; // 跳轉到購物車頁面
-	    RequestDispatcher successView = req.getRequestDispatcher(url);
-	    successView.forward(req, res);
+		for (ShopCartListVO cartItem : cartItems) {
+			ProdVO prod = prodSvc.getOneProd(cartItem.getProdId());
+			prodList.add(prod);
+		}
+
+		// 將購物車商品和產品詳細資訊封裝到 Map 中
+		Map<String, Object> list = new HashMap<>();
+		list.put("cartItems", cartItems); // 購物車商品列表
+		list.put("prodList", prodList); // 商品詳細資訊
+
+		// 將封裝的 Map 設置到 request 中
+		req.setAttribute("list", list);
+
+		// 跳轉到 JSP 頁面
+		String url = "/front-end/browsestore/shopCartList.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url);
+		successView.forward(req, res);
 	}
 
-	
-	
-	
-	
-	
-	
-	
+	private void updateQty(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		res.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		JSONObject result = new JSONObject();
+
+		try {
+			// 取得用戶和商品 ID
+			Integer memId = 3; // 假設此處使用固定會員 ID，你可以根據需要從 session 中取得
+			Integer prodId = Integer.valueOf(req.getParameter("prodId"));
+			Integer cartlistQty = Integer.valueOf(req.getParameter("cartlistQty"));
+
+			// 呼叫 Service 層更新數量
+			ShopCartListService cartSvc = new ShopCartListService();
+			cartSvc.updateShopCartList(memId, prodId, cartlistQty);
+
+			// 更新購物車的總數量
+			int cartTotal = cartSvc.getCartTotalItems(memId);
+			req.getSession().setAttribute("cartTotal", cartTotal);
+
+			result.put("status", "success");
+			result.put("cartTotal", cartTotal);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		out.print(result.toString());
+		out.flush();
+	}
+	private void removeFromCart(HttpServletRequest req, HttpServletResponse res) throws IOException {
+	    res.setContentType("application/json; charset=UTF-8");
+	    PrintWriter out = res.getWriter();
+	    JSONObject result = new JSONObject();
+
+	    try {
+	        HttpSession session = req.getSession(false);
+	        Integer memId = (session != null && session.getAttribute("memId") != null)
+	                ? (Integer) session.getAttribute("memId")
+	                : 3; // 未登入使用測試值
+
+	        Integer prodId = Integer.valueOf(req.getParameter("prodId"));
+
+	        // 呼叫 Service 刪除購物車中的商品
+	        ShopCartListService cartSvc = new ShopCartListService();
+	        cartSvc.deleteShopCartList(memId, prodId);
+
+	        // 更新購物車總數量
+	        int cartTotal = cartSvc.getCartTotalItems(memId);
+	        req.getSession().setAttribute("cartTotal", cartTotal);
+
+	        result.put("status", "success");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        result.put("status", "error");
+	        result.put("message", e.getMessage());
+	    }
+
+	    out.print(result.toString());
+	    out.flush();
+	}
 //	private void addToCart(HttpServletRequest req, HttpServletResponse res) throws IOException {
 //		Integer memId = 3; // 暫時固定會員編號
 //		Integer prodId = Integer.valueOf(req.getParameter("prodId"));
