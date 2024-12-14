@@ -7,6 +7,9 @@ public class AdvertisementVO implements java.io.Serializable {
 	/**
 	 * 
 	 */
+	
+	
+	
 	private static final long serialVersionUID = 1L;
 	private Integer advertisementId;
 	private Integer adminId;
