@@ -144,7 +144,7 @@ public class MyStudioServlet extends HttpServlet {
 					}
 				}
 				stdService.updateStatus(id, false);
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/MyStudioServlet?action=get_all_std_on&page=" + currentPage);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/MyStudioServlet?action=get_all&page=" + currentPage);
 				requestDispatcher.forward(req, res);
 				break;
 
@@ -161,7 +161,7 @@ public class MyStudioServlet extends HttpServlet {
 					}
 				}
 				stdService.updateStatus(id, true);
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/MyStudioServlet?action=get_all_std_off&page=" + currentPage);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/MyStudioServlet?action=get_all&page=" + currentPage);
 				requestDispatcher.forward(req, res);
 				break;
 
