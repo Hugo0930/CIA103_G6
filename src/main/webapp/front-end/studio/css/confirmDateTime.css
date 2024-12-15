@@ -1,0 +1,85 @@
+@charset "UTF-8";
+/******chatGPT******/
+body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+ }
+
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 10px 20px;
+     background-color: #fff;
+     border-bottom: 1px solid #ddd;
+ }
+
+ .header .logo {
+     font-size: 24px;
+     font-weight: bold;
+     display: flex;
+     align-items: center;
+ }
+
+ .header .logo img {
+     height: 40px;
+     margin-right: 10px;
+ }
+
+ .header nav {
+     display: flex;
+     gap: 20px;
+ }
+
+ .header nav a {
+     text-decoration: none;
+     color: #333;
+     font-size: 14px;
+     padding: 5px 10px;
+ }
+
+ .header nav a:hover {
+     color: #007bff;
+ }
+
+ .breadcrumb {
+     padding: 10px 20px;
+     font-size: 14px;
+     background-color: #f9f9f9;
+     border-bottom: 1px solid #ddd;
+ }
+
+ .breadcrumb a {
+     text-decoration: none;
+     color: #007bff;
+     margin-right: 5px;
+ }
+
+ .breadcrumb span {
+     color: #666;
+ }
+ /******我的css******/
+ div.row{
+ 	justify-content: center;
+ }
+ div.breadcrumb{
+	margin-left:50px;
+	height:50px;
+ 	align-items: center;
+ }
+ div.row div.col-4{
+  	width:100%;
+ 	height:100%;
+ }
+ div.row div.col-4 img.img-fluid{
+ 	width:100%;
+ 	height:100%;
+ 	object-fit:cover;
+ 	object-position:center;
+ }
+div.breadcrumb a,
+div.breadcrumb span{
+ 	margin-right:20px;
+ 	margin-left:20px;
+}
