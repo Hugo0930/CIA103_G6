@@ -253,80 +253,81 @@ public class OrderServlet extends HttpServlet {
         		res.getWriter().write("{\"status\": \"success\"}");
         		break;
 			}case "get_from_confirm": {
-				System.out.println("OrderServlet get from confirm");
+				String timeduration = req.getParameter("timeduration");
+					//System.out.println("timeduration: " + timeduration);
+				String timeSlot = req.getParameter("timeSlot");
+					//System.out.println("timeSlot: " + timeSlot);
+				String bookingDate = req.getParameter("bookingDate");
+					//System.out.println("bookingDate: " + bookingDate);
+				String studioName = req.getParameter("studio_name");
+				String cost = req.getParameter("cost");
         		sessionh = req.getSession();
-        		sessionh.setAttribute("start_time", obj.getString("start_time"));
-        		sessionh.setAttribute("rent_time", obj.getString("rent_time"));
-        		sessionh.setAttribute("rent_date", obj.getString("rent_date"));	
-        		res.getWriter().write("{\"status\": \"success\"}");
+        		sessionh.setAttribute("timeduration", timeduration);
+        		sessionh.setAttribute("timeSlot", timeSlot);
+        		sessionh.setAttribute("bookingDate", bookingDate);
+        		sessionh.setAttribute("studioName", studioName);	
+        		sessionh.setAttribute("cost", cost);	
+				RequestDispatcher rd = req.getRequestDispatcher("front-end/studio/pay.jsp");
+				rd.forward(req, res);
         		break;
 		
 			}case "payment":{
-				
 				Session session = getCurrentSession();
-        		System.out.println("payment");
+				HttpSession session2 = req.getSession();
         		//名字
-        		String name = req.getParameter("name");
-        		System.out.println("name : " + name);
-        		//電子郵件
-        		String email = req.getParameter("email");
-        		System.out.println("email : " + email);
+        		String[] name = req.getParameterValues("name");
+        			System.out.println("name : " + name[0]);
         		//電話
         		String phone = req.getParameter("phone");
-        		System.out.println("phone : " + phone);
-        		//備註
-        		String note = req.getParameter("note");
-        		System.out.println("note : " + note);
-        		//發票
-        		String invoice = req.getParameter("invoice");
-        		System.out.println("invoice : " + invoice);
-        		//支付方式 (藍新金流)
-        		String payment = req.getParameter("payment");
-        		System.out.println("payment : " + payment);
-        		//錄音室名稱
-        		String rent_studio = req.getParameter("rent_studio");
-        		System.out.println("rent_studio : " + rent_studio);
-        		//租借日期 (yyyy:mm:dd)
-        		String rent_date = req.getParameter("rent_date");
-        		System.out.println("rent_date : " + rent_date);
-        		//開始時間 (xx:xx)
-        		String start_time = req.getParameter("start_time");
-        		System.out.println("start_time : " + start_time);
-        		//租借時間 (小時)
-        		String rent_time = req.getParameter("rent_time");
-        		System.out.println("rent_time : " + rent_time);
-        		//總時間 (分)
-        		String total_time = req.getParameter("total_time");
-        		System.out.println("total_time : " + total_time);
-        		//總金額
-        		String order_total = req.getParameter("order_total");
-        		System.out.println("order_total : " + order_total);
+        			System.out.println("phone : " + phone);
+        		//卡號
+        		String[] cardNumber = req.getParameterValues("card");
+        			System.out.println("cardNumber : " + cardNumber.toString());
+        		//有效月
+        		String validMmonth = req.getParameter("valid_month");
+        			System.out.println("validMmonth : " + validMmonth);
+        		//有效年
+        		String validYear = req.getParameter("valid_year");
+        			System.out.println("validYear : " + validYear);
+        		//背面末三碼
+        		String lastThreeNumber = req.getParameter("last_three_number");
+        			System.out.println("lastThreeNumber : " + lastThreeNumber);
         		//錄音室ID
-        		String id = req.getParameter("id");
-        		//String idString = (String) req.getSession().getAttribute("id");
-        		System.out.println("id : " + id);
+        		//String id = req.getParameter("id");
+        		//System.out.println("id : " + id);
         		try {
 					session.beginTransaction();
 					OrderVO newOrder = new OrderVO();
-					StudioVO std = session.get(StudioVO.class, Integer.valueOf(id));
-	        		newOrder.setMemId(2);
+					StudioVO std = session.get(StudioVO.class, Integer.valueOf(1));
+	        		//會員ID
+					newOrder.setMemId(2);
+					//錄音室
 	        		newOrder.setStudioVO(std);
+	        		//訂單狀態
 	        		newOrder.setStatus(Byte.valueOf((byte)0));
-	        		newOrder.setTotalAmount(BigDecimal.valueOf(Double.valueOf(order_total)));
-	        		newOrder.setRentalHour(Double.valueOf(rent_time));
-	        		newOrder.setBookDate(Date.valueOf(rent_date));
-	        		newOrder.setStartTime(Time.valueOf(start_time + ":00"));
-	        		//System.out.println("Time.valueOf(start_time + \":00\")" + Time.valueOf(start_time + ":00"));
-	        		Double rent_minutes = Double.valueOf(rent_time) * 60;
-	        	    // 將 java.sql.Time 轉換為 LocalTime
-	                LocalTime localTime = Time.valueOf(start_time + ":00").toLocalTime();
-	                // 加 90 分鐘
-	                LocalTime updatedTime = localTime.plusMinutes(Double.valueOf(rent_minutes).longValue());
-	                // 將 LocalTime 轉回 java.sql.Time
-	                Time end_time = Time.valueOf(updatedTime);
-	                newOrder.setEndTime(end_time);
+	        		//總金額
+	        		newOrder.setTotalAmount(BigDecimal.valueOf(Double.valueOf(session2.getAttribute("cost").toString())));
+	        		//取出小時
+	        		String hour = (String)session2.getAttribute("timeduration");
+	        		//取出數字，1小時，取出1
+	        		newOrder.setRentalHour(Double.valueOf(hour.substring(0, 1)));
+	        		//預約日期
+	        		newOrder.setBookDate(Date.valueOf(session2.getAttribute("bookingDate").toString()));
+	        		//開始日期
+	        		String timeSlot = session2.getAttribute("timeSlot").toString() + ":00";
+	        		newOrder.setStartTime(Time.valueOf(timeSlot));
+	                // 解析時間字串為 LocalTime
+	                LocalTime time = LocalTime.parse(timeSlot, DateTimeFormatter.ofPattern("H:mm:ss"));
+	                //加上租借時數
+	                LocalTime updatedTime = time.plusHours(Long.valueOf(hour.substring(0, 1)));
+	                // 轉換回字串
+	                String end_time = updatedTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+	                //結束時間
+	                newOrder.setEndTime(Time.valueOf(end_time));
+	                //訂單日期
 	                Date today = new Date(System.currentTimeMillis());
 	                newOrder.setOrderDate(today);
+	                //新增訂單
 	                session.save(newOrder);
 	                session.getTransaction().commit();
 				} catch (Exception e) {
@@ -334,39 +335,12 @@ public class OrderServlet extends HttpServlet {
 					e.printStackTrace();
 					session.getTransaction().rollback();
 				}
-        		
-        		req.setAttribute("status", "更新成功");
-        		RequestDispatcher rd = req.getRequestDispatcher("front-end/studio/homepage.jsp");
-        		rd.forward(req, res);
+        		//RequestDispatcher rd = req.getRequestDispatcher("front-end/studio/homepage.jsp");
+        		//rd.forward(req, res);
         		break;
         	}
 			}
 		}
-		
-		
-		//新增
-//		OrderVO test = new OrderVO();
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//		session.beginTransaction();
-//		StudioVO stdTest = session.get(StudioVO.class, 2);
-//		session.getTransaction().commit();
-//		test.setMemId(2);
-//		test.setStudioVO(stdTest);
-//		test.setStatus(new Byte((byte) 0));
-//		test.setTotalAmount(BigDecimal.valueOf(3000.0));
-//		test.setRentalHour(3.0);
-//        // 建立當前日期的 Date 物件
-//		Date date = Date.valueOf("2024-12-01");
-//		test.setBookDate(date);
-//		Time start = Time.valueOf("09:00:00");
-//		test.setStartTime(start);
-//		System.out.println(start);
-//		Time end = Time.valueOf("12:00:00");
-//		System.out.println(end);
-//		test.setEndTime(end);
-//		Date today = new Date(System.currentTimeMillis());
-//		test.setOrderDate(today);
-//		System.out.println("addResult:" + ordservice.addOrder(test));
 	}
 	public void changeFirstPage(HttpServletRequest req,int records,String page) {
 		Integer pageQty = ordservice.getPageQty(records);
