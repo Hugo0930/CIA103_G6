@@ -5,14 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/front-end/studio/css/order.css" rel="stylesheet" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/front-end/reserve/style.css">
 <meta charset="UTF-8">
 <title>訂單查詢</title>
 </head>
 <body>
-	<h1 style="position:absolute">order.jsp</h1>
    	<!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
@@ -28,6 +27,18 @@
 				</form>
 			</a>
 		</li>
+	    <header class="header">
+	        <div class="logo">VoiceBus</div>
+	        <nav class="nav">
+	            <ul>
+	                <li><a href="#">關於我們</a></li>
+	                <li><a href="#">會員</a></li>
+	                <li><a href="#">配音員列表</a></li>
+	                <li><a href="#">商城</a></li>
+	                <li><a href="#">購物車</a></li>
+	            </ul>
+	        </nav>
+	    </header>
 		<li class="nav-item">
                     	<a class="nav-link" href="#!">
                     		<form action="${pageContext.request.contextPath}/SaveToSession" method="post">
