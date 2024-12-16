@@ -55,11 +55,15 @@
 
 <!-- ============================================================================== -->
 
-  <!-- 設定 session 過期時間為 30 分鐘 -->
-    <session-config>
-        <session-timeout>2</session-timeout>
-    </session-config>
-
+  <!--登入 注冊 -->
+<servlet>
+    <servlet-name>login</servlet-name>
+    <servlet-class>com.member.controller.LoginServlet</servlet-class>
+ </servlet>
+<servlet-mapping>
+    <servlet-name>login</servlet-name>
+    <url-pattern>/front-end/login</url-pattern>
+</servlet-mapping>
 
 
 <servlet>
@@ -101,7 +105,6 @@
     <url-pattern>/front-end/usernamecheck</url-pattern>
   </servlet-mapping>
 <!--登入 注冊 -->
-
 
 
 
