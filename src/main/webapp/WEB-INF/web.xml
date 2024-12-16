@@ -4,6 +4,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
    http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<display-name>CIA103_G6</display-name>
+
+<resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/TestDB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+</resource-ref>
+
+
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
@@ -38,5 +48,69 @@
 <!-- 		<servlet-name>OrderServlet</servlet-name> -->
 <!-- 		<url-pattern>/orders/orders.do</url-pattern> -->
 <!-- 	</servlet-mapping> -->
+
+
+
+
+
+<!-- ============================================================================== -->
+
+  <!-- 設定 session 過期時間為 30 分鐘 -->
+    <session-config>
+        <session-timeout>2</session-timeout>
+    </session-config>
+
+
+
+<servlet>
+    <servlet-name>usernum</servlet-name>
+    <servlet-class>com.member.controller.UserNumServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>usernum</servlet-name>
+    <url-pattern>/front-end/usernum</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+    <servlet-name>register</servlet-name>
+    <servlet-class>com.member.controller.RegisterInServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>register</servlet-name>
+    <url-pattern>/front-end/register</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+    <servlet-name>checkusernum</servlet-name>
+    <servlet-class>com.member.controller.CheckUserNumServlet</servlet-class>
+ </servlet>
+<servlet-mapping>
+    <servlet-name>checkusernum</servlet-name>
+    <url-pattern>/front-end/checkusernum</url-pattern>
+ </servlet-mapping>
+ 
+ 
+  <servlet>
+    <servlet-name>usernamecheck</servlet-name>
+    <servlet-class>com.member.controller.UsernameCheckServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>usernamecheck</servlet-name>
+    <url-pattern>/front-end/usernamecheck</url-pattern>
+  </servlet-mapping>
+<!--登入 注冊 -->
+
+
+
+
+
+
+
+
+
+
+
 </web-app>
 
