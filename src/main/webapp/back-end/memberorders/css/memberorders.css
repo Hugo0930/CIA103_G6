@@ -1,100 +1,78 @@
-/* ==================== 全域設置 ==================== */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden; /* 避免出現雙重滾動條 */
-    background-color: #f5f5f5;
-    box-sizing: border-box;
-}
-
-/* ==================== 側邊欄設置 ==================== */
+/* ==================== 側邊選單 ==================== */
 .right_slide {
-    position: fixed;
+    position: fixed; /* 固定左側邊欄 */
     top: 0;
     left: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #42515f;
-    color: white;
-    overflow-y: auto;
-    z-index: 1000;
+    width: 250px; /* 側邊欄寬度 */
+    height: 100vh; /* 高度填滿整個視窗 */
+    background-color: hsl(221, 27%, 48%);
+    color: #fff;
+    overflow-y: auto; /* 側邊欄可垂直滾動 */
+    z-index: 1000; /* 保證側邊欄層級最高 */
 }
 
-/* 側邊欄按鈕樣式保持不變 */
-.right_slide .btn_func {
-    display: block;
-    color: white;
-    text-align: left;
-    padding: 10px 15px;
-    text-decoration: none;
-}
-
-.right_slide .btn_func:hover {
-    background-color: #2c3e50;
-}
-
-/* ==================== 主內容區域設置 ==================== */
+/* ==================== 主內容區域 ==================== */
 .container {
-    position: fixed;
-    left: 250px;
+    position: fixed; /* 固定主內容區域 */
     top: 0;
-    right: 0;
-    bottom: 0;
+    left: 250px; /* 與側邊欄對齊 */
+    width: calc(100% - 250px); /* 主內容區域寬度 */
+    height: 100vh; /* 高度填滿整個視窗 */
     padding: 20px;
-    overflow-y: auto;
     background-color: #fff;
+    overflow-y: auto; /* 垂直滾動 */
+    box-sizing: border-box; /* 包括 padding */
 }
 
 /* ==================== 表格相關設置 ==================== */
 .table-responsive {
     width: 100%;
+    height: calc(100% - 50px); /* 表格內容高度，留出標題空間 */
+    overflow-x: auto; /* 表格超出時水平滾動 */
     margin-bottom: 20px;
-}
-
-.order-section {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    width: 100%;
-}
-
-/* 訂單頭部資訊樣式 */
-.order-section h5,
-.order-section p {
-    margin: 0 0 10px 0;
-    padding: 0;
 }
 
 .main {
     width: 100%;
-    margin: 0;
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: fixed; /* 強制欄位寬度固定 */
 }
 
 .main th,
 .main td {
-    padding: 8px;
+    padding: 8px 4px; /* 優化內邊距 */
     border: 1px solid #ddd;
     text-align: center;
-    white-space: normal;
-    word-wrap: break-word;
-    word-break: break-all;
+    font-size: 14px;
+    word-wrap: break-word; /* 允許文字換行 */
+    white-space: normal; /* 文字可換行 */
 }
 
-/* 表頭置頂相關設定 */
-.table-responsive {
-    position: relative;
+/* 表格欄位最小寬度 */
+.main th, .main td {
+    min-width: 60px; /* 防止欄位過度縮小 */
 }
 
+/* 適配單價、數量、小計、狀態欄位 */
+.main th:nth-child(5), .main td:nth-child(5) { width: 6%; } /* 單價 */
+.main th:nth-child(6), .main td:nth-child(6) { width: 5%; } /* 數量 */
+.main th:nth-child(7), .main td:nth-child(7) { width: 6%; } /* 小計 */
+.main th:nth-child(9), .main td:nth-child(9) { width: 8%; } /* 狀態 */
+
+/* 表頭樣式 */
 .main thead th {
     background-color: #42515f;
     color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+}
+
+/* 狀態下拉選單樣式 */
+.order-status {
+    width: 100%; /* 自適應欄位寬度 */
+    padding: 4px 6px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 13px;
+    box-sizing: border-box;
 }
 
 /* 隔行變色 */
@@ -104,9 +82,4 @@ html, body {
 
 .main tbody tr:hover {
     background-color: #f5f5f5;
-}
-
-/* ==================== 滾動與排版修正 ==================== */
-* {
-    box-sizing: border-box;
 }

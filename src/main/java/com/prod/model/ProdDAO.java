@@ -8,7 +8,7 @@ public class ProdDAO implements ProdDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "vincent888";
+	String passwd = "liupeter480";
 
 	private static final String INSERT_STMT = "INSERT INTO PROD (PROD_ID, PROD_TYPE_ID, PROD_NAME, PROD_PRICE) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT PROD_ID, PROD_TYPE_ID, PROD_NAME, PROD_PRICE, PROD_PIC FROM PROD ORDER BY PROD_ID";

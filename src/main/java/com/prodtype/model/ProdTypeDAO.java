@@ -7,7 +7,7 @@ public class ProdTypeDAO implements ProdTypeDAO_interface {
     String driver = "com.mysql.cj.jdbc.Driver";
     String url = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
     String userid = "root";
-    String passwd = "vincent888";
+    String passwd = "liupeter480";
 
     private static final String INSERT_STMT = "INSERT INTO PROD_TYPE (PROD_TYPE_ID, PROD_TYPE_NAME) VALUES (?, ?)";
     private static final String GET_ALL_STMT = "SELECT PROD_TYPE_ID, PROD_TYPE_NAME FROM PROD_TYPE ORDER BY PROD_TYPE_ID";

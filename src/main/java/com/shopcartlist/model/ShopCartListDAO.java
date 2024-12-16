@@ -8,7 +8,7 @@ public class ShopCartListDAO implements ShopCartListDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "vincent888";
+	String passwd = "liupeter480";
 
 	private static final String INSERT_STMT = "INSERT INTO shop_cartlist (MEM_ID, PROD_ID, CARTLIST_QTY) VALUES (?, ?, ?)";
 	private static final String UPDATE = "UPDATE shop_cartlist SET CARTLIST_QTY=? WHERE MEM_ID=? AND PROD_ID=?";
