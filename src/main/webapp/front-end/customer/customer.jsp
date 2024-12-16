@@ -61,13 +61,24 @@
             padding: 8px;
             text-align: left;
         }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            padding: 10px 20px;
-            color: rgb(44, 41, 41);
-        }
+	  	button#submit{
+	   		padding: 10px 20px;
+	        font-size: 18px;
+	        position: relative;
+	        top: 5.7px;
+	 	}
+  
+        button#submit_btn{
+          padding: 10px 20px;
+          font-size: 16px;
+          color: #fff;
+	      background-color: orange;
+	      border-radius: 20px;
+	      border: none;
+	      position: relative;
+	      left: 400px;
+	      top: 20px;
+     	}
     </style>
 </head>
 <body>
