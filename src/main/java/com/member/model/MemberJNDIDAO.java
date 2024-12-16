@@ -1,22 +1,35 @@
 package com.member.model;
 
-import java.sql.*;
 import java.util.*;
+import java.sql.*;
+import java.sql.Date;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
-import com.hr.dao.Basedao;
-import com.utils.datasource.HikariDataSourceUtil;
 
-public class MemberDAO {
-	private static final DataSource ds = HikariDataSourceUtil.getDataSource();
+public class MemberJNDIDAO implements MemberDAO_interface {
 
-	private static final String INSERTback_STMT = "INSERT INTO member (mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static final String INSERT_STMT = "INSERT INTO member (mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status FROM member order by mem_id";
-	private static final String GET_ONE_STMT = "SELECT member_id, mem_lv_id, mem_name,mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status  FROM member where mem_id= ?";
+	private static final String GET_ONE_STMT = "SELECT mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status FROM member where mem_id = ?";
 	private static final String DELETE = "DELETE FROM member where mem_id = ?";
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_lv_id=?, mem_name=?, mem_uid=?, mem_bth=?, mem_gender=?, mem_email=?, mem_tel=?, mem_add=?, mem_acc=? mem_pw=? mem_status=? where mem_id = ?";
 
-	public void insertback(MemberVO memberVO) {
+	@Override
+	public void insert(MemberVO memberVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -24,14 +37,14 @@ public class MemberDAO {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERTback_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setInt(1, memberVO.getMemberId());
 			pstmt.setByte(2, memberVO.getMemberLvId());
 			pstmt.setString(3, memberVO.getMemberName());
 			pstmt.setString(4, memberVO.getMemberUid());
 			pstmt.setDate(5, memberVO.getMemberBth());
-			pstmt.setByte(6, memberVO.getMemberGender());
+			pstmt.setInt(6, memberVO.getMemberGender());
 			pstmt.setString(7, memberVO.getMemberEmail());
 			pstmt.setString(8, memberVO.getMemberTel());
 			pstmt.setString(9, memberVO.getMemberAdd());
@@ -64,6 +77,7 @@ public class MemberDAO {
 
 	}
 
+	@Override
 	public void update(MemberVO memberVO) {
 
 		Connection con = null;
@@ -79,7 +93,7 @@ public class MemberDAO {
 			pstmt.setString(3, memberVO.getMemberName());
 			pstmt.setString(4, memberVO.getMemberUid());
 			pstmt.setDate(5, memberVO.getMemberBth());
-			pstmt.setByte(6, memberVO.getMemberGender());
+			pstmt.setInt(6, memberVO.getMemberGender());
 			pstmt.setString(7, memberVO.getMemberEmail());
 			pstmt.setString(8, memberVO.getMemberTel());
 			pstmt.setString(9, memberVO.getMemberAdd());
@@ -113,6 +127,7 @@ public class MemberDAO {
 
 	}
 
+	@Override
 	public void delete(Integer memberId) {
 
 		Connection con = null;
@@ -150,6 +165,7 @@ public class MemberDAO {
 
 	}
 
+	@Override
 	public MemberVO findByPrimaryKey(Integer memberId) {
 
 		MemberVO memberVO = null;
@@ -167,7 +183,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// MemberVO 也稱為 Domain objects
+				// empVo 也稱為 Domain objects
 				memberVO = new MemberVO();
 				memberVO.setMemberId(rs.getInt("mem_id"));
 				memberVO.setMemberLvId(rs.getByte("mem_lv_id"));
@@ -213,6 +229,7 @@ public class MemberDAO {
 		return memberVO;
 	}
 
+	@Override
 	public List<MemberVO> getAll() {
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		MemberVO memberVO = null;
@@ -228,7 +245,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// MemberVO �]�٬� Domain objects
+				// empVO 也稱為 Domain objects
 				memberVO = new MemberVO();
 				memberVO.setMemberId(rs.getInt("mem_id"));
 				memberVO.setMemberLvId(rs.getByte("mem_lv_id"));
@@ -274,131 +291,89 @@ public class MemberDAO {
 		}
 		return list;
 	}
-	
-	
-	
-	
-	//-------------------------------------------------------------------------------------------------------------------
-	//以下為增加的程式碼	
 
-		//查詢有無使用者 結果回傳count
-		public static int selectByNM(String name,String pwd){
-			int count=0;
-			ResultSet rs = null;
-			Connection conn = Basedao.getconn();
-			PreparedStatement ps = null;
-			try {
-				ps = conn.prepareStatement("select count(*) from MEMBER where MEM_ACC=? and MEM_PW=?");
-				ps.setString(1, name);
-				ps.setString(2, pwd);
-				rs = ps.executeQuery();
-				while(rs.next()){
-					count=rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				Basedao.closeall(rs, ps, conn);
-			}
-			return count;
-		}
-		
-		public static int selectByName(String id){
-			int count=0;
-			ResultSet rs = null;
-			Connection conn = Basedao.getconn();
-			PreparedStatement ps = null;
-			try {
-				ps = conn.prepareStatement("select count(*) from member where MEM_ACC=?");
-				ps.setString(1, id);
-				rs = ps.executeQuery();
-				while(rs.next()){
-					count=rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				Basedao.closeall(rs, ps, conn);
-			}
-			return count;
-		}
-		
-		
-		//傳回MemberVO
-		public static MemberVO selectAdmin(String name,String pwd){
-			MemberVO mem=null;
-			ResultSet rs = null;
-			Connection conn = Basedao.getconn();
-			PreparedStatement ps = null;
-			try {
-				ps = conn.prepareStatement("select * from MEMBER where MEM_ACC=? and MEM_PW=?");
-				ps.setString(1, name);
-				ps.setString(2, pwd);
-				rs = ps.executeQuery();
-				while(rs.next()){			
-					mem = new MemberVO( rs.getInt("MEM_ID"), 
-										rs.getByte("MEM_LV_ID"),
-										rs.getString("MEM_NAME"),
-										rs.getString("MEM_UID"),
-										rs.getDate("MEM_BTH"),
-										rs.getByte("MEM_Gender"),
-										rs.getString("MEM_EMAIL"),
-										rs.getString("MEM_TEL"),
-										rs.getString("MEM_ADD"),
-										rs.getString("MEM_ACC"),
-										rs.getString("MEM_PW"),
-										rs.getByte("MEM_STATUS") );						
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				Basedao.closeall(rs, ps, conn);
-			}
-			return mem;
-		}
-			
-		//新增會員
-		private static final String insert = "INSERT INTO member (MEM_LV_ID, MEM_NAME, MEM_UID, MEM_BTH, MEM_Gender, MEM_EMAIL, MEM_TEL, MEM_ADD, MEM_ACC, MEM_PW, MEM_STATUS)"
-											+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
-		public static int insert(MemberVO m){
-			int count=0;
-			  Connection conn=Basedao.getconn();
-			  PreparedStatement ps=null;
-			  try {
-				ps=conn.prepareStatement(insert);
-				System.out.println("insert:" + insert);
-				
-				ps.setByte(1, m.getMemberLvId());
-				
-				ps.setString(2, m.getMemberName());
-				
-				ps.setString(3, m.getMemberUid());
-				
-				ps.setDate(4, m.getMemberBth());
-				
-				ps.setByte(5, m.getMemberGender());
-				
-				ps.setString(6, m.getMemberEmail());
-				
-				ps.setString(7, m.getMemberTel());
-				
-				ps.setString(8, m.getMemberAdd());
-				
-				ps.setString(9, m.getMemberAcc());
-				
-				ps.setString(10, m.getMemberPw());
+	public static void main(String[] args) {
+		MemberJNDIDAO dao = new MemberJNDIDAO();
 
-				ps.setByte(11, m.getMemberStatus());
-				
-							
-				count=ps.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			finally{
-				Basedao.closeall(null, ps, conn);
-			}
-			return count;
-		}			
+		// 測試新增資料
+		System.out.println("=== 測試新增資料 ===");
+		MemberVO newMember = new MemberVO();
+		newMember.setMemberId(6); // 假設主鍵由資料庫自動生成，這行可以省略
+		newMember.setMemberLvId((byte) 2);
+		newMember.setMemberName("新增的會員");
+		newMember.setMemberUid("A123456789");
+		newMember.setMemberBth(Date.valueOf("1990-01-01"));
+		newMember.setMemberGender((byte) 1);
+		newMember.setMemberEmail("new@example.com");
+		newMember.setMemberTel("0912345678");
+		newMember.setMemberAdd("台北市信義區松壽路1號");
+		newMember.setMemberAcc("new_account");
+		newMember.setMemberPw("new_password");
+		newMember.setMemberStatus((byte) 1);
+		dao.insert(newMember);
+		System.out.println("新增完成！");
+
+		// 測試更新資料
+		System.out.println("\n=== 測試更新資料 ===");
+		MemberVO updateMember = new MemberVO();
+		updateMember.setMemberId(6); // 必須設定要更新的會員ID
+		updateMember.setMemberLvId((byte) 3);
+		updateMember.setMemberName("更新的會員");
+		updateMember.setMemberUid("B987654321");
+		updateMember.setMemberBth(Date.valueOf("1985-12-31"));
+		updateMember.setMemberGender((byte) 0);
+		updateMember.setMemberEmail("updated@example.com");
+		updateMember.setMemberTel("0987654321");
+		updateMember.setMemberAdd("高雄市鼓山區鼓山一路1號");
+		updateMember.setMemberAcc("updated_account");
+		updateMember.setMemberPw("updated_password");
+		updateMember.setMemberStatus((byte) 0);
+		dao.update(updateMember);
+		System.out.println("更新完成！");
+
+		// 測試刪除資料
+		System.out.println("\n=== 測試刪除資料 ===");
+		dao.delete(6); // 刪除指定ID的會員
+		System.out.println("刪除完成！");
+
+		// 測試查詢單筆資料
+		System.out.println("\n=== 測試查詢單筆資料 ===");
+		MemberVO member = dao.findByPrimaryKey(1); // 假設ID為1的會員存在
+		if (member != null) {
+			System.out.println("會員ID：" + member.getMemberId());
+			System.out.println("會員等級ID：" + member.getMemberLvId());
+			System.out.println("會員姓名：" + member.getMemberName());
+			System.out.println("會員身分證字號：" + member.getMemberUid());
+			System.out.println("會員生日：" + member.getMemberBth());
+			System.out.println("會員性別：" + member.getMemberGender());
+			System.out.println("會員Email：" + member.getMemberEmail());
+			System.out.println("會員電話：" + member.getMemberTel());
+			System.out.println("會員地址：" + member.getMemberAdd());
+			System.out.println("會員帳號：" + member.getMemberAcc());
+			System.out.println("會員密碼：" + member.getMemberPw());
+			System.out.println("會員狀態：" + member.getMemberStatus());
+		} else {
+			System.out.println("查無資料！");
+		}
+
+		// 測試查詢所有資料
+		System.out.println("\n=== 測試查詢所有資料 ===");
+		List<MemberVO> list = dao.getAll();
+		for (MemberVO aMember : list) {
+			System.out.println("會員ID：" + aMember.getMemberId());
+			System.out.println("會員等級ID：" + aMember.getMemberLvId());
+			System.out.println("會員姓名：" + aMember.getMemberName());
+			System.out.println("會員身分證字號：" + aMember.getMemberUid());
+			System.out.println("會員生日：" + aMember.getMemberBth());
+			System.out.println("會員性別：" + aMember.getMemberGender());
+			System.out.println("會員Email：" + aMember.getMemberEmail());
+			System.out.println("會員電話：" + aMember.getMemberTel());
+			System.out.println("會員地址：" + aMember.getMemberAdd());
+			System.out.println("會員帳號：" + aMember.getMemberAcc());
+			System.out.println("會員密碼：" + aMember.getMemberPw());
+			System.out.println("會員狀態：" + aMember.getMemberStatus());
+			System.out.println("---------------------");
+		}
+	}
+
 }

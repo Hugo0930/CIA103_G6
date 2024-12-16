@@ -1,30 +1,32 @@
 package com.member.model;
 
-import java.sql.*;
 import java.util.*;
+import java.sql.*;
+import java.sql.Date;
 
-import javax.sql.DataSource;
-import com.hr.dao.Basedao;
-import com.utils.datasource.HikariDataSourceUtil;
+public class MemberJDBCDAO implements MemberDAO_interface {
+	private static final String URL = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
+	private static final String USER = "root";
+	private static final String PASSWORD = "liupeter480";
+	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-public class MemberDAO {
-	private static final DataSource ds = HikariDataSourceUtil.getDataSource();
-
-	private static final String INSERTback_STMT = "INSERT INTO member (mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+	private static final String INSERT_STMT = "INSERT INTO member (mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status FROM member order by mem_id";
-	private static final String GET_ONE_STMT = "SELECT member_id, mem_lv_id, mem_name,mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status  FROM member where mem_id= ?";
+	private static final String GET_ONE_STMT = "SELECT mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender,mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status FROM member where mem_id = ?";
 	private static final String DELETE = "DELETE FROM member where mem_id = ?";
-	private static final String UPDATE = "UPDATE member set mem_id=?, mem_lv_id=?, mem_name=?, mem_uid=?, mem_bth=?, mem_gender=?, mem_email=?, mem_tel=?, mem_add=?, mem_acc=? mem_pw=? mem_status=? where mem_id = ?";
+	private static final String UPDATE = "UPDATE member set mem_lv_id=?, mem_name=?, mem_uid=?, mem_bth=?, mem_gender=?, mem_email=?, mem_tel=?, mem_add=?, mem_acc=?, mem_pw=?, mem_status=? where mem_id=?";
 
-	public void insertback(MemberVO memberVO) {
+	@Override
+	public void insert(MemberVO memberVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERTback_STMT);
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setInt(1, memberVO.getMemberId());
 			pstmt.setByte(2, memberVO.getMemberLvId());
@@ -41,6 +43,9 @@ public class MemberDAO {
 
 			pstmt.executeUpdate();
 
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -64,6 +69,7 @@ public class MemberDAO {
 
 	}
 
+	@Override
 	public void update(MemberVO memberVO) {
 
 		Connection con = null;
@@ -71,26 +77,31 @@ public class MemberDAO {
 
 		try {
 
-			con = ds.getConnection();
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, memberVO.getMemberId());
-			pstmt.setByte(2, memberVO.getMemberLvId());
-			pstmt.setString(3, memberVO.getMemberName());
-			pstmt.setString(4, memberVO.getMemberUid());
-			pstmt.setDate(5, memberVO.getMemberBth());
-			pstmt.setByte(6, memberVO.getMemberGender());
-			pstmt.setString(7, memberVO.getMemberEmail());
-			pstmt.setString(8, memberVO.getMemberTel());
-			pstmt.setString(9, memberVO.getMemberAdd());
-			pstmt.setString(10, memberVO.getMemberAcc());
-			pstmt.setString(11, memberVO.getMemberPw());
-			pstmt.setByte(12, memberVO.getMemberStatus());
-			pstmt.setInt(13, memberVO.getMemberId());
+			//因為主鍵所以不用更新
+			pstmt.setByte(1, memberVO.getMemberLvId());
+			pstmt.setString(2, memberVO.getMemberName());
+			pstmt.setString(3, memberVO.getMemberUid());
+			pstmt.setDate(4, memberVO.getMemberBth());
+			pstmt.setByte(5, memberVO.getMemberGender());
+			pstmt.setString(6, memberVO.getMemberEmail());
+			pstmt.setString(7, memberVO.getMemberTel());
+			pstmt.setString(8, memberVO.getMemberAdd());
+			pstmt.setString(9, memberVO.getMemberAcc());
+			pstmt.setString(10, memberVO.getMemberPw());
+			pstmt.setByte(11, memberVO.getMemberStatus());
+			pstmt.setInt(12, memberVO.getMemberId());
+
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -113,6 +124,7 @@ public class MemberDAO {
 
 	}
 
+	@Override
 	public void delete(Integer memberId) {
 
 		Connection con = null;
@@ -120,7 +132,8 @@ public class MemberDAO {
 
 		try {
 
-			con = ds.getConnection();
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setInt(1, memberId);
@@ -128,6 +141,9 @@ public class MemberDAO {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -150,6 +166,7 @@ public class MemberDAO {
 
 	}
 
+	@Override
 	public MemberVO findByPrimaryKey(Integer memberId) {
 
 		MemberVO memberVO = null;
@@ -159,7 +176,8 @@ public class MemberDAO {
 
 		try {
 
-			con = ds.getConnection();
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setInt(1, memberId);
@@ -167,7 +185,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// MemberVO 也稱為 Domain objects
+				// empVo �]�٬� Domain objects
 				memberVO = new MemberVO();
 				memberVO.setMemberId(rs.getInt("mem_id"));
 				memberVO.setMemberLvId(rs.getByte("mem_lv_id"));
@@ -182,8 +200,10 @@ public class MemberDAO {
 				memberVO.setMemberPw(rs.getString("mem_pw"));
 				memberVO.setMemberStatus(rs.getByte("mem_status"));
 			}
-
 			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -213,6 +233,7 @@ public class MemberDAO {
 		return memberVO;
 	}
 
+	@Override
 	public List<MemberVO> getAll() {
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		MemberVO memberVO = null;
@@ -223,12 +244,13 @@ public class MemberDAO {
 
 		try {
 
-			con = ds.getConnection();
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// MemberVO �]�٬� Domain objects
+				// empVO �]�٬� Domain objects
 				memberVO = new MemberVO();
 				memberVO.setMemberId(rs.getInt("mem_id"));
 				memberVO.setMemberLvId(rs.getByte("mem_lv_id"));
@@ -246,6 +268,9 @@ public class MemberDAO {
 			}
 
 			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -274,131 +299,82 @@ public class MemberDAO {
 		}
 		return list;
 	}
-	
-	
-	
-	
-	//-------------------------------------------------------------------------------------------------------------------
-	//以下為增加的程式碼	
 
-		//查詢有無使用者 結果回傳count
-		public static int selectByNM(String name,String pwd){
-			int count=0;
-			ResultSet rs = null;
-			Connection conn = Basedao.getconn();
-			PreparedStatement ps = null;
-			try {
-				ps = conn.prepareStatement("select count(*) from MEMBER where MEM_ACC=? and MEM_PW=?");
-				ps.setString(1, name);
-				ps.setString(2, pwd);
-				rs = ps.executeQuery();
-				while(rs.next()){
-					count=rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				Basedao.closeall(rs, ps, conn);
-			}
-			return count;
-		}
-		
-		public static int selectByName(String id){
-			int count=0;
-			ResultSet rs = null;
-			Connection conn = Basedao.getconn();
-			PreparedStatement ps = null;
-			try {
-				ps = conn.prepareStatement("select count(*) from member where MEM_ACC=?");
-				ps.setString(1, id);
-				rs = ps.executeQuery();
-				while(rs.next()){
-					count=rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				Basedao.closeall(rs, ps, conn);
-			}
-			return count;
-		}
-		
-		
-		//傳回MemberVO
-		public static MemberVO selectAdmin(String name,String pwd){
-			MemberVO mem=null;
-			ResultSet rs = null;
-			Connection conn = Basedao.getconn();
-			PreparedStatement ps = null;
-			try {
-				ps = conn.prepareStatement("select * from MEMBER where MEM_ACC=? and MEM_PW=?");
-				ps.setString(1, name);
-				ps.setString(2, pwd);
-				rs = ps.executeQuery();
-				while(rs.next()){			
-					mem = new MemberVO( rs.getInt("MEM_ID"), 
-										rs.getByte("MEM_LV_ID"),
-										rs.getString("MEM_NAME"),
-										rs.getString("MEM_UID"),
-										rs.getDate("MEM_BTH"),
-										rs.getByte("MEM_Gender"),
-										rs.getString("MEM_EMAIL"),
-										rs.getString("MEM_TEL"),
-										rs.getString("MEM_ADD"),
-										rs.getString("MEM_ACC"),
-										rs.getString("MEM_PW"),
-										rs.getByte("MEM_STATUS") );						
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				Basedao.closeall(rs, ps, conn);
-			}
-			return mem;
-		}
-			
-		//新增會員
-		private static final String insert = "INSERT INTO member (MEM_LV_ID, MEM_NAME, MEM_UID, MEM_BTH, MEM_Gender, MEM_EMAIL, MEM_TEL, MEM_ADD, MEM_ACC, MEM_PW, MEM_STATUS)"
-											+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
-		public static int insert(MemberVO m){
-			int count=0;
-			  Connection conn=Basedao.getconn();
-			  PreparedStatement ps=null;
-			  try {
-				ps=conn.prepareStatement(insert);
-				System.out.println("insert:" + insert);
-				
-				ps.setByte(1, m.getMemberLvId());
-				
-				ps.setString(2, m.getMemberName());
-				
-				ps.setString(3, m.getMemberUid());
-				
-				ps.setDate(4, m.getMemberBth());
-				
-				ps.setByte(5, m.getMemberGender());
-				
-				ps.setString(6, m.getMemberEmail());
-				
-				ps.setString(7, m.getMemberTel());
-				
-				ps.setString(8, m.getMemberAdd());
-				
-				ps.setString(9, m.getMemberAcc());
-				
-				ps.setString(10, m.getMemberPw());
+	public static void main(String[] args) {
 
-				ps.setByte(11, m.getMemberStatus());
-				
-							
-				count=ps.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			finally{
-				Basedao.closeall(null, ps, conn);
-			}
-			return count;
-		}			
+		MemberJDBCDAO dao = new MemberJDBCDAO();
+
+//		// 新增
+//		MemberVO memberVO1 = new MemberVO();
+//		memberVO1.setMemberId(6);
+//		memberVO1.setMemberLvId((byte) 1);
+//		memberVO1.setMemberName("湯姆布魯斯");
+//		memberVO1.setMemberUid("A111111111");
+//		memberVO1.setMemberBth(Date.valueOf("1999-12-31"));
+//		memberVO1.setMemberGender((byte)1);
+//		memberVO1.setMemberEmail("s77777@gamil.com");
+//		memberVO1.setMemberTel("050000000");
+//		memberVO1.setMemberAdd("中壢區復興路1號");
+//		memberVO1.setMemberAcc("11111111");
+//		memberVO1.setMemberPw("111111");
+//		memberVO1.setMemberStatus((byte)1);
+//		dao.insert(memberVO1);
+//
+//		// 修改
+//		MemberVO memberVO2 = new MemberVO();
+//		memberVO2.setMemberId(2);
+//		memberVO2.setMemberLvId((byte)0);
+//		memberVO2.setMemberName("萊恩布萊諾");
+//		memberVO2.setMemberUid("B111111111");
+//		memberVO2.setMemberBth(Date.valueOf("2000-12-31"));
+//		memberVO2.setMemberGender((byte)0);
+//		memberVO2.setMemberEmail("t11111111111@yahoo.com.tw");
+//		memberVO2.setMemberTel("050000000");
+//		memberVO2.setMemberAdd("中壢區復興路5號");
+//		memberVO2.setMemberAcc("222222222");
+//		memberVO2.setMemberPw("222222");
+//		memberVO2.setMemberStatus((byte)0);
+//		dao.update(memberVO2);
+//
+//		// 刪除
+//		dao.delete(6);
+//
+//		// 單一查詢
+//		MemberVO memberVO3 = dao.findByPrimaryKey(1);
+//		System.out.print(memberVO3.getMemberId() + ",");
+//		System.out.print(memberVO3.getMemberLvId() + ",");
+//		System.out.print(memberVO3.getMemberName() + ",");
+//		System.out.print(memberVO3.getMemberUid() + ",");
+//		System.out.print(memberVO3.getMemberBth() + ",");
+//		System.out.print(memberVO3.getMemberGender() + ",");
+//		System.out.print(memberVO3.getMemberEmail() + ",");
+//		System.out.print(memberVO3.getMemberTel() + ",");
+//		System.out.print(memberVO3.getMemberAdd() + ",");
+//		System.out.print(memberVO3.getMemberAcc() + ",");
+//		System.out.print(memberVO3.getMemberPw() + ",");
+//		System.out.print(memberVO3.getMemberStatus());
+//		System.out.println("---------------------");
+
+		// 查詢
+		List<MemberVO> list = dao.getAll();
+		for (MemberVO aMember : list) {
+			System.out.print(aMember.getMemberId() + ",");
+			System.out.print(aMember.getMemberLvId() + ",");
+			System.out.print(aMember.getMemberName() + ",");
+			System.out.print(aMember.getMemberUid() + ",");
+			System.out.print(aMember.getMemberBth() + ",");
+			System.out.print(aMember.getMemberGender() + ",");
+			System.out.print(aMember.getMemberEmail() + ",");
+			System.out.print(aMember.getMemberTel() + ",");
+			System.out.print(aMember.getMemberAdd() + ",");
+			System.out.print(aMember.getMemberAcc() + ",");
+			System.out.print(aMember.getMemberPw() + ",");
+			System.out.print(aMember.getMemberStatus());
+			System.out.println();
+		}
+	}
+
+
+
+
 }
