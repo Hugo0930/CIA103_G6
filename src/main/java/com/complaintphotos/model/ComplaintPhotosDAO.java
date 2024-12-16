@@ -1,6 +1,7 @@
-package com.complaintphotos.model;
+	package com.complaintphotos.model;
 
 import javax.sql.DataSource;
+
 import com.utils.datasource.HikariDataSourceUtil;
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ public class ComplaintPhotosDAO implements ComplaintPhotosDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO complaint_photos (COM_ID, COM_PIC, FILE_NAME, MIME_TYPE, UPLOAD_TIME) VALUES (?, ?, ?, ?, NOW())";
 	private static final String UPDATE_STMT = "UPDATE complaint_photos SET COM_ID = ?, COM_PIC = ?, FILE_NAME = ?, MIME_TYPE = ?, UPLOAD_TIME = NOW() WHERE COM_PIC_ID = ?";
-	private static final String FIND_BY_ID_STMT = "SELECT COM_PIC_ID, COM_ID, COM_PIC, FILE_NAME, MIME_TYPE, UPLOAD_TIME FROM complaint_photos WHERE COM_PIC_ID = ?";
 	private static final String FIND_ALL_STMT = "SELECT COM_PIC_ID, COM_ID, COM_PIC, FILE_NAME, MIME_TYPE, UPLOAD_TIME FROM complaint_photos";
 
 	// 新增
@@ -50,35 +50,8 @@ public class ComplaintPhotosDAO implements ComplaintPhotosDAO_interface {
 		}
 	}
 
-	//查看單一
-	@Override
-	public ComplaintPhotosVO findById(int comPicId) {
-		ComplaintPhotosVO vo = null;
-
-		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(FIND_BY_ID_STMT)) {
-
-			pstmt.setInt(1, comPicId);
-
-			try (ResultSet rs = pstmt.executeQuery()) {
-				if (rs.next()) {
-					vo = new ComplaintPhotosVO();
-					vo.setComPicId(rs.getInt("COM_PIC_ID"));
-					vo.setComId(rs.getInt("COM_ID"));
-					vo.setComPic(rs.getBytes("COM_PIC"));
-					vo.setFileName(rs.getString("FILE_NAME"));
-					vo.setMimeType(rs.getString("MIME_TYPE"));
-					vo.setUploadTime(rs.getDate("UPLOAD_TIME"));
-				}
-			}
-
-		} catch (SQLException se) {
-			throw new RuntimeException("查詢單筆資料失敗：" + se.getMessage(), se);
-		}
-
-		return vo;
-	}
-
-	//查看所有圖片
+	
+	// 查看所有圖片
 	@Override
 	public List<ComplaintPhotosVO> findAll() {
 		List<ComplaintPhotosVO> list = new ArrayList<>();
@@ -104,11 +77,9 @@ public class ComplaintPhotosDAO implements ComplaintPhotosDAO_interface {
 
 		return list;
 	}
-}
-
 //	public static void main(String[] args) {
 //		ComplaintPhotosDAO dao = new ComplaintPhotosDAO();
-//
+////
 ////		// 測試新增資料
 ////		System.out.println("=== 新增資料 ===");
 ////		ComplaintPhotosVO newPhoto = new ComplaintPhotosVO();
@@ -154,4 +125,5 @@ public class ComplaintPhotosDAO implements ComplaintPhotosDAO_interface {
 //					+ photo.getFileName() + ", MIME 類型：" + photo.getMimeType() + ", 上傳時間：" + photo.getUploadTime());
 //		}
 //	}
-//}
+}
+

@@ -2,15 +2,26 @@ package com.complaint.model;
 
 import java.util.*;
 
+import com.complaintphotos.model.ComplaintPhotosVO;
+
 public interface ComplaintDAO_interface {
-	public void insert(ComplaintVO complaintVO);
 
-	public void update(ComplaintVO complaintVO);
+	// 僅更新 申訴狀態 和 處理結果
+	void updateStatusAndResult(ComplaintVO complaintVO);
 
-	public ComplaintVO findByPrimaryKey(Integer complaintId);
+	// 依主鍵查詢申訴案件
+	ComplaintVO findByPrimaryKey(Integer complaintId);
 
-	public List<ComplaintVO> getAll();
-	
+	// 查詢所有申訴
+	List<ComplaintVO> getAll();
+
+	// 依會員ID查詢申訴
+	List<ComplaintVO> getAllByMemberId(Integer memberId);
+
+	Integer insertWithPhotos(ComplaintVO complaintVO, List<ComplaintPhotosVO> photos);
+
+	ComplaintVO getOneComplaintByComIdAndMemId(Integer comId, Integer memberId);
+
 	// 萬用複合查詢(傳入參數型態Map)(回傳 List)
-//        public List<ComplaintVO> getAll(Map<String, String[]> map); 
+	// public List<ComplaintVO> getAll(Map<String, String[]> map);
 }

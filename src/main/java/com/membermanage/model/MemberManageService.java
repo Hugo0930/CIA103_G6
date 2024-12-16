@@ -4,29 +4,30 @@ import java.util.List;
 
 public class MemberManageService {
 
-    private MemberManageDAO dao;
+	private MemberManageDAO_interface dao;
 
-    public MemberManageService() {
-        dao = new MemberManageDAO();
-    }
+	// **建構子：注入 DAO 實例**
+	public MemberManageService() {
+		dao = new MemberManageDAO();
+	}
 
-    // 取得全部會員資料
-    public List<MemberManageVO> getAllMembers() {
-        return dao.getAll();
-    }
+	// **1️⃣ 取得全部會員資料**
+	public List<MemberManageVO> getAllMembers() {
+		return dao.getAll();
+	}
 
-    // 查詢單一會員資料
-    public MemberManageVO getOneMember(Integer memberId) {
-        return dao.getOne(memberId);
-    }
+	// **2️⃣ 查詢單一會員資料**
+	public MemberManageVO getOneMember(Integer memberId) {
+		return dao.findByPrimaryKey(memberId);
+	}
 
-    // 更新會員等級與狀態
-    public void updateMemberLevelAndStatus(Integer memberId, Byte memberLvId, Byte memberStatus) {
-        MemberManageVO member = new MemberManageVO();
-        member.setMemberId(memberId);
-        member.setMemberLvId(memberLvId);
-        member.setMemberStatus(memberStatus);
+	// **3️⃣ 更新會員等級與狀態**
+	public void updateMemberLevelAndStatus(Integer memberId, Byte memberLvId, Byte memberStatus) {
+		dao.updateLevelAndStatus(memberId, memberLvId, memberStatus);
+	}
 
-        dao.updateLevelAndStatus(member);
-    }
+	// 4 查詢會員名字
+	public List<MemberManageVO> getMemberByName(String memberName) {
+		return dao.findByMemberName(memberName);
+	}
 }

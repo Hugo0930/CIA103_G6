@@ -1,17 +1,21 @@
 package com.auditionwork.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * AuditionWorkVO - 封裝配音作品表 (AUDITION_WORKS) 的資料
  */
-public class AuditionWorkVO {
+public class AuditionWorkVO implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int workId; // 作品編號 (主鍵)
 	private int memId; // 會員編號 (外鍵)
 	private String title; // 作品標題
 	private String description; // 作品描述
 	private String filePath; // 試音檔案路徑
-	private Timestamp uploadDate; // 上傳日期
+	private Date uploadDate; // 上傳日期
 
 	// 空建構子
 	public AuditionWorkVO() {
@@ -19,7 +23,7 @@ public class AuditionWorkVO {
 
 	// 有參數建構子 (用於快速初始化)
 	public AuditionWorkVO(int workId, int memId, String title, String description, String filePath,
-			Timestamp uploadDate) {
+			Date uploadDate) {
 		this.workId = workId;
 		this.memId = memId;
 		this.title = title;
@@ -69,11 +73,11 @@ public class AuditionWorkVO {
 		this.filePath = filePath;
 	}
 
-	public Timestamp getUploadDate() {
+	public Date getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadDate(Timestamp uploadDate) {
+	public void setUploadDate(Date uploadDate) {
 		this.uploadDate = uploadDate;
 	}
 

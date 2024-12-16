@@ -1,0 +1,258 @@
+/* 卡片標題樣式 */
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #5a8dee, #38d4b1); /* 柔和的主題色漸層 */
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 卡片內容區域 */
+.card-body {
+    background-color: #52566d; /* 深色背景 */
+    padding: 60px;
+    border-radius: 0 0 10px 10px;
+    color: #d6d9e1; /* 柔和的文字顏色 */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    line-height: 1.8; /* 提高可讀性 */
+}
+
+/* 表單標籤樣式 */
+.form-label {
+    font-weight: bold;
+    color: #d1d3e2;
+    font-size: 1.2rem;
+    margin-bottom: 10px; /* 增加標籤與輸入框的間距 */
+}
+
+/* 輸入框樣式 */
+.form-control {
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid #4e73df;
+    background-color: #2c2f36;
+    color: #d1d3e2;
+    font-size: 1rem;
+    padding: 10px;
+    margin-bottom: 20px; /* 增加輸入框之間的間距 */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #38d4b1;
+    box-shadow: 0 0 10px rgba(56, 212, 177, 0.7);
+    background-color: #34373d;
+}
+
+/* 按鈕樣式 */
+.btn-primary {
+    height: 50px;
+    width: 120px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #38d4b1, #5a8dee);
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #5a8dee, #38d4b1);
+    transform: scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.btn-secondary {
+    height: 50px;
+    width: 120px;
+    border-radius: 5px;
+    background-color: #6c757d;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* 查詢區背景容器 */
+.query-container {
+    background: linear-gradient(135deg, #1f1f1f, #292a30); /* 柔和的漸層背景 */
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    margin-top: 30px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* 動畫效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 音符動畫的卡片容器 */
+#note-animation-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #1f1f1f, #3c3c3c);
+    overflow: hidden;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+
+/* 動畫效果 */
+
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 音符樣式 */
+.note {
+    position: absolute;
+    font-size: 2.5rem;
+    animation: randomMove 3s ease-in-out infinite;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 5px #fff);
+}
+
+/* 隨機運動動畫 */
+@keyframes randomMove {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: translate(30px, -40px) rotate(15deg);
+    }
+    50% {
+        transform: translate(-40px, -80px) rotate(-15deg);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translate(50px, -120px) rotate(30deg);
+    }
+    100% {
+        transform: translate(0, -200px) rotate(-30deg);
+        opacity: 0;
+    }
+}
+
+/* 點擊音符的效果 */
+.note.clicked {
+    animation: explode 0.5s ease-out;
+    opacity: 0;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* 歌手角色 */
+#singer-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    animation: bounce 2s infinite;
+}
+
+#singer {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* 歌手彈跳動畫 */
+@keyframes bounce {
+    0%, 100% {
+        transform: translate(-50%, 0);
+    }
+    50% {
+        transform: translate(-50%, -10px);
+    }
+}
+/* 音符容器樣式 */
+#note-animation-container {
+	position: relative;
+	width: 100%;
+	height: 200px;
+	background: linear-gradient(135deg, #1f1f1f, #3c3c3c);
+	overflow: hidden;
+	border-radius: 10px;
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 音符樣式 */
+.note {
+	position: absolute;
+	bottom: 0;
+	font-size: 2.5rem;
+	animation: floatUp 5s linear infinite;
+	font-family: Arial, sans-serif;
+}
+
+/* 動畫效果 */
+@keyframes floatUp {from { transform:translateY(100%);
+	opacity: 0.8;
+}
+
+to {
+	transform: translateY(-120%);
+	opacity: 0;
+}
+}

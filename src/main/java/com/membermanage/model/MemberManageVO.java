@@ -4,6 +4,10 @@ import java.sql.Date;
 
 public class MemberManageVO implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer memberId;
 	private Byte memberLvId;
 	private String memberName;

@@ -1,6 +1,10 @@
 package com.complaint.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.complaintphotos.model.ComplaintPhotosVO;
 
 public class ComplaintVO implements java.io.Serializable {
 
@@ -8,22 +12,22 @@ public class ComplaintVO implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer complaintId;
 	private Integer memberId;
 	private Integer caseId;
 	private String complaintCon;
-	private Timestamp complaintTime;
+	private Date complaintTime;
 	private Byte complaintStatus;
 	private String complaintResult;
-	
+
+	private List<ComplaintPhotosVO> photos = new ArrayList<>();
+
 	public ComplaintVO() {
-		super();
 	}
 
-	public ComplaintVO(Integer complaintId,Integer memberId,Integer caseId, String complaintCon, Timestamp complaintTime, Byte complaintStatus,
-			String complaintResult) {
-		super();
+	public ComplaintVO(Integer complaintId, Integer memberId, Integer caseId, String complaintCon, Date complaintTime,
+			Byte complaintStatus, String complaintResult) {
 		this.complaintId = complaintId;
 		this.memberId = memberId;
 		this.caseId = caseId;
@@ -41,6 +45,22 @@ public class ComplaintVO implements java.io.Serializable {
 		this.complaintId = complaintId;
 	}
 
+	public Integer getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
+	}
+
+	public Integer getCaseId() {
+		return caseId;
+	}
+
+	public void setCaseId(Integer caseId) {
+		this.caseId = caseId;
+	}
+
 	public String getComplaintCon() {
 		return complaintCon;
 	}
@@ -49,11 +69,11 @@ public class ComplaintVO implements java.io.Serializable {
 		this.complaintCon = complaintCon;
 	}
 
-	public Timestamp getComplaintTime() {
+	public Date getComplaintTime() {
 		return complaintTime;
 	}
 
-	public void setComplaintTime(Timestamp complaintTime) {
+	public void setComplaintTime(Date complaintTime) {
 		this.complaintTime = complaintTime;
 	}
 
@@ -73,22 +93,18 @@ public class ComplaintVO implements java.io.Serializable {
 		this.complaintResult = complaintResult;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
+
+	// **圖片操作方法**
+	public List<ComplaintPhotosVO> getPhotos() {
+		return photos;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setPhotos(List<ComplaintPhotosVO> photos) {
+		this.photos = photos;
 	}
 
-	public Integer getCaseId() {
-		return caseId;
+	public void addPhoto(ComplaintPhotosVO photo) {
+		this.photos.add(photo);
 	}
-
-	public void setCaseId(Integer caseId) {
-		this.caseId = caseId;
-	}
-
-
 
 }

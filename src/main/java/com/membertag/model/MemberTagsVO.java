@@ -4,7 +4,11 @@ import java.util.List;
 
 public class MemberTagsVO implements java.io.Serializable{
 
-    private int memId; // 會員編號
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int memId; // 會員編號
     private List<TagVO> tags; // 會員所擁有的所有標籤
 
     public MemberTagsVO(int memId, List<TagVO> tags) {
