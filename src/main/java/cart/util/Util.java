@@ -16,5 +16,5 @@ public class Util {
 	
 	public static final String USER = "root";
 	
-	public static final String PASSWORD = "vincent888";
+	public static final String PASSWORD = "liupeter480";
 }

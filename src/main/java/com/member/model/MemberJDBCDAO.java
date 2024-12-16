@@ -7,7 +7,7 @@ import java.sql.Date;
 public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String URL = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
 	private static final String USER = "root";
-	private static final String PASSWORD = "vincent888";
+	private static final String PASSWORD = "liupeter480";
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	private static final String INSERT_STMT = "INSERT INTO member (mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
