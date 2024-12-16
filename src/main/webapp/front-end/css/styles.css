@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.pricing-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-table th, .pricing-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.pricing-table th {
+    background-color: #72b6e0;
+    color: white;
+}
+
+.pricing-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

@@ -14,7 +14,7 @@ public class HikariDataSourceUtil {
 	        HikariConfig config = new HikariConfig();
 	        config.setJdbcUrl("jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei");
 	        config.setUsername("root");
-	        config.setPassword("tony797977");
+	        config.setPassword("liupeter480");
 	        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
 	        // HikariCP 相關設定
