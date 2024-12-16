@@ -8,7 +8,9 @@ public class MemberVO implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private Integer memberId;
+	
 	private Byte memberLvId;
 	private String memberName;
 	private String memberUid;
@@ -18,7 +20,7 @@ public class MemberVO implements java.io.Serializable {
 	private String memberTel;
 	private String memberAdd;
 	private String memberAcc;
-	private String memberPw;
+	private String memberPw;	
 	private Byte memberStatus;
 
 	public MemberVO() {
@@ -31,16 +33,16 @@ public class MemberVO implements java.io.Serializable {
 
 		this.memberId = memberId;
 		this.memberLvId = memberLvId;
-		this.memberName = memberName;
-		this.memberUid = memberUid;
-		this.memberBth = memberBth;
-		this.memberGender = memberGender;
-		this.memberEmail = memberEmail;
-		this.memberTel = memberTel;
-		this.memberAdd = memberAdd;
-		this.memberAcc = memberAcc;
-		this.memberPw = memberPw;
-		this.memberStatus = memberStatus;
+		this.memberName = memberName;//姓名
+		this.memberUid = memberUid;//身分證字號
+		this.memberBth = memberBth;//生日
+		this.memberGender = memberGender;//性別
+		this.memberEmail = memberEmail;//電子郵件
+		this.memberTel = memberTel;//手機電話
+		this.memberAdd = memberAdd;//地址
+		this.memberAcc = memberAcc;//帳號
+		this.memberPw = memberPw;//密碼
+		this.memberStatus = memberStatus;//會員狀態
 	}
 
 	public Integer getMemberId() {
