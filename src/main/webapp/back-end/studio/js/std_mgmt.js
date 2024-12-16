@@ -79,5 +79,110 @@ $("select#sort_type").on("change",function(){
 			window.location.href= "/CIA103G6-18Project/MyStudioServlet?action=get_all&page=1";
 		}
 	}
+})
+/****************錯誤驗證**********************/
+let errors = new Array();
+$('div.table_box button#submit_btn').on("click",function(){
+	//alert('zzz');
+	/* 清除上一次的錯誤訊息 */
+	$("div.table_box form ul").remove();
+	
+	validate('add');
+	
+	//console.log(errors);
+	if(errors.length > 0){
+		/*
+		let errorStr = "";
+		for(i = 0; i < errors.length; i++){
+			errorStr += errors[i];
+			errorStr += '\n';
+		}
+		console.log(errorStr);
+		//alert(errorStr);
+		*/
+		$("div.table_box form h2").after("<ul></ul>");
+		let li_el = "";
+		for(i = 0; i < errors.length; i++){
+			li_el = '<li style="color:red; margin-left:15px;">' + errors[i] + '</li>';
+			$("div.table_box form ul").append(li_el);
+		}
+	}else{
+		$("div.table_box form").submit();
+	}
+})
+
+$("div.update_table_box button#update_submit_btn").on("click",function(){
+	//alert('zzz');
+	/* 清除上一次的錯誤訊息 */
+	if($("div.update_table_box form ul").length > 0){
+		$("div.update_table_box form ul").remove();
+	}
+
+	validate('update');
+
+	if(errors.length > 0){
+		$("div.update_table_box form h2").after("<ul></ul>");
+		let li_el = "";
+		for(i = 0; i < errors.length; i++){
+			li_el = '<li style="color:red; margin-left:15px;">' + errors[i] + '</li>';
+			$("div.update_table_box form ul").append(li_el);
+		}
+	}else{
+		$("div.update_table_box form").submit();
+	}
 	
 })
+let imgFile = "";
+$('div.table_box input.image').on("change",function(){
+	imgFile = this.files[0];
+})
+
+$('div.table_box button[type="reset"]').on("click",function(){
+	imgFile = "";
+})
+$('div.update_table_box input.image').on("change",function(){
+	imgFile = this.files[0];
+})
+$('div.update_table_box button[type="reset"]').on("click",function(){
+	imgFile = "";
+})
+
+function validate(action){
+	let index = null;
+	if(action == 'add'){
+		index = 0;
+	}
+	if(action == 'update'){
+		index = 1;
+	}
+	/* 清除陣列中的錯誤訊息 */
+	let array_length = errors.length;
+	for(i = 0; i < array_length; i++){
+		errors.pop();
+	}
+	let loc = $("input.loc").eq(index).val().trim();
+	if(loc == ""){
+		errors.push('請輸入錄音室地點');
+	}
+
+	let name = $("input.name").eq(index).val().trim();
+	if(name == ""){
+		errors.push('請輸入錄音室名稱');
+	}
+
+	let hourly_rate = $("input.hourly_rate").eq(index).val().trim();
+	let reg = /^\d+$/; // 表示一個或多個數字的正則表達式
+	if(hourly_rate == ""){
+		errors.push('請輸入錄音室租金');
+	}else if(!reg.test(hourly_rate)){
+		errors.push('錄音室租金必須是整數');
+	}
+
+	let date =  $("input.date").eq(index).val().trim();
+	if(date == ""){
+		errors.push('請選擇錄音室上架日期');
+	}
+	if(imgFile == ""){
+		errors.push('請選擇錄音室照片');
+	}
+}
