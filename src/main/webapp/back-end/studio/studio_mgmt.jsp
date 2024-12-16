@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.studio.model.*" %>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
@@ -192,15 +193,18 @@
 		        		<td>${std.studLoc}</td>
 			        	<td>${std.studName}</td>
 			        	<td>${std.capacity}</td>
-			        	<td>${std.hourlyRate}</td>
+			        	<td>
+			        		<fmt:formatNumber value="${std.hourlyRate}" type="number" maxFractionDigits="0" />
+			        	</td>
 		 	        	<td>
+		 	        		<fmt:parseNumber  var="parsedNumber" value="${std.hourlyRate}"/>
 		 	        		<div class="btn_block">		 	        		
 		        				<input type="submit" value="修改" class="update_btn" 
 			        				                                data-id="${std.studId}" 
 									                                data-loc="${std.studLoc}" 
 									                                data-name="${std.studName}" 
 									                                data-capacity="${std.capacity}" 
-									                                data-rate="${std.hourlyRate}" 
+									                                data-rate="${parsedNumber}" 
 									                                data-img="${std.imgBase64}">
 			        			<form method="post" action="${pageContext.request.contextPath}/MyStudioServlet"> 
      				                <c:if test="${std.state == '上架'}">
@@ -260,16 +264,16 @@
 	                <tbody>
 	                    <tr>
 	                        <td>錄音室地點</td>
-	                        <td><input type="text" name="studio_loc"></td>
+	                        <td><input type="text" name="studio_loc" class="loc"></td>
 	                    </tr>
 	                    <tr>
 	                        <td>錄音室名稱</td>
-	                        <td><input type="text" name="studio_name"></td>
+	                        <td><input type="text" name="studio_name" class="name"></td>
 	                    </tr>
 	                    <tr>
 	                        <td>人數</td>
 	                        <td>
-	                            <select name="studio_capacity">
+	                            <select name="studio_capacity" class="capacity">
 	                                <option value="1">1</option>
 	                                <option value="2">2</option>
 	                                <option value="3">3</option>
@@ -280,20 +284,20 @@
 	                    </tr>
 	                    <tr>
 	                        <td>租金</td>
-	                        <td><input type="text" name="studio_hourly_rate"></td>
+	                        <td><input type="text" name="studio_hourly_rate" class="hourly_rate"></td>
 	                    </tr>
 	                    <tr>
 	                        <td>上架日期</td>
-	                        <td><input type="date" name="release_date"></td>
+	                        <td><input type="date" name="release_date" class="date"></td>
 	                    </tr>
 	                    <tr>
 	                        <td>上傳檔案</td>
-	                        <td><input type="file" name="studio_pic" accept="imgage/*"></td>
+	                        <td><input type="file" name="studio_pic" accept="image/*" class="image"></td>
 	                    </tr>
 	                </tbody>
 	            </table>
 	            <div class="add_btn_block">
-	                <button type="submit">送出</button>
+	                <button type="button" id="submit_btn">送出</button>
 	                <button type="reset">清除</button>
             	    <button id="btn_close" type="button">關閉</button>
 	            </div>

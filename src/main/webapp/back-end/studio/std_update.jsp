@@ -21,16 +21,16 @@
 	                    </tr>
 	                    <tr>
 	                        <td>錄音室地點</td>
-	                        <td><input type="text" name="studio_loc" id="studio_loc"></td>
+	                        <td><input type="text" name="studio_loc" id="studio_loc" class="loc"></td>
 	                    </tr>
 	                    <tr>
 	                        <td>錄音室名稱</td>
-	                        <td><input type="text" name="studio_name" id="studio_name"></td>
+	                        <td><input type="text" name="studio_name" id="studio_name" class="name"></td>
 	                    </tr>
 	                    <tr>
 	                        <td>人數</td>
 	                        <td>
-	                            <select name="studio_capacity" id="studio_capacity">
+	                            <select name="studio_capacity" id="studio_capacity" class="capacity">
 	                                <option value="1">1</option>
 	                                <option value="2">2</option>
 	                                <option value="3">3</option>
@@ -41,20 +41,20 @@
 	                    </tr>
 	                    <tr>
 	                        <td>租金</td>
-	                        <td><input type="text" name="studio_hourly_rate" id="studio_hourly_rate"></td>
+	                        <td><input type="text" name="studio_hourly_rate" id="studio_hourly_rate" class="hourly_rate"></td>
 	                    </tr>
 	                    <tr>
 	                        <td>上架日期</td>
-	                        <td><input type="date" name="release_date" id="release_date"></td>
+	                        <td><input type="date" name="release_date" id="release_date" class="date"></td>
 	                    </tr>
 	                    <tr>
 	                        <td>上傳檔案</td>
-	                        <td><input type="file" name="studio_pic" accept="imgage/*"></td>
+	                        <td><input type="file" name="studio_pic" accept="image/*" class="image"></td>
 	                    </tr>
 	                </tbody>
 	            </table>
 	            <div class="update_btn_block">
-	                <button type="submit">送出</button>
+	                <button type="button" id="update_submit_btn">送出</button>
 	                <button type="reset">清除</button>
             	    <button id="update_btn_close" type="button">關閉</button>
 	            </div>
