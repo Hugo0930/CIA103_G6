@@ -3,96 +3,196 @@ package com.membermanage.controller;
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import com.membermanage.model.*;
 
+@WebServlet("/memberManageServlet")
 public class MemberManageServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    // 常量定義 URL 路徑
-    private static final String LIST_ALL_URL = "/back-end/membermanage/listAllMemberManage.jsp";
-    private static final String UPDATE_MEMBER_URL = "/back-end/membermanage/updateMemberManage.jsp";
-
+    @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        System.out.println("[訊息] 收到 GET 請求，轉交至 POST 處理。");
-        doPost(req, res);
+        handleRequest(req, res);
     }
 
+    @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        System.out.println("[訊息] 開始處理 POST 請求。");
+        handleRequest(req, res);
+    }
+
+    private void handleRequest(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-        System.out.println("[訊息] 請求的動作為：" + action);
 
-        if ("getAll".equals(action)) { // 顯示全部會員
-            System.out.println("[訊息] 動作：顯示全部會員列表。");
-            try {
-                MemberManageService service = new MemberManageService();
-                List<MemberManageVO> memberList = service.getAllMembers();
-                System.out.println("[訊息] 查詢到會員數量：" + memberList.size());
-
-                for (MemberManageVO member : memberList) {
-                    System.out.println("[除錯] 會員編號：" + member.getMemberId() + "，姓名：" + member.getMemberName());
-                }
-
-                req.setAttribute("memberList", memberList);
-                RequestDispatcher successView = req.getRequestDispatcher(LIST_ALL_URL);
-                successView.forward(req, res);
-            } catch (Exception e) {
-                System.err.println("[錯誤] 顯示全部會員時發生錯誤：" + e.getMessage());
-                req.setAttribute("errorMsg", "系統發生錯誤，無法顯示會員列表：" + e.getMessage());
-                RequestDispatcher failureView = req.getRequestDispatcher(LIST_ALL_URL);
-                failureView.forward(req, res);
+        try {
+            if ("getAll".equals(action)) {
+                handleGetAll(req, res);
+            } else if ("getOne".equals(action)) {
+                handleGetOne(req, res);
+            } else if ("getUpdatePage".equals(action)) {
+                handleGetUpdatePage(req, res);
+            } else if ("update".equals(action)) {
+                handleUpdate(req, res);
+            } else {
+                sendErrorResponse(req, res, "未知的請求動作：" + action, "/back-end/membermanage/select_page.jsp");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            sendErrorResponse(req, res, "伺服器發生錯誤：" + e.getMessage(), "/back-end/membermanage/select_page.jsp");
         }
+    }
 
-        if ("getOne".equals(action)) { // 查詢單一會員
-            System.out.println("[訊息] 動作：查詢單一會員。");
-            try {
-                Integer memberId = Integer.valueOf(req.getParameter("memberId").trim());
-                System.out.println("[訊息] 查詢的會員編號為：" + memberId);
+    // **1️⃣ 顯示全部會員**
+    private void handleGetAll(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        try {
+            MemberManageService service = new MemberManageService();
+            List<MemberManageVO> memberList = service.getAllMembers();
+            req.setAttribute("memberList", memberList);
+            RequestDispatcher successView = req.getRequestDispatcher("/back-end/membermanage/listAllMemberManage.jsp");
+            successView.forward(req, res);
+        } catch (Exception e) {
+            sendErrorResponse(req, res, "系統發生錯誤，無法顯示會員列表：" + e.getMessage(), "/back-end/membermanage/listAllMemberManage.jsp");
+        }
+    }
 
-                MemberManageService service = new MemberManageService();
-                MemberManageVO member = service.getOneMember(memberId);
+ // 2️⃣ 查詢單一會員
+    private void handleGetOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        try {
+            // 1️⃣ 取得會員編號和會員姓名，並進行檢查
+            String memberIdStr = req.getParameter("memberId") != null ? req.getParameter("memberId").trim() : "";
+            String memberName = req.getParameter("memberName") != null ? req.getParameter("memberName").trim() : "";
 
-                if (member == null) {
-                    System.out.println("[警告] 查無此會員，會員編號：" + memberId);
-                    req.setAttribute("errorMsg", "查無此會員！");
-                } else {
-                    System.out.println("[訊息] 查詢成功，會員姓名：" + member.getMemberName());
+            // ✅ 會員ID檢查
+            Integer memberId = null;
+            if (!memberIdStr.isEmpty()) {
+                if (!memberIdStr.matches("\\d{1,10}")) {
+                    sendErrorResponse(req, res, "會員編號格式不正確，必須是1-10位數的數字！", "/back-end/membermanage/select_page.jsp");
+                    return; // 🛑 中斷執行
+                }
+                try {
+                    memberId = Integer.parseInt(memberIdStr); // 轉換成數字
+                } catch (NumberFormatException e) {
+                    sendErrorResponse(req, res, "會員編號超出整數範圍，請輸入1-10位數的正整數！", "/back-end/membermanage/select_page.jsp");
+                    return; // 🛑 中斷執行
+                }
+            }
+
+            // ✅ 會員姓名檢查
+            if (!memberName.isEmpty()) {
+                if (!memberName.matches("^[\\u4e00-\\u9fa5a-zA-Z\\s]{1,30}$")) {
+                    sendErrorResponse(req, res, "會員姓名格式不正確，僅允許中文、英文字母和空格，長度為1-30個字元！", "/back-end/membermanage/select_page.jsp");
+                    return; // 🛑 中斷執行
+                }
+            }
+
+            // ✅ 至少要有會員ID或會員姓名之一
+            if (memberId == null && memberName.isEmpty()) {
+                sendErrorResponse(req, res, "請至少輸入會員編號或會員姓名作為查詢條件！", "/back-end/membermanage/select_page.jsp");
+                return; // 🛑 中斷執行
+            }
+
+            // 2️⃣ 開始查詢數據
+            MemberManageService service = new MemberManageService();
+
+            // 2.1 如果會員ID不為空，優先用會員ID查詢
+            if (memberId != null) {
+                try {
+                    MemberManageVO member = service.getOneMember(memberId);
+                    if (member == null) {
+                        sendErrorResponse(req, res, "查無此會員，會員ID: " + memberId, "/back-end/membermanage/select_page.jsp");
+                        return;
+                    }
                     req.setAttribute("member", member);
+                    RequestDispatcher successView = req.getRequestDispatcher("/back-end/membermanage/listOneMemberManage.jsp");
+                    successView.forward(req, res);
+                    return;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    sendErrorResponse(req, res, "查詢會員時發生錯誤，請稍後重試", "/back-end/membermanage/select_page.jsp");
+                    return;
                 }
-                RequestDispatcher successView = req.getRequestDispatcher(UPDATE_MEMBER_URL);
+            }
+
+            // 2.2 如果會員ID為空，則根據會員姓名查詢
+            try {
+                List<MemberManageVO> memberList = service.getMemberByName(memberName);
+                if (memberList.isEmpty()) {
+                    sendErrorResponse(req, res, "查無此會員，會員姓名: " + memberName, "/back-end/membermanage/select_page.jsp");
+                    return;
+                }
+                req.setAttribute("memberList", memberList);
+                RequestDispatcher successView = req.getRequestDispatcher("/back-end/membermanage/listAllMemberManage.jsp");
                 successView.forward(req, res);
             } catch (Exception e) {
-                System.err.println("[錯誤] 查詢單一會員時發生錯誤：" + e.getMessage());
-                req.setAttribute("errorMsg", "查詢失敗：" + e.getMessage());
-                RequestDispatcher failureView = req.getRequestDispatcher(LIST_ALL_URL);
-                failureView.forward(req, res);
+                e.printStackTrace();
+                sendErrorResponse(req, res, "查詢會員時發生錯誤，請稍後重試", "/back-end/membermanage/select_page.jsp");
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            sendErrorResponse(req, res, "伺服器發生錯誤，請稍後重試", "/back-end/membermanage/select_page.jsp");
         }
+    }
 
-        if ("update".equals(action)) { // 更新會員等級與狀態
-            System.out.println("[訊息] 動作：更新會員資料。");
-            try {
-                Integer memberId = Integer.valueOf(req.getParameter("memberId").trim());
-                Byte memberLvId = Byte.valueOf(req.getParameter("memberLvId").trim());
-                Byte memberStatus = Byte.valueOf(req.getParameter("memberStatus").trim());
 
-                System.out.println("[訊息] 更新會員編號：" + memberId + "，等級：" + memberLvId + "，狀態：" + memberStatus);
-
-                MemberManageService service = new MemberManageService();
-                service.updateMemberLevelAndStatus(memberId, memberLvId, memberStatus);
-
-                System.out.println("[訊息] 會員更新成功，會員編號：" + memberId);
-                res.sendRedirect("MemberManageServlet?action=getAll");
-            } catch (Exception e) {
-                System.err.println("[錯誤] 更新會員資料時發生錯誤：" + e.getMessage());
-                req.setAttribute("errorMsg", "更新失敗：" + e.getMessage());
-                RequestDispatcher failureView = req.getRequestDispatcher(UPDATE_MEMBER_URL);
-                failureView.forward(req, res);
+    // **3️⃣ 進入更新頁面**
+    private void handleGetUpdatePage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        try {
+            Integer memberId = validateIntegerParam(req.getParameter("memberId"), "會員編號必須為數字！");
+            MemberManageService service = new MemberManageService();
+            MemberManageVO member = service.getOneMember(memberId);
+            
+            if (member == null) {
+                sendErrorResponse(req, res, "查無此會員，會員ID: " + memberId, "/back-end/membermanage/select_page.jsp");
+                return;
             }
+
+            req.setAttribute("member", member);
+            RequestDispatcher successView = req.getRequestDispatcher("/back-end/membermanage/updateMemberManage.jsp");
+            successView.forward(req, res);
+        } catch (Exception e) {
+            sendErrorResponse(req, res, "伺服器發生錯誤：" + e.getMessage(), "/back-end/membermanage/select_page.jsp");
         }
+    }
+
+    // **4️⃣ 更新會員**
+    private void handleUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        try {
+            Integer memberId = validateIntegerParam(req.getParameter("memberId"), "會員編號必須為數字！");
+            Byte memberLvId = validateByteParam(req.getParameter("memberLvId"), "會員等級必須為數字！");
+            Byte memberStatus = validateByteParam(req.getParameter("memberStatus"), "會員狀態必須為數字！");
+
+            MemberManageService service = new MemberManageService();
+            service.updateMemberLevelAndStatus(memberId, memberLvId, memberStatus);
+
+            res.sendRedirect(req.getContextPath() + "/memberManageServlet?action=getAll");
+        } catch (Exception e) {
+            sendErrorResponse(req, res, "更新會員資料時發生錯誤：" + e.getMessage(), "/back-end/membermanage/updateMemberManage.jsp");
+        }
+    }
+
+    // **通用錯誤處理方法**
+    private void sendErrorResponse(HttpServletRequest req, HttpServletResponse res, String errorMsg, String forwardPath) throws ServletException, IOException {
+        System.err.println("[錯誤] " + errorMsg);
+        req.setAttribute("errorMsg", errorMsg);
+        RequestDispatcher failureView = req.getRequestDispatcher("/back-end/membermanage/error.jsp");
+        failureView.forward(req, res);
+    }
+
+    // **輔助驗證方法**
+    private Integer validateIntegerParam(String param, String errorMsg) {
+        if (param == null || !param.matches("\\d+")) {
+            throw new IllegalArgumentException(errorMsg);
+        }
+        return Integer.valueOf(param);
+    }
+
+    private Byte validateByteParam(String param, String errorMsg) {
+        if (param == null || !param.matches("\\d+")) {
+            throw new IllegalArgumentException(errorMsg);
+        }
+        return Byte.valueOf(param);
     }
 }

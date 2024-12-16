@@ -2,25 +2,17 @@ package com.membertag.model;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.redis.connectionpool.RedisConfig;
+//直接從redis拿資料
+
 public class TagCache {
 
-	private JedisPool jedisPool;
-
-	public TagCache() {
-		JedisPoolConfig poolConfig = new JedisPoolConfig();
-		poolConfig.setMaxTotal(128); // 設置最大連接數
-		poolConfig.setMaxIdle(128); // 設置最大閒置連接數
-		poolConfig.setMinIdle(16); // 設置最小閒置連接數
-		poolConfig.setTestOnBorrow(true); // 測試連接可用性
-
-		this.jedisPool = new JedisPool(poolConfig, "localhost", 6379);
-	}
+	// 這裡使用 RedisConfig 提供的共享連接池
+	private final JedisPool jedisPool = RedisConfig.getJedisPool();
 
 	// 從 Redis 中獲取單個標籤資料
 	public TagVO getTagFromRedis(int tagId) {

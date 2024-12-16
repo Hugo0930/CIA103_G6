@@ -2,6 +2,10 @@ package com.membertag.model;
 
 public class MemberTagVO implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int memId; // 會員編號
 	private int tagId; // 標籤編號
 

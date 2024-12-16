@@ -1,124 +1,195 @@
 package com.membertag.model;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sql.DataSource;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import com.utils.datasource.HikariDataSourceUtil;
 
 public class TagDAO {
 
+	// 取得資料庫連線的 DataSource (HikariDataSource)
 	private static final DataSource ds = HikariDataSourceUtil.getDataSource();
 
-	// 查詢標籤
-	public TagVO getTagById(int tagId) throws SQLException {
-		String query = "SELECT TAG_NAME, TAG_TYPE_NO FROM tag WHERE TAG_ID = ?";
-		try (Connection connection = ds.getConnection(); // 從 DataSource 獲取 Connection
-				PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setInt(1, tagId);
-			try (ResultSet rs = stmt.executeQuery()) {
+	// SQL 語句
+	private static final String SELECT_ALL_TAGS = "SELECT TAG_ID, TAG_NAME, TAG_TYPE_NO FROM TAG";
+
+	private static final String INSERT_TAG = "INSERT INTO TAG (TAG_NAME, TAG_TYPE_NO) VALUES (?, ?)";
+
+	private static final String SELECT_TAG_BY_ID = "SELECT TAG_ID, TAG_NAME, TAG_TYPE_NO FROM TAG WHERE TAG_ID = ?";
+
+	private static final String SELECT_TAGS_BY_MEMBER_ID = "SELECT t.TAG_ID, t.TAG_NAME, t.TAG_TYPE_NO FROM TAG t "
+			+ "JOIN MEMBER_TAGS mt ON t.TAG_ID = mt.TAG_ID " + "WHERE mt.MEMBER_ID = ?";
+
+	private static final String UPDATE_TAG = "UPDATE TAG SET TAG_NAME = ?, TAG_TYPE_NO = ? WHERE TAG_ID = ?";
+
+	private static final String SELECT_TAGS_BY_CATEGORY = "SELECT TAG_ID, TAG_NAME, TAG_TYPE_NO FROM TAG WHERE TAG_TYPE_NO = ?";
+
+	/**
+	 * 查詢所有標籤
+	 */
+	public List<TagVO> getAllTags() {
+		List<TagVO> tagList = new ArrayList<>();
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_TAGS);
+				ResultSet rs = pstmt.executeQuery()) {
+
+			while (rs.next()) {
+				TagVO tag = new TagVO(rs.getInt("TAG_ID"), rs.getInt("TAG_TYPE_NO"), rs.getString("TAG_NAME"));
+				tagList.add(tag);
+			}
+		} catch (SQLException e) {
+			System.err.println("查詢所有標籤失敗，錯誤訊息: " + e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return tagList;
+	}
+
+	/**
+	 * 新增標籤
+	 */
+	public int addTag(TagVO tag) {
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(INSERT_TAG, Statement.RETURN_GENERATED_KEYS)) {
+
+			pstmt.setString(1, tag.getTagName());
+			pstmt.setInt(2, tag.getTagTypeNo());
+			pstmt.executeUpdate();
+
+			try (ResultSet rs = pstmt.getGeneratedKeys()) {
 				if (rs.next()) {
-					// 將查詢結果轉換為 TagVO 物件
+					return rs.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("新增標籤失敗: " + e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return -1;
+	}
+
+	/**
+	 * 根據標籤ID查詢標籤
+	 */
+	public TagVO getTagById(int tagId) {
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_TAG_BY_ID)) {
+
+			pstmt.setInt(1, tagId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
 					return new TagVO(tagId, rs.getInt("TAG_TYPE_NO"), rs.getString("TAG_NAME"));
 				}
 			}
+		} catch (SQLException e) {
+			System.err.println("查詢標籤失敗，TAG_ID: " + tagId + "，錯誤訊息: " + e.getMessage());
+			throw new RuntimeException(e);
 		}
-		return null; // 如果查無資料，返回 null
+		return null;
 	}
 
-	// 查詢會員的所有標籤
-	public List<TagVO> getTagsByMemberId(int memId) throws SQLException {
+	/**
+	 * 查詢會員的所有標籤
+	 */
+	public List<TagVO> getTagsByMemberId(int memId) {
 		List<TagVO> tags = new ArrayList<>();
-		String query = "SELECT t.TAG_ID, t.TAG_NAME, t.TAG_TYPE_NO " + "FROM tag t "
-				+ "JOIN member_tags mt ON t.TAG_ID = mt.TAG_ID " + "WHERE mt.MEMBER_ID = ?";
-		try (Connection connection = ds.getConnection(); // 確保每次使用前獲取連線
-				PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setInt(1, memId);
-			try (ResultSet rs = stmt.executeQuery()) {
-				while (rs.next()) {
-					// 將查詢結果轉換為 TagVO 物件並加入列表
-					int tagId = rs.getInt("TAG_ID");
-					String tagName = rs.getString("TAG_NAME");
-					int tagTypeNo = rs.getInt("TAG_TYPE_NO");
-					tags.add(new TagVO(tagId, tagTypeNo, tagName));
-				}
-			}
-		}
-		return tags; // 返回會員的所有標籤
-	}
-
-	// 新增標籤
-	public int addTag(TagVO tag) throws SQLException {
-		String query = "INSERT INTO tag (TAG_NAME, TAG_TYPE_NO) VALUES (?, ?)";
 		try (Connection connection = ds.getConnection();
-				PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-			stmt.setString(1, tag.getTagName());
-			stmt.setInt(2, tag.getTagTypeNo());
-			stmt.executeUpdate();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_TAGS_BY_MEMBER_ID)) {
 
-			try (ResultSet rs = stmt.getGeneratedKeys()) {
-				if (rs.next()) {
-					return rs.getInt(1); // 返回自增的 TAG_ID
+			pstmt.setInt(1, memId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					tags.add(new TagVO(rs.getInt("TAG_ID"), rs.getInt("TAG_TYPE_NO"), rs.getString("TAG_NAME")));
 				}
 			}
+		} catch (SQLException e) {
+			System.err.println("查詢會員標籤失敗: " + e.getMessage());
+			throw new RuntimeException(e);
 		}
-		return -1; // 如果沒有成功插入則返回 -1
+		return tags;
 	}
 
-	// 刪除標籤
-	public void removeTag(int tagId) throws SQLException {
-		String query = "DELETE FROM tag WHERE TAG_ID = ?";
-		try (Connection connection = ds.getConnection(); // 確保獲取連線
-				PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setInt(1, tagId);
-			stmt.executeUpdate();
+	/**
+	 * 更新標籤
+	 */
+	public void updateTag(TagVO tag) {
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_TAG)) {
+
+			pstmt.setString(1, tag.getTagName());
+			pstmt.setInt(2, tag.getTagTypeNo());
+			pstmt.setInt(3, tag.getTagId());
+
+			int rowCount = pstmt.executeUpdate();
+			if (rowCount == 0) {
+				throw new SQLException("更新失敗，標籤ID: " + tag.getTagId() + " 不存在");
+			}
+		} catch (SQLException e) {
+			System.err.println("更新標籤失敗: " + e.getMessage());
+			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 透過類別查詢標籤
+	 */
+	public List<TagVO> getTagsByCategory(int categoryId) {
+		List<TagVO> tagList = new ArrayList<>();
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_TAGS_BY_CATEGORY)) {
+
+			pstmt.setInt(1, categoryId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					tagList.add(new TagVO(rs.getInt("TAG_ID"), rs.getInt("TAG_TYPE_NO"), rs.getString("TAG_NAME")));
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("查詢標籤類別失敗: " + e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return tagList;
+	}
+
+	public List<Integer> searchMembersByPartialTagName(String partialName) {
+		String sql = "SELECT DISTINCT mt.MEM_ID FROM member_tag mt " + "JOIN tag t ON mt.TAG_ID = t.TAG_ID "
+				+ "WHERE t.TAG_NAME LIKE ?";
+		List<Integer> memberIds = new ArrayList<>();
+
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+			pstmt.setString(1, "%" + partialName + "%");
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					memberIds.add(rs.getInt("MEM_ID"));
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("資料庫模糊搜尋失敗，錯誤訊息：" + e.getMessage(), e);
+		}
+
+		return memberIds;
 	}
 
 	public static void main(String[] args) {
-		TagDAO tagDAO = new TagDAO();
+		TagService tagService = new TagService();
+		try {
+			int categoryId = 2; // 例如，這是標籤類別 "語言" 的 ID
+			List<TagVO> tags = tagService.getTagsByCategory(categoryId);
 
-//            try {
-//                // 測試新增標籤
-//                System.out.println("=== 新增標籤 ===");
-//                memberTagVO newTag = new memberTagVO();
-//                newTag.setTagName("Test Tag");
-//                newTag.setTagTypeNo(1); // 假設 1 是有效的類型編號
-//                int generatedTagId = tagDAO.addTag(newTag);
-//                System.out.println("新增的標籤 ID: " + generatedTagId);
-//
-//                // 測試查詢單一標籤
-//                System.out.println("\n=== 查詢單一標籤 ===");
-//                TagVO tag = tagDAO.getTagById(generatedTagId);
-//                if (tag != null) {
-//                    System.out.println("標籤 ID: " + tag.getTagId());
-//                    System.out.println("標籤名稱: " + tag.getTagName());
-//                    System.out.println("標籤類型編號: " + tag.getTagTypeNo());
-//                } else {
-//                    System.out.println("找不到該標籤");
-//                }
-//
-//                // 測試查詢會員的所有標籤
-//                System.out.println("\n=== 查詢會員的所有標籤 ===");
-//                int memberId = 1; // 假設 1 是有效的會員 ID
-//                List<TagVO> memberTags = tagDAO.getTagsByMemberId(memberId);
-//                for (TagVO memberTag : memberTags) {
-//                    System.out.println("標籤 ID: " + memberTag.getTagId());
-//                    System.out.println("標籤名稱: " + memberTag.getTagName());
-//                    System.out.println("標籤類型編號: " + memberTag.getTagTypeNo());
-//                }
-//
-//                // 測試刪除標籤
-//                System.out.println("\n=== 刪除標籤 ===");
-//                tagDAO.removeTag(generatedTagId);
-//                System.out.println("標籤已刪除: " + generatedTagId);
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                System.out.println("操作失敗: " + e.getMessage());
-//            }
-//        }
+			System.out.println("【標籤列表】 類別ID: " + categoryId);
+			for (TagVO tag : tags) {
+				System.out.println(tag);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			tagService.close();
+		}
 	}
 }

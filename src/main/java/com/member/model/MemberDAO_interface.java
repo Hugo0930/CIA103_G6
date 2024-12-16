@@ -1,12 +1,13 @@
 package com.member.model;
 
-import java.util.*;
-
 public interface MemberDAO_interface {
-          public void insert(MemberVO memberVO);
-          public void update(MemberVO memberVO);
-          public void delete(Integer memberId);
-          public MemberVO findByPrimaryKey(Integer memberId);
-          public List<MemberVO> getAll();
-//        public List<MemberVO> getAll(Map<String, String[]> map); 
-}
+    
+    /**
+     * 會員更新個人資訊 (不包括會員等級、會員狀態和會員ID)
+     * 
+     * @param memberVO 包含會員個人資訊的 VO 物件
+     * @return boolean 更新成功則返回 true，失敗則返回 false
+     */
+    public boolean updatePersonalInfo(MemberVO memberVO);
+    MemberVO findByPrimaryKey(Integer memberId);
+  }

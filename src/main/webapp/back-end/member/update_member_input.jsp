@@ -2,192 +2,154 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 
-<% //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
-   MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+<%
+MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 %>
 
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料修改 - update_member_input.jsp</title>
-<!--css路徑  -->
-<link rel="stylesheet" href="<%= request.getContextPath() %>/back-end/member/css/update_member_input.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>會員資料修改</title>
 
+<!-- Bootstrap 5 CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-<body bgcolor='white'>
+<body class="bg-light">
 
-<table id="table-1">
-	<tr><td>
-		 <h3>會員資料修改 - update_member_input.jsp</h3>
-		 <h4>
-		 <a href="select_page.jsp"><img src="<%=request.getContextPath()%>/back-end/member/images/back1.gif"  width="100" height="32" border="0">回首頁</a>
-		 </h4>
-	</td></tr>
-</table>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">會員資料修改</h2>
 
-<h3>資料修改:</h3>
+            <!-- 錯誤訊息顯示區 -->
+            <c:if test="${not empty errorMsgs}">
+                <div class="alert alert-danger">
+                    <strong>請修正以下錯誤:</strong>
+                    <ul>
+                        <c:forEach var="message" items="${errorMsgs}">
+                            <li>${message}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+            <form method="post" action="memberUpdateServlet" class="needs-validation" novalidate>
+                
+                
+                <!-- 會員編號 (僅顯示) -->
+                <div class="mb-3">
+                    <label for="memberId" class="form-label">會員編號</label>
+                    <input type="text" class="form-control-plaintext" readonly value="<%= memberVO.getMemberId() %>">
+                </div>
 
-<FORM METHOD="post" ACTION="member.do" name="form1">
-<table>
-	<tr>
-		<td>會員編號:<font color=red><b>*</b></font></td>
-		<td><%=memberVO.getMemberId()%></td>
-	</tr>
-	<tr>
-		<td>會員等級編號:</td>
-		<td><input type="TEXT" name="memberLvId" value="<%=memberVO.getMemberLvId()%>" size="5"/></td>
-	</tr>
-	<tr>
-		<td>會員姓名:</td>
-		<td><input type="TEXT" name="memberName"   value="<%=memberVO.getMemberName()%>" size="10"/></td>
-	</tr>
-	<tr>
-		<td>身分證字號:</td>
-		<td><input type="TEXT" name="memberUid"   value="<%=memberVO.getMemberUid()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>生日:</td>
-		<td><input name="memberBth" id="f_date1" type="text" ></td> 
-	</tr>
-	<tr>
-		<td>性別:</td>
-		<td><input type="TEXT" name="memberGender"  value="<%=memberVO.getMemberGender()%>" size="5"/></td>
-	</tr>
-	<tr>
-		<td>電子郵件:</td>
-		<td><input type="TEXT" name="memberEmail"  value="<%=memberVO.getMemberEmail()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>手機電話:</td>
-		<td><input type="TEXT" name="memberTel"  value="<%=memberVO.getMemberTel()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>地址:</td>
-		<td><input type="TEXT" name="memberadd"  value="<%=memberVO.getMemberAdd()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>帳號:</td>
-		<td><input type="TEXT" name="memberAcc"  value="<%=memberVO.getMemberAcc()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>密碼:</td>
-		<td><input type="TEXT" name="memberPw"  value="<%=memberVO.getMemberPw()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>會員狀態:</td>
-		<td><input type="TEXT" name="memberStatus"  value="<%=memberVO.getMemberStatus()%>" size="5"/></td>
-	</tr>
+                <!-- 會員姓名 -->
+                <div class="mb-3">
+                    <label for="memberName" class="form-label">會員姓名</label>
+                    <input type="text" class="form-control" id="memberName" name="memberName" value="<c:out value='${memberVO.memberName}'/>" required>
+                    <div class="invalid-feedback">
+                        請輸入會員姓名，最多 10 個字。
+                    </div>
+                </div>
 
-<%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.dept.model.DeptService" /> --%>
-<!-- 	<tr> -->
-<!-- 		<td>部門:<font color=red><b>*</b></font></td> -->
-<!-- 		<td><select size="1" name="deptno"> -->
-<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
-<%-- 				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)?'selected':'' } >${deptVO.dname} --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</select></td> -->
-<!-- 	</tr> -->
+                <!-- 身分證字號 -->
+                <div class="mb-3">
+                    <label for="memberUid" class="form-label">身分證字號</label>
+                    <input type="text" class="form-control" id="memberUid" name="memberUid" value="<c:out value='${memberVO.memberUid}'/>" required>
+                    <div class="invalid-feedback">
+                        請輸入正確的身分證字號。
+                    </div>
+                </div>
 
-</table>
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="memberId" value="<%=memberVO.getMemberId()%>">
-<input type="submit" value="送出修改"></FORM>
-</body>
+                <!-- 生日 -->
+                <div class="mb-3">
+                    <label for="memberBth" class="form-label">生日</label>
+                    <input type="date" class="form-control" id="memberBth" name="memberBth" value="<c:out value='${memberVO.memberBth}'/>" required>
+                    <div class="invalid-feedback">
+                        請選擇正確的生日日期。
+                    </div>
+                </div>
 
+                <!-- 性別 -->
+                <div class="mb-3">
+                    <label for="memberGender" class="form-label">性別</label>
+                    <select class="form-select" id="memberGender" name="memberGender" required>
+                        <option value="1" <c:if test="${memberVO.memberGender == 1}">selected</c:if>>男</option>
+                        <option value="2" <c:if test="${memberVO.memberGender == 2}">selected</c:if>>女</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        請選擇性別。
+                    </div>
+                </div>
 
+                <!-- 電子郵件 -->
+                <div class="mb-3">
+                    <label for="memberEmail" class="form-label">電子郵件</label>
+                    <input type="email" class="form-control" id="memberEmail" name="memberEmail" value="<c:out value='${memberVO.memberEmail}'/>" required>
+                    <div class="invalid-feedback">
+                        請輸入有效的電子郵件地址。
+                    </div>
+                </div>
 
-<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
+                <!-- 手機電話 -->
+                <div class="mb-3">
+                    <label for="memberTel" class="form-label">手機電話</label>
+                    <input type="text" class="form-control" id="memberTel" name="memberTel" value="<c:out value='${memberVO.memberTel}'/>">
+                </div>
 
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/back-end/datetimepicker/jquery.datetimepicker.full.js"></script>
+                <!-- 地址 -->
+                <div class="mb-3">
+                    <label for="memberAdd" class="form-label">地址</label>
+                    <input type="text" class="form-control" id="memberAdd" name="memberAdd" value="<c:out value='${memberVO.memberAdd}'/>">
+                </div>
 
-<style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
-</style>
+                <!-- 帳號 (只顯示) -->
+                <div class="mb-3">
+                    <label for="memberAcc" class="form-label">帳號</label>
+                    <input type="text" class="form-control-plaintext" readonly value="<c:out value='${memberVO.memberAcc}'/>">
+                </div>
 
+                <!-- 密碼 -->
+                <div class="mb-3">
+                    <label for="memberPw" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="memberPw" name="memberPw" value="<c:out value='${memberVO.memberPw}'/>" required>
+                    <div class="invalid-feedback">
+                        請輸入密碼，長度為 6 到 20 個字元。
+                    </div>
+                </div>
+
+                <input type="hidden" name="action" value="update">
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-lg" type="submit">送出修改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<!-- 表單驗證 -->
 <script>
-$(document).ready(function() {
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-           theme: '',              //theme: 'dark',
- 	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '<%=memberVO.getMemberBth()%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-        });
-});
-        
-        
-   
-        // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
-
-        //      1.以下為某一天之前的日期無法選擇
-        //      var somedate1 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-        
-        //      2.以下為某一天之後的日期無法選擇
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-
-        //      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
+(function() {
+    'use strict';
+    var forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
 </script>
+
+</body>
 </html>
