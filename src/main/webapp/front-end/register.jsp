@@ -12,7 +12,7 @@
 <meta name="keywords" content="Slide Login Form template Responsive, Login form web template, Flat Pricing tables, Flat Drop downs Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
 
-<script type="text/javascript" src="login/scripts/function.js"></script>
+<script type="text/javascript" src="loginfile/scripts/function.js"></script>
 <script type="text/javascript">
 	function selectname(){
 	  	var name = document.getElementById("selectname").value;
@@ -32,8 +32,8 @@
 
 
 	<!-- Custom Theme files -->
-	<link href="login/css/stylereg.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="login/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="loginfile/css/stylereg.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="loginfile/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- //Custom Theme files -->
 
 	<!-- web font -->
