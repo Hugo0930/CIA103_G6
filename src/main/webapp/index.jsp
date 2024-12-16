@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>VoiceBus聲音巴士</title>
+<title>VoiceBusè²é³å·´å£«</title>
 
 <!-- CSS FILES -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,8 +104,8 @@ button {
 				<a class="navbar-brand me-lg-5 me-0"
 					href="${pageContext.request.contextPath}/front-end/jsp//index.jsp">
 					<img
-					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
-					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
+					src="${pageContext.request.contextPath}/front-end/images/åå.gif"
+					class="logo-image img-fluid" alt="VoiceBusè²é³å·´å£«">
 				</a>
 				<form action="#" method="get"
 					class="custom-form search-form flex-fill me-3" role="search">
@@ -126,168 +126,168 @@ button {
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ms-lg-auto">
 						<li class="nav-item"><a class="nav-link active" href="#"
-							style="color: #000000; font-size: 18px;">公告</a></li>
+							style="color: #000000; font-size: 18px;">å¬å</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
-							style="color: #000000; font-size: 18px;">關於我</a></li>
+							style="color: #000000; font-size: 18px;">éæ¼æ</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">商城</a></li>
+							style="color: #000000; font-size: 18px;">åå</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">錄音室</a></li>
+							style="color: #000000; font-size: 18px;">éé³å®¤</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarLightDropdownMenuLink" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false"
-							style="color: #000000; font-size: 18px;">配音員</a>
+							style="color: #000000; font-size: 18px;">éé³å¡</a>
 							<ul class="dropdown-menu dropdown-menu-light"
 								aria-labelledby="navbarLightDropdownMenuLink">
 								<li><a class="dropdown-item"
 									href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp"
-									style="color: #000000;">配音員列表</a></li>
+									style="color: #000000;">éé³å¡åè¡¨</a></li>
 							</ul></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarLightDropdownMenuLink" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false"
-							style="color: #000000; font-size: 18px;">案件列表</a>
+							style="color: #000000; font-size: 18px;">æ¡ä»¶åè¡¨</a>
 							<ul class="dropdown-menu dropdown-menu-light"
 								aria-labelledby="navbarLightDropdownMenuLink">
 								<li><a class="dropdown-item"
-									href="${pageContext.request.contextPath}">發案</a>
+									href="${pageContext.request.contextPath}">ç¼æ¡</a>
 								</li>
 								<li><a class="dropdown-item" href="#"
-									style="color: #000000;">接案</a></li>
+									style="color: #000000;">æ¥æ¡</a></li>
 							</ul></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">會員登入</a></li>
+							style="color: #000000; font-size: 18px;">æå¡ç»å¥</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp"
-							style="color: #000000; font-size: 18px;">客服中心</a></li>
+							style="color: #000000; font-size: 18px;">å®¢æä¸­å¿</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		<section class="hero-section">
-			<h1 class="text-black" style="text-align: center;">VoiceBus聲音巴士</h1>
+			<h1 class="text-black" style="text-align: center;">VoiceBusè²é³å·´å£«</h1>
 			<div style="text-align: center;">
 				<a href="#section_2" class="btn custom-btn smoothscroll mt-3"
 					style="margin-bottom: 50px;">Start listening</a>
 			</div>
 			<style>
-/* 統一輪播框架樣式 */
+/* çµ±ä¸è¼ªæ­æ¡æ¶æ¨£å¼ */
 .owl-carousel-info-wrap {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 400px; /* 統一框架高度 */
-	width: 300px; /* 統一框架寬度 */
-	margin: 10px; /* 框架間距 */
+	height: 400px; /* çµ±ä¸æ¡æ¶é«åº¦ */
+	width: 300px; /* çµ±ä¸æ¡æ¶å¯¬åº¦ */
+	margin: 10px; /* æ¡æ¶éè· */
 	text-align: center;
-	border: 1px solid #ddd; /* 可選: 添加邊框美化 */
-	border-radius: 10px; /* 可選: 添加圓角美化 */
-	overflow: hidden; /* 確保圖片不會超出框架 */
-	background: #f9f9f9; /* 可選: 添加背景色 */
+	border: 1px solid #ddd; /* å¯é¸: æ·»å éæ¡ç¾å */
+	border-radius: 10px; /* å¯é¸: æ·»å åè§ç¾å */
+	overflow: hidden; /* ç¢ºä¿åçä¸æè¶åºæ¡æ¶ */
+	background: #f9f9f9; /* å¯é¸: æ·»å èæ¯è² */
 }
 
-/* 圖片樣式調整 */
+/* åçæ¨£å¼èª¿æ´ */
 .owl-carousel-image {
-	width: 100%; /* 圖片寬度填滿框架 */
-	height: 100%; /* 圖片高度填滿框架 */
-	object-fit: cover; /* 確保圖片適應框架大小並保持比例 */
+	width: 100%; /* åçå¯¬åº¦å¡«æ»¿æ¡æ¶ */
+	height: 100%; /* åçé«åº¦å¡«æ»¿æ¡æ¶ */
+	object-fit: cover; /* ç¢ºä¿åçé©ææ¡æ¶å¤§å°ä¸¦ä¿ææ¯ä¾ */
 }
 
-/* 信息區域樣式調整 */
+/* ä¿¡æ¯ååæ¨£å¼èª¿æ´ */
 .owl-carousel-info {
 	margin-top: 10px;
 }
 
-/* 調整社交分享區域的樣式 */
+/* èª¿æ´ç¤¾äº¤åäº«ååçæ¨£å¼ */
 .social-share {
 	margin-top: 10px;
 }
 </style>
 
 			<div class="owl-carousel owl-theme">
-				<!-- 輪播項目 1 -->
+				<!-- è¼ªæ­é ç® 1 -->
 				<div class="owl-carousel-info-wrap item">
 					<img
 						src="${pageContext.request.contextPath}/front-end/images/me.jpg"
-						class="owl-carousel-image img-fluid" alt="歆雅">
+						class="owl-carousel-image img-fluid" alt="æ­é">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">
-							歆雅 <img
+							æ­é <img
 								src="${pageContext.request.contextPath}/front-end/images/verified.png"
 								class="owl-carousel-verified-image img-fluid" alt="">
 						</h4>
-						<span class="badge">商業配音</span> <span class="badge">青年</span>
+						<span class="badge">åæ¥­éé³</span> <span class="badge">éå¹´</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 
-				<!-- 輪播項目 2 -->
+				<!-- è¼ªæ­é ç® 2 -->
 				<div class="owl-carousel-info-wrap item">
 					<img
-						src="${pageContext.request.contextPath}/front-end/images/浩鈞.jpg"
-						class="owl-carousel-image img-fluid" alt="浩鈞">
+						src="${pageContext.request.contextPath}/front-end/images/æµ©é.jpg"
+						class="owl-carousel-image img-fluid" alt="æµ©é">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">
-							浩鈞 <img src="images/verified.png"
+							æµ©é <img src="images/verified.png"
 								class="owl-carousel-verified-image img-fluid" alt="">
 						</h4>
-						<span class="badge">青年</span> <span class="badge">角色配音</span>
+						<span class="badge">éå¹´</span> <span class="badge">è§è²éé³</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 
-				<!-- 輪播項目 3 -->
+				<!-- è¼ªæ­é ç® 3 -->
 				<div class="owl-carousel-info-wrap item">
 					<img
-						src="${pageContext.request.contextPath}/front-end/images/文成.png"
-						class="owl-carousel-image img-fluid" alt="文成">
+						src="${pageContext.request.contextPath}/front-end/images/ææ.png"
+						class="owl-carousel-image img-fluid" alt="ææ">
 					<div class="owl-carousel-info">
-						<h4 class="mb-2">文成</h4>
-						<span class="badge">商業配音</span> <span class="badge">青年</span>
+						<h4 class="mb-2">ææ</h4>
+						<span class="badge">åæ¥­éé³</span> <span class="badge">éå¹´</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 
-				<!-- 輪播項目 4 -->
+				<!-- è¼ªæ­é ç® 4 -->
 				<div class="owl-carousel-info-wrap item">
 					<img
-						src="${pageContext.request.contextPath}/front-end/images/阿偷2.jpg"
-						class="owl-carousel-image img-fluid" alt="薪壬">
+						src="${pageContext.request.contextPath}/front-end/images/é¿å·2.jpg"
+						class="owl-carousel-image img-fluid" alt="èªå£¬">
 					<div class="owl-carousel-info">
-						<h4 class="mb-2">薪壬</h4>
-						<span class="badge">青年</span> <span class="badge">商業配音</span>
+						<h4 class="mb-2">èªå£¬</h4>
+						<span class="badge">éå¹´</span> <span class="badge">åæ¥­éé³</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 
-				<!-- 輪播項目 5 -->
+				<!-- è¼ªæ­é ç® 5 -->
 				<div class="owl-carousel-info-wrap item">
 					<img
-						src="${pageContext.request.contextPath}/front-end/images/章.jpg"
-						class="owl-carousel-image img-fluid" alt="章峻">
+						src="${pageContext.request.contextPath}/front-end/images/ç« .jpg"
+						class="owl-carousel-image img-fluid" alt="ç« å³»">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">
-							章峻 <img
+							ç« å³» <img
 								src="${pageContext.request.contextPath}/front-end/images/verified.png"
 								class="owl-carousel-verified-image img-fluid" alt="">
 						</h4>
-						<span class="badge">中文</span> <span class="badge">商業配音</span>
+						<span class="badge">ä¸­æ</span> <span class="badge">åæ¥­éé³</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 
-				<!-- 輪播項目 6 -->
+				<!-- è¼ªæ­é ç® 6 -->
 				<div class="owl-carousel-info-wrap item">
 					<img
-						src="${pageContext.request.contextPath}/front-end/images/辰正1.jpg"
-						class="owl-carousel-image img-fluid" alt="辰正">
+						src="${pageContext.request.contextPath}/front-end/images/è¾°æ­£1.jpg"
+						class="owl-carousel-image img-fluid" alt="è¾°æ­£">
 					<div class="owl-carousel-info">
-						<h4 class="mb-2">辰正</h4>
-						<span class="badge">商業配音</span> <span class="badge">中文</span>
+						<h4 class="mb-2">è¾°æ­£</h4>
+						<span class="badge">åæ¥­éé³</span> <span class="badge">ä¸­æ</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
@@ -313,7 +313,7 @@ button {
 					<div class="col-lg-12 col-12">
 
 						<div class="section-title-wrap mb-5">
-							<h4 class="section-title">試聽配音員</h4>
+							<h4 class="section-title">è©¦è½éé³å¡</h4>
 						</div>
 					</div>
 
@@ -325,38 +325,38 @@ button {
 									<div class="section-overlay"></div>
 									<div class="custom-block-icon-wrap">
 										<div class="section-overlay"></div>
-										<!-- 圖片區域 -->
+										<!-- åçåå -->
 										<a href="#" class="custom-block-image-wrap"> <img
 											src="${pageContext.request.contextPath}/front-end/images/podcast/11683425_4790593.jpg"
 											class="custom-block-image img-fluid" alt="Podcast Cover">
 										</a>
 
-										<!-- 撥放按鈕區域 -->
+										<!-- æ¥æ¾æéåå -->
 										<a href="#" class="custom-block-icon"
-											onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/口香糖廣告.mp3')">
+											onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/å£é¦ç³å»£å.mp3')">
 											<i class="bi-play-fill"></i>
 										</a>
 
-										<!-- 隱藏的音樂播放器 -->
+										<!-- é±èçé³æ¨æ­æ¾å¨ -->
 										<audio id="audio-player" style="display: none;">
 											<source id="audio-source" src="" type="audio/mpeg">
-											<!--         您的瀏覽器不支援音頻播放功能。 -->
+											<!--         æ¨ççè¦½å¨ä¸æ¯æ´é³é »æ­æ¾åè½ã -->
 										</audio>
 									</div>
 
 									<script>
-										// 撥放音頻的JavaScript函數
+										// æ¥æ¾é³é »çJavaScriptå½æ¸
 										function playAudio(event, audioSrc) {
-											event.preventDefault(); // 阻止 <a> 的預設行為
+											event.preventDefault(); // é»æ­¢ <a> çé è¨­è¡çº
 											const audioPlayer = document
 													.getElementById('audio-player');
 											const audioSource = document
 													.getElementById('audio-source');
 
-											// 設定音頻檔案來源
+											// è¨­å®é³é »æªæ¡ä¾æº
 											audioSource.src = audioSrc;
-											audioPlayer.load(); // 重新載入音頻
-											audioPlayer.play(); // 撥放音頻
+											audioPlayer.load(); // éæ°è¼å¥é³é »
+											audioPlayer.play(); // æ¥æ¾é³é »
 										}
 									</script>
 
@@ -367,28 +367,28 @@ button {
 							</div>
 
 							<div class="custom-block-info">
-								<!-- 包含播客的相關信息，如名稱、描述等。 -->
+								<!-- åå«æ­å®¢çç¸éä¿¡æ¯ï¼å¦åç¨±ãæè¿°ç­ã -->
 								<div class="custom-block-top d-flex mb-1"></div>
 
 								<h5 class="mb-2">
-									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp"> 商業配音 </a>
+									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp"> åæ¥­éé³ </a>
 								</h5>
 								<div class="profile-block d-flex">
 									<img
 										src="${pageContext.request.contextPath}/front-end/images/me.jpg"
 										class="profile-block-image img-fluid" alt="">
 									<p>
-										歆雅 <img
+										æ­é <img
 											src="${pageContext.request.contextPath}/front-end/images/verified.png"
-											class="verified-image img-fluid" alt=""> <strong>青年商業配音</strong>
+											class="verified-image img-fluid" alt=""> <strong>éå¹´åæ¥­éé³</strong>
 									</p>
 								</div>
 
-								<p class="mb-0">清晰薄荷口香糖</p>
+								<p class="mb-0">æ¸æ°èè·å£é¦ç³</p>
 
 								<div
 									class="custom-block-bottom d-flex justify-content-between mt-3">
-									<a href="#" class="bi-headphones me-1"> <!-- 創建一個連結，帶有耳機圖標，用於顯示播放次數。 -->
+									<a href="#" class="bi-headphones me-1"> <!-- åµå»ºä¸åé£çµï¼å¸¶æè³æ©åæ¨ï¼ç¨æ¼é¡¯ç¤ºæ­æ¾æ¬¡æ¸ã -->
 										<span>12</span>
 									</a> <a href="#" class="bi-heart me-1"> <span>4</span>
 									</a> <a href="#" class="bi-chat me-1"> <span>11</span>
@@ -410,38 +410,38 @@ button {
 									<div class="section-overlay"></div>
 									<div class="custom-block-icon-wrap">
 										<div class="section-overlay"></div>
-										<!-- 圖片區域 -->
+										<!-- åçåå -->
 										<a href="#" class="custom-block-image-wrap"> <img
 										src="${pageContext.request.contextPath}/front-end/images/podcast/12577967_02.jpg"
 											class="custom-block-image img-fluid" alt="Podcast Cover">
 										</a>
 
-										<!-- 撥放按鈕區域 -->
+										<!-- æ¥æ¾æéåå -->
 										<a href="#" class="custom-block-icon"
-											onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/お前はもう死んでる.mp3')">
+											onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/ãåã¯ããæ­»ãã§ã.mp3')">
 											<i class="bi-play-fill"></i>
 										</a>
 
-										<!-- 隱藏的音樂播放器 -->
+										<!-- é±èçé³æ¨æ­æ¾å¨ -->
 										<audio id="audio-player" style="display: none;">
 											<source id="audio-source" src="" type="audio/mpeg">
-											<!--         您的瀏覽器不支援音頻播放功能。 -->
+											<!--         æ¨ççè¦½å¨ä¸æ¯æ´é³é »æ­æ¾åè½ã -->
 										</audio>
 									</div>
 
 									<script>
-										// 撥放音頻的JavaScript函數
+										// æ¥æ¾é³é »çJavaScriptå½æ¸
 										function playAudio(event, audioSrc) {
-											event.preventDefault(); // 阻止 <a> 的預設行為
+											event.preventDefault(); // é»æ­¢ <a> çé è¨­è¡çº
 											const audioPlayer = document
 													.getElementById('audio-player');
 											const audioSource = document
 													.getElementById('audio-source');
 
-											// 設定音頻檔案來源
+											// è¨­å®é³é »æªæ¡ä¾æº
 											audioSource.src = audioSrc;
-											audioPlayer.load(); // 重新載入音頻
-											audioPlayer.play(); // 撥放音頻
+											audioPlayer.load(); // éæ°è¼å¥é³é »
+											audioPlayer.play(); // æ¥æ¾é³é »
 										}
 									</script>
 
@@ -452,28 +452,28 @@ button {
 							</div>
 
 							<div class="custom-block-info">
-								<!-- 包含播客的相關信息，如名稱、描述等。 -->
+								<!-- åå«æ­å®¢çç¸éä¿¡æ¯ï¼å¦åç¨±ãæè¿°ç­ã -->
 								<div class="custom-block-top d-flex mb-1"></div>
 
 								<h5 class="mb-2">
-									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">角色配音 </a>
+									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">è§è²éé³ </a>
 								</h5>
 								<div class="profile-block d-flex">
 									<img
-										src="${pageContext.request.contextPath}/front-end/images/浩鈞.jpg"
+										src="${pageContext.request.contextPath}/front-end/images/æµ©é.jpg"
 										class="profile-block-image img-fluid" alt="">
 									<p>
-										浩鈞<img
+										æµ©é<img
 											src="${pageContext.request.contextPath}/front-end/images/verified.png"
-											class="verified-image img-fluid" alt=""> <strong>日文角色配音</strong>
+											class="verified-image img-fluid" alt=""> <strong>æ¥æè§è²éé³</strong>
 									</p>
 								</div>
 
-								<p class="mb-0">お前はもう死んでるナニ</p>
+								<p class="mb-0">ãåã¯ããæ­»ãã§ããã</p>
 
 								<div
 									class="custom-block-bottom d-flex justify-content-between mt-3">
-									<a href="#" class="bi-headphones me-1"> <!-- 創建一個連結，帶有耳機圖標，用於顯示播放次數。 -->
+									<a href="#" class="bi-headphones me-1"> <!-- åµå»ºä¸åé£çµï¼å¸¶æè³æ©åæ¨ï¼ç¨æ¼é¡¯ç¤ºæ­æ¾æ¬¡æ¸ã -->
 										<span>18</span>
 										</a> <a href="#" class="bi-heart me-1"> <span>6</span>
 									</a> <a href="#" class="bi-chat me-1"> <span>16</span>
@@ -497,64 +497,64 @@ button {
 
 					<div class="col-lg-12 col-12">
 						<div class="section-title-wrap mb-5">
-							<h4 class="section-title">配音員標籤</h4>
+							<h4 class="section-title">éé³å¡æ¨ç±¤</h4>
 						</div>
 					</div>
 					<div class="container mt-5">
 						<form>
 							<div class="row">
-								<!-- 表格樣式排列 -->
+								<!-- è¡¨æ ¼æ¨£å¼æå -->
 								<div class="table-responsive">
 									<table class="table table-bordered">
 										<tbody>
 											<tr>
-												<td><label for="tagCategory">標籤種類</label> <select
+												<td><label for="tagCategory">æ¨ç±¤ç¨®é¡</label> <select
 													class="form-control" id="tagCategory">
 														<option value="" selected disabled>Select...</option>
-														<option value="1">口音</option>
-														<option value="2">語言</option>
-														<option value="3">配音類別</option>
-														<option value="4">聲音年齡</option>
+														<option value="1">å£é³</option>
+														<option value="2">èªè¨</option>
+														<option value="3">éé³é¡å¥</option>
+														<option value="4">è²é³å¹´é½¡</option>
 												</select></td>
-												<td><label for="accentTag">口音</label> <select
+												<td><label for="accentTag">å£é³</label> <select
 													class="form-control" id="accentTag">
 														<option value="" selected disabled>Select...</option>
-														<option value="1">英式</option>
-														<option value="2">美式</option>
+														<option value="1">è±å¼</option>
+														<option value="2">ç¾å¼</option>
 												</select></td>
 											</tr>
 											<tr>
-												<td><label for="languageTag">語言</label> <select
+												<td><label for="languageTag">èªè¨</label> <select
 													class="form-control" id="languageTag">
 														<option value="" selected disabled>Select...</option>
-														<option value="3">中文</option>
-														<option value="4">英文</option>
-														<option value="5">日文</option>
+														<option value="3">ä¸­æ</option>
+														<option value="4">è±æ</option>
+														<option value="5">æ¥æ</option>
 												</select></td>
-												<td><label for="voiceCategoryTag">配音類別</label> <select
+												<td><label for="voiceCategoryTag">éé³é¡å¥</label> <select
 													class="form-control" id="voiceCategoryTag">
 														<option value="" selected disabled>Select...</option>
-														<option value="6">商業配音</option>
-														<option value="7">角色配音</option>
-														<option value="8">旁白</option>
+														<option value="6">åæ¥­éé³</option>
+														<option value="7">è§è²éé³</option>
+														<option value="8">æç½</option>
 												</select></td>
 											</tr>
 											<tr>
-												<td colspan="2"><label for="voiceAgeTag">聲音年齡</label> <select
+												<td colspan="2"><label for="voiceAgeTag">è²é³å¹´é½¡</label> <select
 													class="form-control" id="voiceAgeTag">
 														<option value="" selected disabled>Select...</option>
-														<option value="9">青年</option>
-														<option value="10">中年</option>
-														<option value="11">老年</option>
+														<option value="9">éå¹´</option>
+														<option value="10">ä¸­å¹´</option>
+														<option value="11">èå¹´</option>
 												</select></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<!-- 確認按鈕 -->
+								<!-- ç¢ºèªæé -->
 								<div class="form-group col-md-12"
 									style="text-align: center; margin-top: 20px;">
-									<button type="submit" class="btn btn-warning">確認</button>
+									<button type="submit" class="btn btn-warning">ç¢ºèª</button>
 								</div>
 							</div>
 						</form>
@@ -575,76 +575,76 @@ button {
 										<div class="owl-carousel-info-wrap item" style="margin: 0;">
 											<div class="custom-block custom-block-overlay"
 												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
+												<a href="åå.html" class="custom-block-image-wrap"
 													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/音響1.png"
-													class="custom-block-image img-fluid" alt="喇叭"
+													src="${pageContext.request.contextPath}/front-end/images/åååè¡¨/é³é¿1.png"
+													class="custom-block-image img-fluid" alt="åå­"
 													style="height: 400px; width: 100%; object-fit: cover;">
 
 												</a>
 												<div class="custom-block-info custom-block-overlay-info"
 													style="margin-top: 0;">
-													<h5 class="mb-1">音響</h5>
+													<h5 class="mb-1">é³é¿</h5>
 												</div>
 											</div>
 										</div>
 										<div class="owl-carousel-info-wrap item" style="margin: 0;">
 											<div class="custom-block custom-block-overlay"
 												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
+												<a href="åå.html" class="custom-block-image-wrap"
 													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風防遮罩_2000x3000.png"
-													class="custom-block-image img-fluid" alt="麥克風防遮罩"
+													src="${pageContext.request.contextPath}/front-end/images/åååè¡¨/éº¥åé¢¨é²é®ç½©_2000x3000.png"
+													class="custom-block-image img-fluid" alt="éº¥åé¢¨é²é®ç½©"
 													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-35px);">
 												</a> </a>
 												<div class="custom-block-info custom-block-overlay-info"
 													style="margin-top: 0;">
-													<h5 class="mb-1">麥克風防遮罩</h5>
+													<h5 class="mb-1">éº¥åé¢¨é²é®ç½©</h5>
 												</div>
 											</div>
 										</div>
 										<div class="owl-carousel-info-wrap item" style="margin: 0;">
 											<div class="custom-block custom-block-overlay"
 												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
+												<a href="åå.html" class="custom-block-image-wrap"
 													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風線材_2000x3000.png"
-													class="custom-block-image img-fluid" alt="麥克風線"
+													src="${pageContext.request.contextPath}/front-end/images/åååè¡¨/éº¥åé¢¨ç·æ_2000x3000.png"
+													class="custom-block-image img-fluid" alt="éº¥åé¢¨ç·"
 													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-25px);">
 												</a> </a>
 												<div class="custom-block-info custom-block-overlay-info"
 													style="margin-top: 0;">
-													<h5 class="mb-1">麥克風線</h5>
+													<h5 class="mb-1">éº¥åé¢¨ç·</h5>
 												</div>
 											</div>
 										</div>
 										<div class="owl-carousel-info-wrap item" style="margin: 0;">
 											<div class="custom-block custom-block-overlay"
 												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
+												<a href="åå.html" class="custom-block-image-wrap"
 													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/文稿架_2000x3000.png"
-													class="custom-block-image img-fluid" alt="文稿架"
+													src="${pageContext.request.contextPath}/front-end/images/åååè¡¨/æç¨¿æ¶_2000x3000.png"
+													class="custom-block-image img-fluid" alt="æç¨¿æ¶"
 													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-25px);">
 												</a> </a>
 												<div class="custom-block-info custom-block-overlay-info"
 													style="margin-top: 0;">
-													<h5 class="mb-1">文稿架</h5>
+													<h5 class="mb-1">æç¨¿æ¶</h5>
 												</div>
 											</div>
 										</div>
 										<div class="owl-carousel-info-wrap item" style="margin: 0;">
 											<div class="custom-block custom-block-overlay"
 												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
+												<a href="åå.html" class="custom-block-image-wrap"
 													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風_resized.png"
-													class="custom-block-image img-fluid" alt="麥克風"
+													src="${pageContext.request.contextPath}/front-end/images/åååè¡¨/éº¥åé¢¨_resized.png"
+													class="custom-block-image img-fluid" alt="éº¥åé¢¨"
 													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-35px);">
 												</a>
 												<div class="custom-block-info custom-block-overlay-info"
 													style="margin-top: 0;">
-													<h5 class="mb-1">麥克風</h5>
+													<h5 class="mb-1">éº¥åé¢¨</h5>
 												</div>
 											</div>
 										</div>
@@ -657,11 +657,11 @@ button {
 					<script>
 						$(document).ready(function() {
 							$('.owl-carousel').owlCarousel({
-								loop : true, // 讓輪播持續不斷地循環
-								margin : 0, // 確保圖片之間沒有多餘空白
+								loop : true, // è®è¼ªæ­æçºä¸æ·å°å¾ªç°
+								margin : 0, // ç¢ºä¿åçä¹éæ²æå¤é¤ç©ºç½
 								nav : true,
-								autoplay : true, // 自動輪播
-								autoplayTimeout : 3000, // 每張圖片顯示時間 3 秒
+								autoplay : true, // èªåè¼ªæ­
+								autoplayTimeout : 3000, // æ¯å¼µåçé¡¯ç¤ºæé 3 ç§
 								responsive : {
 									0 : {
 										items : 1
@@ -703,7 +703,7 @@ button {
 
 
 		<footer class="site-footer">
-			<!-- 創建網站的頁尾部分 -->
+			<!-- åµå»ºç¶²ç«çé å°¾é¨å -->
 			<div class="container">
 				<div class="row">
 
@@ -733,19 +733,19 @@ button {
 					<div class="col-lg-7 col-md-9 col-12">
 						<ul class="site-footer-links">
 							<li class="site-footer-link-item"><a href="./questions.jsp" 
-								class="site-footer-link" style="color: black; font-size: 18px;">Q&A問題</a>
+								class="site-footer-link" style="color: black; font-size: 18px;">Q&Aåé¡</a>
 							</li>
 
 							<li class="site-footer-link-item"><a href="./Service.jsp"
-								class="site-footer-link" style="color: black; font-size: 18px;">服務條款</a>
+								class="site-footer-link" style="color: black; font-size: 18px;">æåæ¢æ¬¾</a>
 							</li>
 						
 							<div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0 mb-lg-0"
 								style="margin-left: auto; color: black;">
-								<h6 class="site-footer-title mb-3" style="color: black;">聯絡方式</h6>
+								<h6 class="site-footer-title mb-3" style="color: black;">è¯çµ¡æ¹å¼</h6>
 
 								<p class="mb-2" style="color: black;">
-									<strong class="d-inline me-2">電話:</strong>03-429-1340
+									<strong class="d-inline me-2">é»è©±:</strong>03-429-1340
 								</p>
 
 								<p style="color: black;">
