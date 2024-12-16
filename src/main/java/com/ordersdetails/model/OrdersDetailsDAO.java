@@ -7,7 +7,7 @@ public class OrdersDetailsDAO implements OrdersDetailsDAO_interface {
     String driver = "com.mysql.cj.jdbc.Driver";
     String url = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
     String userid = "root";
-    String passwd = "vincent888";
+    String passwd = "liupeter480";
 
     private static final String INSERT_STMT = "INSERT INTO orders_details (ORDERS_ID, PROD_ID, ORDERS_QTY, ORDERS_UNIT_PRICE, REPORTS_CONTENT) VALUES (?, ?, ?, ?, ?)";
     private static final String GET_ALL_STMT = "SELECT ORDERS_ID, PROD_ID, ORDERS_QTY, ORDERS_UNIT_PRICE, REPORTS_CONTENT FROM orders_details ORDER BY ORDERS_ID, PROD_ID";

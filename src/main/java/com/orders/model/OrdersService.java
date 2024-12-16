@@ -65,8 +65,16 @@ public class OrdersService {
 	}
 
 	// 取得單一訂單
+
 	public OrdersVO getOneOrder(Integer ordersId) {
-		return dao.findByPrimaryKey(ordersId);
+		if (ordersId == null) {
+			throw new IllegalArgumentException("訂單ID不能為空");
+		}
+		OrdersVO order = dao.findByPrimaryKey(ordersId);
+		if (order == null) {
+			throw new RuntimeException("找不到訂單：" + ordersId);
+		}
+		return order;
 	}
 
 	// 取得所有訂單
@@ -214,64 +222,120 @@ public class OrdersService {
 			throw new RuntimeException("訂單處理失敗：" + e.getMessage());
 		}
 	}
-	public void updateOrderStatus(Integer ordersId, Byte status) {
-	    dao.updateStatus(ordersId, status);
-	}
-	public List<Map<String, Object>> getOrderSummary() {
-	    List<OrdersVO> ordersList = dao.getAll();
-	    List<Map<String, Object>> orderSummaryList = new ArrayList<>();
-	    
-	    MemberService memberService = new MemberService();  // 加入會員服務
 
-	    for (OrdersVO order : ordersList) {
-	        Map<String, Object> orderMap = new HashMap<>();
-	        List<Map<String, Object>> orderDetails = new ArrayList<>();
-	        
-	        // 取得會員資料
-	        MemberVO member = memberService.getOneMember(order.getMemId());
-	        
-	        // 查詢訂單明細
-	        OrdersDetailsService detailsService = new OrdersDetailsService();
-	        List<OrdersDetailsVO> details = detailsService.getByOrdersId(order.getOrdersId());
-	        
-	        // 計算訂單總金額
-	        int totalAmount = 0;
-	        
-	        ProdService prodService = new ProdService();
-	        for (OrdersDetailsVO detail : details) {
-	            Map<String, Object> detailMap = new HashMap<>();
-	            ProdVO prod = prodService.getOneProd(detail.getProdId());
-	            
-	            int subtotal = detail.getOrdersUnitPrice() * detail.getOrdersQty();
-	            totalAmount += subtotal;
-	            
-	            detailMap.put("prodName", prod.getProdName());
-	            detailMap.put("ordersUnitPrice", detail.getOrdersUnitPrice());
-	            detailMap.put("ordersQty", detail.getOrdersQty());
-	            detailMap.put("subtotal", subtotal);
-	            
-	            orderDetails.add(detailMap);
-	        }
-	        
-	        totalAmount += order.getOrdersShipFee();
-	        
-	        // 組合訂單資訊，加入會員資料
-	        orderMap.put("ordersId", order.getOrdersId());
-	        orderMap.put("memId", order.getMemId());
-	        orderMap.put("memName", member.getMemberName());  // 會員姓名
-	        orderMap.put("memTel", member.getMemberTel());    // 會員電話
-	        orderMap.put("ordersDate", order.getOrdersDate());
-	        orderMap.put("ordersPaid", totalAmount);
-	        orderMap.put("ordersShipFee", order.getOrdersShipFee());
-	        orderMap.put("ordersAdd", order.getOrdersAdd()); // 訂單地址
-	        orderMap.put("ordersMemo", order.getOrdersMemo());
-	        orderMap.put("ordersStatus", order.getOrdersStatus());
-	        orderMap.put("orderDetails", orderDetails);
-	        
-	        orderSummaryList.add(orderMap);
-	    }
-	    
-	    return orderSummaryList;
+	public void updateOrderStatus(Integer ordersId, Byte status) {
+		dao.updateStatus(ordersId, status);
 	}
-	
+
+	public List<Map<String, Object>> getOrderSummary() {
+		List<OrdersVO> ordersList = dao.getAll();
+		List<Map<String, Object>> orderSummaryList = new ArrayList<>();
+
+		MemberService memberService = new MemberService(); // 加入會員服務
+
+		for (OrdersVO order : ordersList) {
+			Map<String, Object> orderMap = new HashMap<>();
+			List<Map<String, Object>> orderDetails = new ArrayList<>();
+
+			// 取得會員資料
+			MemberVO member = memberService.getOneMember(order.getMemId());
+
+			// 查詢訂單明細
+			OrdersDetailsService detailsService = new OrdersDetailsService();
+			List<OrdersDetailsVO> details = detailsService.getByOrdersId(order.getOrdersId());
+
+			// 計算訂單總金額
+			int totalAmount = 0;
+
+			ProdService prodService = new ProdService();
+			for (OrdersDetailsVO detail : details) {
+				Map<String, Object> detailMap = new HashMap<>();
+				ProdVO prod = prodService.getOneProd(detail.getProdId());
+
+				int subtotal = detail.getOrdersUnitPrice() * detail.getOrdersQty();
+				totalAmount += subtotal;
+
+				detailMap.put("prodName", prod.getProdName());
+				detailMap.put("ordersUnitPrice", detail.getOrdersUnitPrice());
+				detailMap.put("ordersQty", detail.getOrdersQty());
+				detailMap.put("subtotal", subtotal);
+
+				orderDetails.add(detailMap);
+			}
+
+			totalAmount += order.getOrdersShipFee();
+
+			// 組合訂單資訊，加入會員資料
+			orderMap.put("ordersId", order.getOrdersId());
+			orderMap.put("memId", order.getMemId());
+			orderMap.put("memName", member.getMemberName()); // 會員姓名
+			orderMap.put("memTel", member.getMemberTel()); // 會員電話
+			orderMap.put("ordersDate", order.getOrdersDate());
+			orderMap.put("ordersPaid", totalAmount);
+			orderMap.put("ordersShipFee", order.getOrdersShipFee());
+			orderMap.put("ordersAdd", order.getOrdersAdd()); // 訂單地址
+			orderMap.put("ordersMemo", order.getOrdersMemo());
+			orderMap.put("ordersStatus", order.getOrdersStatus());
+			orderMap.put("orderDetails", orderDetails);
+
+			orderSummaryList.add(orderMap);
+		}
+
+		return orderSummaryList;
+	}
+
+	public List<Map<String, Object>> getOrderSummaryByStatus(Byte status) {
+		List<OrdersVO> ordersList = dao.getByStatus(status); // DAO 方法根據狀態查詢
+		List<Map<String, Object>> orderSummaryList = new ArrayList<>();
+
+		MemberService memberService = new MemberService();
+		OrdersDetailsService detailsService = new OrdersDetailsService();
+		ProdService prodService = new ProdService();
+
+		for (OrdersVO order : ordersList) {
+			Map<String, Object> orderMap = new HashMap<>();
+			List<Map<String, Object>> orderDetails = new ArrayList<>();
+
+			// 取得會員資料
+			MemberVO member = memberService.getOneMember(order.getMemId());
+
+			// 查詢訂單明細
+			List<OrdersDetailsVO> details = detailsService.getByOrdersId(order.getOrdersId());
+			int totalAmount = 0;
+
+			for (OrdersDetailsVO detail : details) {
+				Map<String, Object> detailMap = new HashMap<>();
+				ProdVO prod = prodService.getOneProd(detail.getProdId());
+
+				int subtotal = detail.getOrdersUnitPrice() * detail.getOrdersQty();
+				totalAmount += subtotal;
+
+				detailMap.put("prodName", prod.getProdName());
+				detailMap.put("ordersUnitPrice", detail.getOrdersUnitPrice());
+				detailMap.put("ordersQty", detail.getOrdersQty());
+				detailMap.put("subtotal", subtotal);
+
+				orderDetails.add(detailMap);
+			}
+
+			totalAmount += order.getOrdersShipFee();
+
+			// 組合訂單資訊
+			orderMap.put("ordersId", order.getOrdersId());
+			orderMap.put("memId", order.getMemId());
+			orderMap.put("memName", member.getMemberName());
+			orderMap.put("memTel", member.getMemberTel());
+			orderMap.put("ordersDate", order.getOrdersDate());
+			orderMap.put("ordersPaid", totalAmount);
+			orderMap.put("ordersShipFee", order.getOrdersShipFee());
+			orderMap.put("ordersAdd", order.getOrdersAdd());
+			orderMap.put("ordersMemo", order.getOrdersMemo());
+			orderMap.put("ordersStatus", order.getOrdersStatus());
+			orderMap.put("orderDetails", orderDetails);
+
+			orderSummaryList.add(orderMap);
+		}
+
+		return orderSummaryList;
+	}
 }

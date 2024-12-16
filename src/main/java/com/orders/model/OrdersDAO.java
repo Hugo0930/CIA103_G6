@@ -8,7 +8,7 @@ public class OrdersDAO implements OrdersDAO_interface {
 
 	private static final String URL = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
 	private static final String USER = "root";
-	private static final String PASSWORD = "vincent888";
+	private static final String PASSWORD = "liupeter480";
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	// SQL 指令
@@ -19,7 +19,8 @@ public class OrdersDAO implements OrdersDAO_interface {
 	private static final String UPDATE = "UPDATE ORDERS SET MEM_ID=?, ORDERS_DATE=?, ORDERS_AMOUNT=?, ORDERS_SHIP_FEE=?, ORDERS_ADD=?, ORDERS_PAID=?, ORDERS_MEMO=?, ORDERS_STATUS=? WHERE ORDERS_ID = ?";
 	private static final String DELETE = "DELETE FROM ORDERS WHERE ORDERS_ID = ?";
 	private static final String UPDATE_STATUS = "UPDATE ORDERS SET ORDERS_STATUS = ? WHERE ORDERS_ID = ?";
-
+	private static final String GET_BY_STATUS = "SELECT * FROM ORDERS WHERE ORDERS_STATUS = ?";
+	
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -186,7 +187,25 @@ public class OrdersDAO implements OrdersDAO_interface {
 		ordersVO.setOrdersMemo(rs.getString("ORDERS_MEMO"));
 		ordersVO.setOrdersStatus(rs.getByte("ORDERS_STATUS"));
 	}
+	@Override
+	public List<OrdersVO> getByStatus(Byte status) {
+	    List<OrdersVO> list = new ArrayList<>();
+	    try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement pstmt = con.prepareStatement(GET_BY_STATUS)) {
 
+	        pstmt.setByte(1, status);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                OrdersVO ordersVO = new OrdersVO();
+	                mapResultSetToOrdersVO(rs, ordersVO);
+	                list.add(ordersVO);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException("資料庫錯誤. " + e.getMessage());
+	    }
+	    return list;
+	}
 	// 測試用的 main 方法
 	public static void main(String[] args) {
 		OrdersDAO dao = new OrdersDAO();

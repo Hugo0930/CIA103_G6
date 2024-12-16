@@ -17,7 +17,8 @@ public interface OrdersDAO_interface {
 
 	// 會員相關查詢
 	public List<OrdersVO> getByMemId(Integer memId);
-	
+
 	public void updateStatus(Integer ordersId, Byte status);
 
+	public List<OrdersVO> getByStatus(Byte status);
 }

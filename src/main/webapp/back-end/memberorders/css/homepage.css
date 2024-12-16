@@ -231,13 +231,13 @@ nav.right_slide .func_name .btn_name{
 }
 /*****************主內容*****************/
 div.container {
-    /* border: 1px solid purple; */
-    position: absolute;
-    top: 50px;
-    left: 150px;
-    width: calc(100% - 150px);
-    height: calc(100% - 50px);
-/*     overflow:hidden; */
+    position: relative; /* 移除 `absolute`，改為 `relative` */
+    left: 0; /* 重設 `left` 為 0 */
+    margin-left: 150px; /* 保留側邊欄間距 */
+    width: calc(100% - 150px); /* 計算主內容區域寬度 */
+    height: auto;
+    overflow-x: auto;
+    box-sizing: border-box;
 }
 div.container.active{
     transform: translateX(150px);
