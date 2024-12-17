@@ -12,7 +12,7 @@ public class MemberDAO implements MemberDAO_interface {
 
 	private static final String INSERTback_STMT = "INSERT INTO member (mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 	private static final String GET_ALL_STMT = "SELECT mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status FROM member order by mem_id";
-//	private static final String GET_ONE_STMT = "SELECT member_id, mem_lv_id, mem_name,mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status  FROM member where mem_id= ?";
+	private static final String GET_ONE_STMT = "SELECT member_id, mem_lv_id, mem_name,mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status  FROM member where mem_id= ?";
 	private static final String DELETE = "DELETE FROM member where mem_id = ?";
 	private static final String UPDATE = "UPDATE member set mem_id=?, mem_lv_id=?, mem_name=?, mem_uid=?, mem_bth=?, mem_gender=?, mem_email=?, mem_tel=?, mem_add=?, mem_acc=? mem_pw=? mem_status=? where mem_id = ?";
 	// 查詢指定會員的 SQL 語句
