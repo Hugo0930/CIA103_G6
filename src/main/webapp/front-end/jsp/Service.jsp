@@ -41,16 +41,16 @@
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-				<form action="#" method="get"
-					class="custom-form search-form flex-fill me-3" role="search">
-					<div class="input-group input-group-lg">
-						<input name="search" type="search" class="form-control"
-							id="search" placeholder="Search" aria-label="Search">
-						<button type="submit" class="form-control" id="submit">
-							<i class="bi-search"></i>
-						</button>
-					</div>
-				</form>
+<!-- 				<form action="#" method="get" -->
+<!-- 					class="custom-form search-form flex-fill me-3" role="search"> -->
+<!-- 					<div class="input-group input-group-lg"> -->
+<!-- 						<input name="search" type="search" class="form-control" -->
+<!-- 							id="search" placeholder="Search" aria-label="Search"> -->
+<!-- 						<button type="submit" class="form-control" id="submit"> -->
+<!-- 							<i class="bi-search"></i> -->
+<!-- 						</button> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
@@ -187,9 +187,9 @@
 								class="site-footer-link" style="color: black; font-size: 18px;">服務條款</a>
 							</li>
 
-							<li class="site-footer-link-item"><a href="./Prices.jsp"
-								class="site-footer-link" style="color: black; font-size: 18px;">價格與方案</a>
-							</li>
+<!-- 							<li class="site-footer-link-item"><a href="./Prices.jsp" -->
+<!-- 								class="site-footer-link" style="color: black; font-size: 18px;">價格與方案</a> -->
+<!-- 							</li> -->
 							<div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0 mb-lg-0"
 								style="margin-left: auto; color: black;">
 								<h6 class="site-footer-title mb-3" style="color: black;">聯絡方式</h6>

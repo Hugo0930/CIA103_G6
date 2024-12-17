@@ -42,16 +42,16 @@
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-				<form action="#" method="get"
-					class="custom-form search-form flex-fill me-3" role="search">
-					<div class="input-group input-group-lg">
-						<input name="search" type="search" class="form-control"
-							id="search" placeholder="Search" aria-label="Search">
-						<button type="submit" class="form-control" id="submit">
-							<i class="bi-search"></i>
-						</button>
-					</div>
-				</form>
+<!-- 				<form action="#" method="get" -->
+<!-- 					class="custom-form search-form flex-fill me-3" role="search"> -->
+<!-- 					<div class="input-group input-group-lg"> -->
+<!-- 						<input name="search" type="search" class="form-control" -->
+<!-- 							id="search" placeholder="Search" aria-label="Search"> -->
+<!-- 						<button type="submit" class="form-control" id="submit"> -->
+<!-- 							<i class="bi-search"></i> -->
+<!-- 						</button> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
@@ -111,7 +111,7 @@
 					<div class="col-lg-12 col-12 text-center">
 						<!-- 使用JSP語法插入動態標題 -->
 						<h2 class="mb-0" style="color: black;">
-							<%="個人配音員作品介紹"%>
+							<%="配音員作品介紹"%>
 						</h2>
 					</div>
 

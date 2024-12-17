@@ -107,16 +107,7 @@ button {
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-				<form action="#" method="get"
-					class="custom-form search-form flex-fill me-3" role="search">
-					<div class="input-group input-group-lg">
-						<input name="search" type="search" class="form-control"
-							id="search" placeholder="Search" aria-label="Search">
-						<button type="submit" class="form-control" id="submit">
-							<i class="bi-search"></i>
-						</button>
-					</div>
-				</form>
+				
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
@@ -487,85 +478,92 @@ button {
 							</div>
 						</div>
 					</div>
-
-
-
-		<section class="trending-podcast-section section-padding"
-			style="margin-top: 1cm;">
-			<div class="container">
-				<div class="row">
-
+					<section class="topics-section section-padding pb-0" id="section_3">
+						<div class="container" style="padding: 0; margin: 0;">
+							<div class="row" style="padding: 0; margin: 0;">
+								<div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
 					<div class="col-lg-12 col-12">
 						<div class="section-title-wrap mb-5">
-							<h4 class="section-title">配音員標籤</h4>
+							<h4 class="section-title">配音廣告</h4>
 						</div>
-					</div>
-					<div class="container mt-5">
-						<form>
-							<div class="row">
-								<!-- 表格樣式排列 -->
-								<div class="table-responsive">
-									<table class="table table-bordered">
-										<tbody>
-											<tr>
-												<td><label for="tagCategory">標籤種類</label> <select
-													class="form-control" id="tagCategory">
-														<option value="" selected disabled>Select...</option>
-														<option value="1">口音</option>
-														<option value="2">語言</option>
-														<option value="3">配音類別</option>
-														<option value="4">聲音年齡</option>
-												</select></td>
-												<td><label for="accentTag">口音</label> <select
-													class="form-control" id="accentTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="1">英式</option>
-														<option value="2">美式</option>
-												</select></td>
-											</tr>
-											<tr>
-												<td><label for="languageTag">語言</label> <select
-													class="form-control" id="languageTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="3">中文</option>
-														<option value="4">英文</option>
-														<option value="5">日文</option>
-												</select></td>
-												<td><label for="voiceCategoryTag">配音類別</label> <select
-													class="form-control" id="voiceCategoryTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="6">商業配音</option>
-														<option value="7">角色配音</option>
-														<option value="8">旁白</option>
-												</select></td>
-											</tr>
-											<tr>
-												<td colspan="2"><label for="voiceAgeTag">聲音年齡</label> <select
-													class="form-control" id="voiceAgeTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="9">青年</option>
-														<option value="10">中年</option>
-														<option value="11">老年</option>
-												</select></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<!-- 確認按鈕 -->
-								<div class="form-group col-md-12"
-									style="text-align: center; margin-top: 20px;">
-									<button type="submit" class="btn btn-warning">確認</button>
-								</div>
-							</div>
-						</form>
-					</div>
 
-					<!-- Optional JavaScript -->
-					<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-					<script
-						src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<section class="topics-section section-padding pb-0" id="section_3">
+    <div class="container-fluid" style="padding: 0; margin: 0;">
+        <div class="row" style="padding: 0; margin: 0;">
+            <div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
+                <div class="owl-carousel owl-theme">
+                    <!-- 第一張圖片 -->
+                    <div class="item">
+                        <div class="custom-block custom-block-overlay" style="margin: 0;">
+                            <img src="${pageContext.request.contextPath}/front-end/images/3.png"
+                                 class="img-fluid" alt="Image 3"
+                                 style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    <!-- 第二張圖片 -->
+                    <div class="item">
+                        <div class="custom-block custom-block-overlay" style="margin: 0;">
+                            <img src="${pageContext.request.contextPath}/front-end/images/2.png"
+                                 class="img-fluid" alt="Image 2"
+                                 style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    <!-- 第三張圖片 -->
+                    <div class="item">
+                        <div class="custom-block custom-block-overlay" style="margin: 0;">
+                            <img src="${pageContext.request.contextPath}/front-end/images/1.png"
+                                 class="img-fluid" alt="Image 1"
+                                 style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="custom-block custom-block-overlay" style="margin: 0;">
+                            <img src="${pageContext.request.contextPath}/front-end/images/4.png"
+                                 class="img-fluid" alt="Image 1"
+                                 style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- 引入必要的 CSS 和 JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
+<!-- 輪播設定 -->
+<script>
+    $(document).ready(function () {
+        $('.owl-carousel').owlCarousel({
+            loop: true,            // 無限循環輪播
+            margin: 10,            // 圖片之間的間距
+            nav: true,             // 顯示左右導航按鈕
+            dots: true,            // 顯示輪播指示點
+            autoplay: true,        // 自動輪播
+            autoplayTimeout: 3000, // 每張圖片停留時間 (3 秒)
+            responsive: {
+                0: { items: 1 },    // 小螢幕顯示 1 張圖片
+                600: { items: 2 },  // 中等螢幕顯示 2 張圖片
+                1000: { items: 3 }  // 大螢幕顯示 3 張圖片
+            }
+        });
+    });
+</script>
+
+		<section class="topics-section section-padding pb-0" id="section_3">
+						<div class="container" style="padding: 0; margin: 0;">
+							<div class="row" style="padding: 0; margin: 0;">
+								<div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
+					<div class="col-lg-12 col-12">			
+
+	<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+							<h4 class="section-title">熱門商品</h4>
+						</div>
 
 					<section class="topics-section section-padding pb-0" id="section_3">
 						<div class="container" style="padding: 0; margin: 0;">
