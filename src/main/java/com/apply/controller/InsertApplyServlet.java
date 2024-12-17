@@ -14,7 +14,7 @@ import javax.servlet.http.Part;
 
 import com.apply.model.ApplyService;
 import com.apply.model.ApplyVO;
-
+//加入應徵
 @WebServlet("/InsertApplyServlet")
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024 * 1, // 1 MB

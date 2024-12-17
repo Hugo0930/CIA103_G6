@@ -113,7 +113,7 @@ public class ApplyDAO implements ApplyDAO_interface {
 			throw new RuntimeException("更新失敗: " + e.getMessage(), e);
 		}
 	}
-
+//管理員單一搜尋
 	public ApplyVO findByPrimaryKey(Integer caseId, Integer memberId) {
 		ApplyVO applyVO = null;
 		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(FIND_BY_PK)) {
@@ -137,7 +137,7 @@ public class ApplyDAO implements ApplyDAO_interface {
 		}
 		return applyVO;
 	}
-
+//管理員
 	public List<ApplyVO> getAll() {
 		List<ApplyVO> list = new ArrayList<>();
 		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(GET_ALL_STMT)) {

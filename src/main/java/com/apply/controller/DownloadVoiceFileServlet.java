@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.apply.model.ApplyService;
 import com.apply.model.ApplyVO;
-
+//管理員下載試音檔
 @WebServlet("/apply/downloadVoiceFile")
 public class DownloadVoiceFileServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

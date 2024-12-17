@@ -59,10 +59,21 @@ public class ApplyService {
 		return dao.getVoiceFile(caseId, memId);
 	}
 	//單一查詢
-	public ApplyVO getApplyByCaseId(Integer caseId) {
-		return dao.findByCaseId(caseId);
-	}
+	 public ApplyVO getApplyByPrimaryKey(Integer caseId, Integer memId) {
+	        // 檢查輸入參數，避免 NullPointerException
+	        if (caseId == null || memId == null) {
+	            throw new IllegalArgumentException("caseId 和 memId 不能為空");
+	        }
 
+	        // 呼叫 DAO 方法查詢
+	        ApplyVO applyVO = dao.findByPrimaryKey(caseId, memId);
+	        
+	        if (applyVO == null) {
+	            System.out.println("查無此應徵記錄，CASE_ID: " + caseId + ", MEM_ID: " + memId);
+	        }
+	        return applyVO;
+	    }
+	
 	// 進行媒合，將該案件的RECEIVER_ID設為指定會員，並將狀態更新為1（已媒合）
 	public void matchReceiver(Integer caseId, Integer receiverId) {
 		dao.matchReceiver(caseId, receiverId);

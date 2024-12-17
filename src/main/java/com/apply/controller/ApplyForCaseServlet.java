@@ -9,7 +9,7 @@
 	import javax.servlet.http.HttpSession;
 	import com.caseapplications.model.CaseApplicationsService;
 	import com.caseapplications.model.CaseApplicationsVO;
-	
+	//會員
 	@WebServlet("/applyForCase")
 	public class ApplyForCaseServlet extends HttpServlet {
 		private static final long serialVersionUID = 1L;
