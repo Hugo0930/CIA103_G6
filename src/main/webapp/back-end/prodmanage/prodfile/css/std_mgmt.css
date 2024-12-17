@@ -1,0 +1,201 @@
+@charset "UTF-8";
+/*****************變數*****************/
+:root{
+	--page-size:50px;
+	--page-bg:#808080;
+	--page-color:#fff;	
+	--page-size:30px;
+	--cell-size:50px;
+	--thead-width:50px;
+	--thead-height:50px;
+	--table-move-down:60px;
+	--submit-btn-width:55px;
+}
+****************分頁****************
+div.page_block{
+	/*border:1px solid red; */
+	width:300px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	margin: 5px 0 0 auto;
+	position:relative;
+	top: calc(20px + var(--table-move-down));
+}
+div.page {
+	margin:5px;
+	/*border: 1px solid purple; */
+	min-height: var(--page-size);
+	width:var(--page-size);
+	border-radius: 25px;
+	position: relative;
+	background-color: var(--page-bg);
+}
+
+div.page:hover{
+	background-color:#a3a3a3; 
+}
+div.page.active{
+	background-color: #3d3c3c;
+}
+/* div.page_block div.page a{ */
+/* 	text-decoration: none; */
+/* 	font-size:15px; */
+/* 	font-weight:900; */
+/* 	position:absolute; */
+/* 	left:50%; */
+/* 	top:50%; */
+/* 	transform: translate(-50%,-50%); */
+/* 	color: var(--page-color); */
+/* } */
+/* div.page_block div.page a i.fa-solid{ */
+/* 	font-size:15px; */
+/* 	position:absolute; */
+/* 	left:50%; */
+/* 	top:50%; */
+/* 	transform: translate(-50%,-50%); */
+/* } */
+/* ****************表格**************** */
+table{
+	/*border: 1px solid orange;*/
+	border-collapse: collapse;
+	width:calc(100% - 60px);
+	position: relative;
+	top:var(--table-move-down);
+	table-layout: fixed;
+}
+table thead{
+	height:var(--thead-height);
+	background: rgb(48, 72, 86);
+	width:20px;
+	border: 1px solid #ccc;
+	color:#fff;
+}
+table thead th, table tbody tr td{	
+	border: 2px solid #ccc;
+	text-align: center;
+	width:100px;
+}
+table tbody tr td{
+	padding:3px;
+	background-color: #fff;
+	border-radius: 15px;
+}
+/*
+table thead th{
+	border-radius: 15px;
+}
+*/
+div.img{
+	overflow: hidden;
+	height: 100%;
+	width:100%;
+}
+
+div.img img{
+    /*border: 1px solid blue;*/
+	height: 100%;
+	width:100%;
+    object-fit: cover;
+    object-position: center;
+	display:block;
+	margin:auto;
+}
+
+table th#id{
+	width:50px;
+}
+table th#loc{
+	width:200px;
+}
+table th#capacity{
+	width:40px;
+}
+table th#rent{
+	width:50px;
+}
+table th#name{
+	width:100px;
+}
+div.no_img img{
+    /*border: 1px solid blue;*/
+	height: 100%;
+	width:100%;
+    object-fit: contain;
+    object-position: center;
+	display:block;
+	margin:auto;
+}
+h3{
+	position: absolute;
+	top:110px;
+	right:30px;
+}
+/*****************按鈕*****************/
+div.btn_block{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+div.btn_block form{
+	margin: 0 10px;
+}
+div.btn_block input.update_btn{
+	background-color:rgb(71, 110, 162);
+	color:#fff;
+}
+div.btn_block input.update_btn:hover{
+	background-color:rgb(97, 133, 179);
+}
+div.btn_block input.off_btn{
+	background-color:rgb(232, 40, 40);
+	color:#fff;
+}
+div.btn_block input.off_btn:hover{
+	background-color:rgb(230, 83, 83);
+}
+div.btn_block input.update_btn,
+div.btn_block input.off_btn,
+div.btn_block input.on_btn{
+	font-weight: 700;
+}
+div.btn_block input[type="submit"]{
+	width:var(--submit-btn-width);
+	height:35px;
+	border-radius: 10px;
+	border:1px outset #ccc;
+	cursor: pointer;
+}
+div.container button#btn_add{
+	width:130px;
+	height:35px;
+	position: relative;
+	top:30px;
+	left: 30px;
+	border:1px solid green;
+	color:#fff;
+	background-color: green;
+	cursor: pointer;
+	border-radius: 5px;
+}
+div.container button#btn_add:hover{
+	box-shadow: 10px 10px 10px -7px rgb(207, 206, 206);
+}
+div.container button#btn_add i{
+	margin-right:5px;
+	font-size: 16px;
+}
+div.btn_block input.on_btn{
+	background-color: #008400;
+	color:#fff;
+}
+div.btn_block input.on_btn:hover{
+	background-color: #00a400;
+}
+/*****************篩選按鈕*****************/
+select#sort_type{
+	position:absolute;
+	top:115px;
+	right:210px;
+	height: 50px;
+}
