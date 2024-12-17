@@ -60,9 +60,7 @@ function hideURLbar() {
   .nav-links a:hover {
     color: lightgray; /* 滑鼠懸停時顏色變淺 */
   }
-  
-  
-        
+          
     </style>
 </head>
 
@@ -75,15 +73,15 @@ function hideURLbar() {
 	
 
 	<div class="nav-links">
-  <a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
-  <a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
-  <a href="#">商城</a>
-  <a href="#">錄音室</a>
-  <a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
-  <a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
-  <a href="${pageContext.request.contextPath}/front-end/register.jsp">注冊</a>
-  <a href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp">客服中心</a>
-</div>
+  		<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
+  		<a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
+  		<a href="#">商城</a>
+  		<a href="#">錄音室</a>
+  		<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
+  		<a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
+  		<a href="${pageContext.request.contextPath}/front-end/register.jsp">注冊</a>
+  		<a href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp">客服中心</a>
+	</div>
 	
 			
 		<h1>VoiceBus-聲音巴士</h1>
