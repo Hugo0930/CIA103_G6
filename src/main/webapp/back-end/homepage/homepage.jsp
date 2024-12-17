@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
 	alert('請先登入');
-	location.href="/CIA103G6/front-end/login.jsp";
+	location.href="/CIA103g6/front-end/login.jsp";
 </script>
 </c:if>
 <!--  -->
