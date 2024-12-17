@@ -1,4 +1,4 @@
-	package com.member.controller;
+package com.member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -85,10 +85,8 @@ public class MemberUpdateServlet extends HttpServlet {
 
 			/*************************** 2. 開始更新會員資料 ******************************/
 			MemberService memberSvc = new MemberService();
-			MemberVO memberVO = memberSvc.updateMember(
-				session, memberName, memberUid, memberBth, memberGender, 
-				memberEmail, memberTel, memberAdd, memberAcc, memberPw
-			);
+			MemberVO memberVO = memberSvc.updateMember( memberName, memberUid, memberBth, memberGender,
+					memberEmail, memberTel, memberAdd, memberAcc, memberPw);
 
 			if (memberVO == null) {
 				errorMsgs.add("更新失敗，請稍後重試");

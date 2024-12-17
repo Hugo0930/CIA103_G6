@@ -62,12 +62,14 @@ public class ComplaintServlet extends HttpServlet {
 	        // 測試時使用假 ID（如果 Session 中不存在 memberId）
 	        if (memberId == null) {
 	            // errorMsgs.add("會員編號不存在，請重新操作！");
+	        	memberId = 5;
 	        }
 
 	        // 從 Session 中獲取案件 ID
 	        Integer caseId = (Integer) session.getAttribute("caseId");
 	        if (caseId == null) {
 	            // errorMsgs.add("案件編號不存在，請重新操作！");
+	        	memberId = 5;
 	        }
 
 	        // 處理圖片上傳

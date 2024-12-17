@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.apply.model.*"%>
 
@@ -60,33 +60,36 @@ tr:hover {
 					<tr>
 						<td>${apply.caseId}</td>
 						<td>${apply.memId}</td>
-						<td>${apply.receiverId}</td>
+						<td><c:choose>
+								<c:when
+									test="${empty apply.receiverId or apply.receiverId == 0}">目前無接案人員</c:when>
+								<c:otherwise>${apply.receiverId}</c:otherwise>
+							</c:choose></td>
 						<td>${apply.description}</td>
 						<td>${apply.budget}</td>
 
-						<td>
-							<c:choose>
+						<td><c:choose>
 								<c:when test="${apply.status == '0'}">應徵中</c:when>
 								<c:when test="${apply.status == '1'}">已媒合</c:when>
 								<c:when test="${apply.status == '2'}">未媒合</c:when>
 								<c:when test="${apply.status == '3'}">發案中</c:when>
 								<c:otherwise>未知狀態</c:otherwise>
-							</c:choose>
-						</td>
+							</c:choose></td>
 
 						<td>${apply.remarks}</td>
 						<td>${apply.uploadDate}</td>
 
-						<td>
-							<audio controls>
-								<source src="${pageContext.request.contextPath}/apply/playVoiceFile?caseId=${apply.caseId}&memId=${apply.memId}" type="audio/mpeg">
+						<td><audio controls>
+								<source
+									src="${pageContext.request.contextPath}/apply/playVoiceFile?caseId=${apply.caseId}&memId=${apply.memId}"
+									type="audio/mpeg">
 								您的瀏覽器不支援音頻播放。
-							</audio>
-							<br>
-							<a href="${pageContext.request.contextPath}/apply/downloadVoiceFile?caseId=${apply.caseId}&memId=${apply.memId}" download>下載音頻</a>
-						</td>
+							</audio> <br> <a
+							href="${pageContext.request.contextPath}/apply/downloadVoiceFile?caseId=${apply.caseId}&memId=${apply.memId}"
+							download>下載音頻</a></td>
 
-						<td><a href="${pageContext.request.contextPath}/apply/getByCaseServlet?caseId=${apply.caseId}&memId=${apply.memId}">查看詳情</a></td>
+						<td><a
+							href="${pageContext.request.contextPath}/apply/getByCaseServlet?caseId=${apply.caseId}&memId=${apply.memId}">查看詳情</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

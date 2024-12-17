@@ -3,8 +3,6 @@ package com.member.model;
 import java.sql.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 public class MemberService {
 
 	private MemberDAO_interface dao;
@@ -52,19 +50,12 @@ public class MemberService {
 	 * @param memberPw     密碼
 	 * @return 更新後的 MemberVO，如果更新失敗則返回 null
 	 */
-	public MemberVO updateMember(HttpSession session, String memberName, String memberUid, Date memberBth,
+	public MemberVO updateMember( String memberName, String memberUid, Date memberBth,
 			Byte memberGender, String memberEmail, String memberTel, String memberAdd, String memberAcc,
 			String memberPw) {
 
-		// 1. 確保使用當前用戶的會員 ID (不依賴用戶提交的數據)
-		Integer memberId = (Integer) session.getAttribute("memId");
-		if (memberId == null) {
-			throw new RuntimeException("無法確認會員身份，請重新登入");
-		}
-
 		// 2. 構建 MemberVO，確保不更新會員等級和會員狀態
 		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberId(memberId);
 		memberVO.setMemberName(memberName);
 		memberVO.setMemberUid(memberUid);
 		memberVO.setMemberBth(memberBth);
@@ -83,6 +74,7 @@ public class MemberService {
 			return null;
 		}
 
+		Integer memberId = null;
 		// 5. 返回更新後的會員資訊 (重新從數據庫獲取最新的數據)
 		return dao.findByPrimaryKey(memberId);
 	}

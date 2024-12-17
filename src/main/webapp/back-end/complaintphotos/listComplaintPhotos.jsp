@@ -1,5 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.complaintphotos.model.*"%>
+
+<%
+ComplaintPhotosService complaintphotsoSvc = new ComplaintPhotosService();
+    List<ComplaintPhotosVO> list = complaintphotsoSvc.getAllComplaintPhotos();
+    pageContext.setAttribute("photoList",list);
+%>
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
