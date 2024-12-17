@@ -22,7 +22,7 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
-    <!-- 設定 session 過期時間為 30 分鐘 -->
+    <!-- 設定 session 過期時間為 10 分鐘 -->
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>
