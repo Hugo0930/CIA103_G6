@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 import com.orders.model.OrdersService;
 import com.orders.model.OrdersVO;
 import com.ordersdetails.model.OrdersDetailsService;
@@ -160,46 +162,43 @@ public class OrderServlet extends HttpServlet {
 	private void getMemberOrders(HttpServletRequest req, HttpServletResponse res) 
 	        throws ServletException, IOException {
 	    try {
-	        // 取得所有訂單明細
-	        OrdersDetailsService ordersDetailsService = new OrdersDetailsService();
-	        List<OrdersDetailsVO> orderDetails = ordersDetailsService.getAll();
+	        // 取得狀態參數
+	        String statusParam = req.getParameter("status");
+	        Byte status = (statusParam != null && !"all".equals(statusParam)) ? Byte.valueOf(statusParam) : null;
 
-	        // 取得商品服務
+	        OrdersDetailsService ordersDetailsService = new OrdersDetailsService();
+	        OrdersService ordersService = new OrdersService();
 	        ProdService prodService = new ProdService();
 
-	        // 建立包含所有資訊的列表
+	        List<OrdersDetailsVO> orderDetails = ordersDetailsService.getAll();
 	        List<Map<String, Object>> orderDetailsList = new ArrayList<>();
 
 	        for (OrdersDetailsVO detail : orderDetails) {
-	            Map<String, Object> orderMap = new HashMap<>();
-	            // 取得商品資訊
-	            ProdVO prod = prodService.getOneProd(detail.getProdId());
+	            OrdersVO order = ordersService.getOneOrder(detail.getOrdersId());
+	            if (status == null || order.getOrdersStatus().equals(status)) { // 狀態過濾
+	                Map<String, Object> orderMap = new HashMap<>();
+	                ProdVO prod = prodService.getOneProd(detail.getProdId());
 
-	            // 組合資料 - 確保使用String類型的ordersId
-	            orderMap.put("ordersId", String.valueOf(detail.getOrdersId()));
-	            orderMap.put("prodId", detail.getProdId());
-	            orderMap.put("prodName", prod != null ? prod.getProdName() : "");
-	            orderMap.put("ordersQty", detail.getOrdersQty());
-	            orderMap.put("ordersUnitPrice", detail.getOrdersUnitPrice());
-	            orderMap.put("reportsContent", 
-	                detail.getReportsContent() != null ? detail.getReportsContent() : "");
-
-	            orderDetailsList.add(orderMap);
+	                orderMap.put("ordersId", String.valueOf(detail.getOrdersId()));
+	                orderMap.put("prodId", detail.getProdId());
+	                orderMap.put("prodName", prod != null ? prod.getProdName() : "");
+	                orderMap.put("ordersQty", detail.getOrdersQty());
+	                orderMap.put("ordersUnitPrice", detail.getOrdersUnitPrice());
+	                orderMap.put("ordersStatus", order.getOrdersStatus());
+	                orderDetailsList.add(orderMap);
+	            }
 	        }
 
-	        // 將資料傳給 JSP
+	        // 將資料傳遞至 JSP
 	        req.setAttribute("orderDetailsList", orderDetailsList);
-	        String url = "/front-end/orders/memberOrders.jsp";
-	        RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+	        req.setAttribute("currentStatus", statusParam);
+	        RequestDispatcher dispatcher = req.getRequestDispatcher("/front-end/orders/memberOrders.jsp");
 	        dispatcher.forward(req, res);
-	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
-	            "處理訂單資料時發生錯誤: " + e.getMessage());
+	        res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing orders: " + e.getMessage());
 	    }
 	}
-
 	private void getOrderDetails(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer orderId = Integer.parseInt(req.getParameter("orderId"));
 
@@ -239,13 +238,13 @@ public class OrderServlet extends HttpServlet {
 			List<OrdersVO> ordersList = ordersService.getAll();
 
 			request.setAttribute("ordersList", ordersList);
-			String url = "/back-end/memberorders/memberorders.jsp";
+			String url = "/back-end/memberorders/memberOrdersBack.jsp"; 
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.getRequestDispatcher("/back-end/memberorders/homepage.jsp").forward(request, response);
+			request.getRequestDispatcher("/back-end/memberorders/homePage.jsp").forward(request, response);
 		}
 	}
 
@@ -275,26 +274,37 @@ public class OrderServlet extends HttpServlet {
 	        throws ServletException, IOException {
 	    try {
 	        OrdersService ordersService = new OrdersService();
-	        
+
 	        // 取得訂單狀態參數，1 = 待確認，2 = 已出貨
-	        String statusParam = request.getParameter("status");
-	        Byte status = (statusParam != null) ? Byte.valueOf(statusParam) : null;
+	        String statusParam = request.getParameter("status"); // 取得 status 字串參數
 
 	        // 根據訂單狀態過濾訂單
 	        List<Map<String, Object>> orderSummaryList;
-	        if (status != null) {
-	            orderSummaryList = ordersService.getOrderSummaryByStatus(status);
+
+	        if (statusParam == null || "all".equals(statusParam)) {
+	            orderSummaryList = ordersService.getOrderSummary(); // 顯示全部訂單
 	        } else {
-	            orderSummaryList = ordersService.getOrderSummary(); // 預設返回所有訂單
+	            try {
+	                // 確保 statusParam 是數值 1 或 2
+	                Byte status = Byte.valueOf(statusParam);
+	                orderSummaryList = ordersService.getOrderSummaryByStatus(status);
+	            } catch (NumberFormatException e) {
+	                // 若 statusParam 不是有效的數字，回傳錯誤
+	                throw new IllegalArgumentException("Invalid status parameter: " + statusParam);
+	            }
 	        }
 
-	        // 設定 JSP 需要的資料
+	        // 設定 JSP 需要的資料，確保 currentStatus 統一為字串
 	        request.setAttribute("orderSummaryList", orderSummaryList);
-	        request.setAttribute("currentStatus", status); // 設定當前分頁狀態
+	        request.setAttribute("currentStatus", statusParam); // 直接設置字串
 
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/back-end/memberorders/memberorders.jsp");
+	        // 轉發至 JSP 頁面
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/back-end/memberorders/memberOrdersBack.jsp");
 	        dispatcher.forward(request, response);
 
+	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing order summary");
@@ -355,78 +365,57 @@ public class OrderServlet extends HttpServlet {
 	private void getMemberOrderDetails(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
 	    try {
-	        // 獲取訂單ID
 	        String orderIdStr = request.getParameter("orderId");
 	        System.out.println("Received orderId: " + orderIdStr);
 	        
-	        if (orderIdStr == null || orderIdStr.trim().isEmpty()) {
-	            throw new IllegalArgumentException("訂單ID不能為空");
-	        }
-	        
 	        Integer orderId = Integer.parseInt(orderIdStr);
-
-	        // 獲取訂單資訊
 	        OrdersService ordersService = new OrdersService();
 	        OrdersVO order = ordersService.getOneOrder(orderId);
 	        
-	        if (order == null) {
-	            throw new RuntimeException("找不到訂單：" + orderId);
-	        }
-
-	        // 獲取訂單明細
+	        // 取得會員資訊
+	        MemberService memberService = new MemberService();
+	        MemberVO member = memberService.getOneMember(order.getMemId());
+	        
+	        // 準備訂單詳情
 	        OrdersDetailsService ordersDetailsService = new OrdersDetailsService();
 	        List<OrdersDetailsVO> detailsList = ordersDetailsService.getByOrdersId(orderId);
+	        ProdService prodService = new ProdService();
 	        
-	        if (detailsList == null || detailsList.isEmpty()) {
-	            throw new RuntimeException("找不到訂單明細：" + orderId);
-	        }
-
-	        // 準備響應數據
 	        List<Map<String, Object>> details = new ArrayList<>();
 	        int totalAmount = 0;
-
-	        // 獲取商品服務
-	        ProdService prodService = new ProdService();
-
+	        
 	        for (OrdersDetailsVO detail : detailsList) {
 	            ProdVO prod = prodService.getOneProd(detail.getProdId());
-	            
-	            if (prod == null) {
-	                System.err.println("找不到商品：" + detail.getProdId());
-	                continue;
-	            }
-
 	            Map<String, Object> detailMap = new HashMap<>();
 	            int subtotal = detail.getOrdersQty() * detail.getOrdersUnitPrice();
 	            
 	            detailMap.put("prodName", prod.getProdName());
-	            detailMap.put("prodPic", request.getContextPath() + "/prod/prod.do?action=get_pic&prodId=" + detail.getProdId());
 	            detailMap.put("ordersDate", order.getOrdersDate().toString());
 	            detailMap.put("ordersQty", detail.getOrdersQty());
 	            detailMap.put("ordersUnitPrice", detail.getOrdersUnitPrice());
 	            detailMap.put("subtotal", subtotal);
-
+	            
 	            details.add(detailMap);
 	            totalAmount += subtotal;
 	        }
 
-	        // 準備響應
 	        Map<String, Object> result = new HashMap<>();
 	        result.put("details", details);
 	        result.put("ordersShipFee", order.getOrdersShipFee());
 	        result.put("ordersPaid", totalAmount + order.getOrdersShipFee());
+	        // 新增收件人資訊
+	        result.put("receiverName", member.getMemberName());
+	        result.put("receiverPhone", member.getMemberTel());
+	        result.put("receiverAddress", order.getOrdersAdd());
+	        result.put("orderMemo", order.getOrdersMemo());
 
-	        // 輸出 JSON
 	        String jsonResponse = new Gson().toJson(result);
 	        System.out.println("Sending response: " + jsonResponse);
 
 	        response.setContentType("application/json;charset=UTF-8");
 	        response.getWriter().write(jsonResponse);
-
 	    } catch (Exception e) {
-	        System.err.println("Error in getMemberOrderDetails: " + e.getMessage());
 	        e.printStackTrace();
-	        
 	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	        Map<String, String> error = new HashMap<>();
 	        error.put("error", e.getMessage());

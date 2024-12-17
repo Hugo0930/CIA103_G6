@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Shop Homepage - Start Bootstrap Template</title>
+<title>VoiceBus購物商城</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -29,7 +29,12 @@
 <!-- <ProdVO> list = prodSvc.getAll();  -->
 <!-- req.setAttribute("list",list); -->
 
-
+<!-- 搜尋商品功能 -->
+<form action="<%=request.getContextPath()%>/prod/prod.do" method="POST" class="d-flex mb-4">
+    <input type="hidden" name="action" value="search_prod" />
+    <input class="form-control me-2" type="search" placeholder="輸入商品名稱" name="keyword" aria-label="Search" required>
+    <button class="btn btn-outline-success" type="submit">搜尋</button>
+</form>
 
 
 <body>
@@ -126,9 +131,8 @@
 	<header class="bg-dark py-5">
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="text-center text-white">
-				<h1 class="display-4 fw-bolder">Shop in style</h1>
-				<p class="lead fw-normal text-white-50 mb-0">With this shop
-					homepage template</p>
+				<h1 class="display-4 fw-bolder">購物商城</h1>
+				
 			</div>
 		</div>
 	</header>
@@ -164,296 +168,13 @@
 						</div>
 					</div>
 				</c:forEach>
-
-
-
-				<%-- <c:forEach var="prodVO" items="${list}"> --%>
-				<!--     <div class="col mb-5"> -->
-				<!--         <div class="card h-100"> -->
-				<!--             商品圖片 -->
-				<!--             <img class="card-img-top"  -->
-				<%--                  src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=${prodVO.prodId}"  --%>
-				<!--                  alt="..." /> -->
-				<!--             商品資訊 -->
-				<!--             <div class="card-body p-4"> -->
-				<!--                 <div class="text-center"> -->
-				<%--                     <h5 class="fw-bolder">${prodVO.prodName}</h5> --%>
-				<%--                     ${prodVO.prodPrice} --%>
-				<!--                 </div> -->
-				<!--             </div> -->
-				<!--             商品操作 -->
-				<!--             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                 <div class="text-center"> -->
-				<%--                     <form action="<%=request.getContextPath()%>/prod/prod.do" method="POST"> --%>
-				<!--                         <input type="hidden" name="action" value="add_to_cart" /> -->
-				<%--                         <input type="hidden" name="prodId" value="${prodVO.prodId}" /> --%>
-				<!--                         <input type="number" name="cartlistQty" min="1" value="1" class="form-control mb-2" /> -->
-				<!--                         <button type="submit" class="btn btn-outline-dark mt-auto">Add to Cart</button> -->
-				<!--                     </form> -->
-				<!--                 </div> -->
-				<!--             </div> -->
-				<!--         </div> -->
-				<!--     </div> -->
-				<%-- </c:forEach> --%>
-
-
-
-
-
-
-				<!-- 這板可以寫入資料庫 -->
-				<%-- 				<c:forEach var="prodVO" items="${list}"> --%>
-				<!-- 					<div class="col mb-5"> -->
-				<!-- 						<div class="card h-100"> -->
-				<!-- <!-- 							Product image -->
-				<!-- 							<img class="card-img-top" -->
-				<%-- 								src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=${prodVO.prodId}" --%>
-				<!-- 								alt="..." /> -->
-				<!-- <!-- 							Product details -->
-				<!-- 							<div class="card-body p-4"> -->
-				<!-- 								<div class="text-center"> -->
-				<%-- 									<h5 class="fw-bolder">${prodVO.prodName}</h5> --%>
-				<%-- 									${prodVO.prodPrice} --%>
-				<!-- 								</div> -->
-				<!-- 							</div> -->
-				<!-- <!-- 							Product actions -->
-				<!-- 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!-- 								<div class="text-center"> -->
-
-
-				<!-- <!-- 									Add to Cart form -->
-				<%-- 									<form action="${pageContext.request.contextPath}/prod/prod.do" --%>
-				<!-- 										method="post"> -->
-				<!-- 										<input type="hidden" name="action" value="add_to_cart"> -->
-				<%-- 										<input type="hidden" name="prodId" value="${prodVO.prodId}"> --%>
-				<!-- 										<input type="number" name="cartlistQty" min="1" value="1" -->
-				<!-- 											class="form-control mb-2"> -->
-				<!-- 										<button class="btn btn-outline-dark mt-auto" type="submit">Add -->
-				<!-- 											to Cart</button> -->
-				<!-- 									</form> -->
-				<!-- <!-- 									Add to Cart form 加在這一段程式碼 -->
-
-				<!-- <!-- 																		<a class="btn btn-outline-dark mt-auto" href="#">Add to -->
-				<!-- <!-- 																			Cart</a> -->
-				<!-- 								</div> -->
-				<!-- 							</div> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<%-- 				</c:forEach> --%>
-
-				<!-- 				結束行可以寫入資料庫 -->
-
-				<%-- 				                	<c:forEach var="prodVO" items="${list}"> --%>
-				<!--                 		<div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Product image -->
-				<%--                             <img class="card-img-top" src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=${prodVO.prodId}" alt="..." /> --%>
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder">${prodVO.prodName}</h5> --%>
-
-				<!--                                     Product price -->
-				<%--                                     ${prodVO.prodPrice} --%>
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to Cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> 	 -->
-				<%--         	</c:forEach>  --%>
-
-
-
-
-
-
-
-
-
-				<!--                     <div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Product image -->
-				<%--                             <img class="card-img-top" src="<%=request.getContextPath()%>/prod/prod.do?action=get_pic&prodId=<%=p1.getProdId()%>" alt="..." /> --%>
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder"><%=p1.getProdName()%> </h5> --%>
-
-				<!--                                     Product price -->
-				<%--                                     <%=p1.getProdPrice()%> --%>
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to Cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
-				<!--                     <div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Sale badge -->
-				<!--                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"></div> -->
-				<!--                             Product image -->
-				<!--                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder"><%=p2.getProdName()%></h5> --%>
-				<!--                                     Product reviews -->
-
-				<!--                                     Product price -->
-				<%--                                     <%=p2.getProdPrice()%> --%>
-
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
-				<!--                     <div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Sale badge -->
-				<!--                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"></div> -->
-				<!--                             Product image -->
-				<!--                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder"><%=p3.getProdName()%></h5> --%>
-				<!--                                     Product price -->
-				<%--                                     <%=p3.getProdPrice()%> --%>
-
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
-				<!--                     <div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Product image -->
-				<!--                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder"><%=p4.getProdName()%></h5> --%>
-				<!--                                     Product reviews -->
-
-				<!--                                     Product price -->
-				<%--                                     <%=p4.getProdPrice()%> --%>
-
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
-				<!--                     <div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Sale badge -->
-				<!--                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"></div> -->
-				<!--                             Product image -->
-				<!--                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder"><%=p5.getProdName()%></h5> --%>
-				<!--                                     Product price -->
-				<%--                              <%=p5.getProdPrice()%> --%>
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
-				<!--                     <div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Product image -->
-				<!--                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder"><%=p6.getProdName()%></h5> --%>
-				<!--                                     Product price -->
-				<%--                                  <%=p6.getProdPrice()%> --%>
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to Cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
-				<!--                     <div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Sale badge -->
-				<!--                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"></div> -->
-				<!--                             Product image -->
-				<!--                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder"><%=p7.getProdName()%></h5> --%>
-				<!--                                     Product reviews -->
-
-				<!--                                     Product price -->
-				<%--                                     <%=p7.getProdPrice()%> --%>
-
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
-				<!--                     <div class="col mb-5"> -->
-				<!--                         <div class="card h-100"> -->
-				<!--                             Product image -->
-				<!--                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
-				<!--                             Product details -->
-				<!--                             <div class="card-body p-4"> -->
-				<!--                                 <div class="text-center"> -->
-				<!--                                     Product name -->
-				<%--                                     <h5 class="fw-bolder"><%=p8.getProdName()%></h5> --%>
-				<!--                                     Product reviews -->
-
-				<!--                                     Product price -->
-				<%--                                     <%=p8.getProdPrice()%> --%>
-				<!--                                 </div> -->
-				<!--                             </div> -->
-				<!--                             Product actions -->
-				<!--                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"> -->
-				<!--                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div> -->
-				<!--                             </div> -->
-				<!--                         </div> -->
-				<!--                     </div> -->
 			</div>
 		</div>
 	</section>
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
 		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy;</p>
+<!-- 			<p class="m-0 text-center text-white">Copyright &copy;</p> -->
 		</div>
 	</footer>
 	<!-- Bootstrap core JS-->

@@ -16,7 +16,7 @@ public class ProdDAO implements ProdDAO_interface {
 	private static final String DELETE = "DELETE FROM PROD WHERE PROD_ID = ?";
 	private static final String UPDATE = "UPDATE PROD SET PROD_TYPE_ID=?, PROD_NAME=?, PROD_PRICE=? WHERE PROD_ID = ?";
 	private static final String GET_BY_PROD_TYPE_ID = "SELECT PROD_ID, PROD_TYPE_ID, PROD_NAME, PROD_PRICE,PROD_PIC FROM PROD WHERE PROD_TYPE_ID = ?";
-
+	private static final String SEARCH_BY_NAME = "SELECT PROD_ID, PROD_TYPE_ID, PROD_NAME, PROD_PRICE, PROD_PIC FROM PROD WHERE PROD_NAME LIKE ?";
 	@Override
 	public void insert(ProdVO prodVO) {
 		Connection con = null;
@@ -268,6 +268,41 @@ public class ProdDAO implements ProdDAO_interface {
 	    }
 	    return list;
 	}
+	@Override
+	public List<ProdVO> searchByProdName(String keyword) {
+	    List<ProdVO> list = new ArrayList<>();
+	    ProdVO prodVO = null;
+
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        Class.forName(driver);
+	        con = DriverManager.getConnection(url, userid, passwd);
+	        pstmt = con.prepareStatement(SEARCH_BY_NAME);
+	        pstmt.setString(1, "%" + keyword + "%"); // 使用LIKE模糊搜尋
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            prodVO = new ProdVO();
+	            prodVO.setProdId(rs.getInt("PROD_ID"));
+	            prodVO.setProdTypeId(rs.getInt("PROD_TYPE_ID"));
+	            prodVO.setProdName(rs.getString("PROD_NAME"));
+	            prodVO.setProdPrice(rs.getBigDecimal("PROD_PRICE"));
+	            prodVO.setProdPic(rs.getBytes("PROD_PIC"));
+	            list.add(prodVO);
+	        }
+	    } catch (Exception e) {
+	        throw new RuntimeException("Database error: " + e.getMessage());
+	    } finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException se) { se.printStackTrace(); }
+	        if (pstmt != null) try { pstmt.close(); } catch (SQLException se) { se.printStackTrace(); }
+	        if (con != null) try { con.close(); } catch (Exception e) { e.printStackTrace(); }
+	    }
+	    return list;
+	}
+
 
 // 測試用 main 方法
 	public static void main(String[] args) {
