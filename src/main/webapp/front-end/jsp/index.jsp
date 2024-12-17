@@ -131,9 +131,9 @@ button {
 							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
 							style="color: #000000; font-size: 18px;">關於我</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">商城</a></li>
+						    style="color: #000000; font-size: 18px;">商城</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">錄音室</a></li>
+						    style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarLightDropdownMenuLink" role="button"
@@ -433,7 +433,7 @@ button {
 									<script>
 										// 撥放音頻的JavaScript函數
 										function playAudio(event, audioSrc) {
-											event.preventDefault(); // 阻止 _$t 的預設行為
+											event.preventDefault(); // 阻止 <a> 的預設行為
 											const audioPlayer = document
 													.getElementById('audio-player');
 											const audioSource = document
