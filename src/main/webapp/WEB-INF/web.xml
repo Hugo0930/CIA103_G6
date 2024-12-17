@@ -108,6 +108,17 @@
 
 
 
+<!--商城後臺-->
+  <servlet>
+    <servlet-name>ProdServletBack</servlet-name>
+    <servlet-class>com.prod.controller.ProdServletBack</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdServletBack</servlet-name>
+    <url-pattern>/back-end/prodmanage/prodBack.do</url-pattern>
+  </servlet-mapping> 
+<!-- -->
+
 
 
 

@@ -1,0 +1,301 @@
+@charset "UTF-8";
+
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+
+/********主表單******/
+table.main{
+	border-collapse: collapse;
+	table-layout: fixed;
+	width:calc(100% - 50px);
+}
+table.main th{
+	background-color: rgb(48, 72, 86);
+	color:#fff;
+	height:40px;
+}
+table.main td{
+	height:35px;
+	background-color: #fff;
+	border-bottom:1px solid black;
+	text-align: center;
+}
+table.main tr:last-child td{
+	border: none;
+}
+table.main td,
+table.main th{
+	padding-left:10px;
+	/*border:1px solid black;*/
+}
+table.main th:nth-child(1),
+table.main th:nth-child(2),
+table.main th:nth-child(3),
+table.main th:nth-child(4),
+table.main th:nth-child(5),
+table.main th:nth-child(8){
+	width:80px;
+}
+/********主表單圓角******/
+table.main th:first-child{
+	border-top-left-radius: 20px;
+}
+table.main th:last-child{
+	border-top-right-radius: 20px;
+}
+table.main tr:last-child td:first-child{
+	border-bottom-left-radius: 20px;
+}
+table.main tr:last-child td:last-child{
+	border-bottom-right-radius: 20px;
+}
+
+table.main tr td:nth-child(8){
+	color:red;
+}
+
+table.main th:nth-child(9),
+table.main th:nth-child(10){
+	width:0px;
+	font-size: 0px;
+	padding-left:0px;
+}
+
+table.main td:nth-child(9),
+table.main td:nth-child(10){
+	font-size: 0px;
+	padding-left:0px;
+}
+
+table.main th:nth-child(11),
+table.main th:nth-child(12){
+	width:70px;
+}
+
+table.main tbody td:nth-child(6),
+table.main tbody td:nth-child(7){
+
+    white-space: nowrap; /* 禁止換行 */
+    overflow: hidden; /* 隱藏超出部分 */
+    text-overflow: ellipsis; /* 超出部分以...表示 */
+}
+table.main tbody td button.lookup_btn,
+table.main tbody td button.reply_btn{
+	padding:3px 9px;
+	color:#fff;
+	font-weight: 500;
+	cursor: pointer;
+	border: none;
+	border-radius: 3px;
+}
+table.main tbody td button.lookup_btn{
+	background-color: #5555ff;
+}
+
+table.main tbody td button.reply_btn{
+	background-color: #149aeb;
+}
+/********回覆表單******/
+div.reply_view{
+	display:none;
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:50%;
+	left:0;
+	background-color: rgba(0,0,0,.3);
+	z-index:10;
+	transform:translateY(-50%);
+}
+
+div.reply_view form{
+	position:relative;
+	top:20%;
+	left:50%;
+	transform:translateX(-50%);
+	background-color: #fff;
+	display:inline-block;
+	padding:30px 45px;
+	border-radius: 10px;
+}
+
+div.reply_view div.btn_block{
+	display:inline-block;
+	position: relative;
+	left:50%;
+	transform:translateX(-50%);
+}
+
+div.reply_view div.btn_block button{
+	width:50px;
+	font-size: 15px;
+	text-align: center;
+	margin-left:15px;
+}
+
+div.reply_view table{
+	width:400px;
+    border-collapse: collapse;
+}
+
+div.reply_view label{
+	font-size: 18px;
+	margin-right:10px;
+}
+div.reply_view td{
+	display:flex;
+	flex-direction:row;
+	margin-bottom:10px;
+
+}
+div.reply_view input[type="text"],
+div.reply_view textarea#reply{
+	flex-grow: 1;
+	padding:3px;
+	outline:none;
+	border:1px solid black;
+	border-radius: 3px;
+}
+div.reply_view select{
+	border:1px solid black;
+	border-radius: 3px;
+}
+div.reply_view textarea#reply{
+	resize:none;
+}
+div.reply_view div.btn_block{
+	position: relative;
+	top:10px;
+}
+div.reply_view div.btn_block button#close_btn,
+div.reply_view div.btn_block button#rest_btn,
+div.reply_view div.btn_block button#submit_btn{
+	font-size: 18px;
+	padding:5px;
+	border-radius: 3px;
+	color:#fff;
+	border:none;
+	font-weight: 500;
+	cursor:pointer;
+	font-weight: 500px;
+}
+div.reply_view div.btn_block button#close_btn{
+	background-color: #bb0000;
+}
+div.reply_view div.btn_block button#close_btn:hover{
+	background-color: #d50000;
+}
+div.reply_view div.btn_block button#rest_btn{
+	background-color: #727272;
+}
+div.reply_view div.btn_block button#rest_btn:hover{
+	background-color: #7c7c7c;
+}
+div.reply_view div.btn_block button#submit_btn{
+	background-color: #00008c;
+}
+div.reply_view div.btn_block button#submit_btn:hover{
+	background-color: #0000aa;
+}
+/********搜尋******/
+div.lookup{
+	display:flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	margin-bottom: 30px;
+	margin-top:30px;
+	margin-right:30px;
+}
+div.lookup form{
+	vertical-align: middle;
+	margin: 0 0 0 25px;
+	font-size: 0;
+}
+div.lookup form button{
+	display:inline-block;
+	margin:0 20px 0 0;
+	background-color: green;
+	color:white;
+	padding:10px;
+	border:none;
+	cursor:pointer;
+	border-radius: 20px;
+	font-weight: 700;
+}
+div.lookup form button#lookup_btn{
+	border-radius:0 30px 30px 0;
+}
+div.lookup form button:hover{
+	background-color: #009f00;
+}
+select#sort_type{
+	padding:0 10px;
+	outline: none;
+	border-radius: 20px;
+}
+div.lookup input#inputId{
+ 	height:80%; 
+	outline: none;
+	padding:0px 10px 0px 10px;
+	border-top-left-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border: none;
+	height: 100%;
+	display: inline-block;
+}
+/********查詢表單******/
+div.see_view_block{
+	display:none;
+	width:100%;
+	height: 100%;
+	position:absolute;
+	top:0;
+	left:0;
+	background-color: rgba(0,0,0,.1);
+}
+div.see_view_block div.see_view{
+	position:absolute;
+	top:20%;
+	left:50%;
+	background-color: #fff;
+	transform:translateX(-50%);
+	padding:20px 50px;
+	border-radius: 10px;
+}
+
+div.see_view_block div.see_view div.btn_block{
+	position:relative;
+	display:inline-block;
+	left:50%;
+	transform:translateX(-50%);
+}
+div.see_view_block div.see_view td{
+	height:30px;
+	display:table-cell;
+	vertical-align: middle;
+}
+div.see_view_block div.see_view td:first-child {
+	font-weight: 700;
+	font-size: 20px;
+}
+div.see_view_block div.see_view td:last-child {
+	padding-top:3px;
+	padding-left:5px;
+}
+div.see_view_block div.see_view div.btn_block button{
+	font-size: 18px;
+	padding:5px 15px;
+	border-radius: 3px;
+	background-color: #bb0000;
+	color:#fff;
+	border:none;
+	font-weight: 500;
+	cursor:pointer;
+	margin-top:8px;
+}
+div.see_view_block div.see_view div.btn_block button:hover{
+	background-color: #d70000;
+}

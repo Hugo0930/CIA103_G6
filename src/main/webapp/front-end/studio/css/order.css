@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+	box-sizing: border-box;
+}
+/*****************變數*******************/
+:root{
+	--cell-height:40px;
+	--title-height:45px;
+}
+body{
+	/*border:1px solid red;*/
+	height:100vh;
+	width:100vw;
+	background-color: #2a2a2a;
+}
+/*****************表格*******************/
+div.table{
+	/*border:1px solid orange;*/
+	display:inline-block;
+	max-width:1200px;
+	position: relative;
+	top:150px;
+	left:50%;
+	transform:translateX(-50%);
+}
+
+div.table table{
+	/*table-layout: fixed;*/
+	border-collapse: collapse;
+	text-align:center;
+	vertical-align: middle;
+	margin:0 0 20px 0;
+}
+
+div.table table td,
+div.table table th{
+	/*border:1px solid black;*/
+	border-bottom:1px;
+	border-bottom-color:black;
+	border-bottom-style:solid;
+	padding:3px 3px 3px 6px;
+	vertical-align: middle;
+}
+div.table td{
+	font-size: 14px;
+	height:var(--cell-height);
+	
+}
+
+div.table table th{
+	background-color: #00d1b2;
+	color:#fff;
+}
+
+div.table table thead tr th:nth-child(1) {
+	width:120px;
+	height:var(--title-height);
+}
+
+div.table table thead tr th:nth-child(2) {
+	width:300px;
+	height:var(--title-height);
+}
+
+div.table table thead tr th:nth-child(3) {
+	width:100px;
+	height:var(--title-height);
+}
+
+div.table table thead tr th:nth-child(4) {
+	width:100px;
+	height:var(--title-height);
+}
+
+div.table table thead tr th:nth-child(5) {
+	width:100px;
+	height:var(--title-height);
+}
+
+div.table table thead tr th:nth-child(6) {
+	width:100px;
+	height:var(--title-height);
+}
+
+div.table table thead tr th:nth-child(7) {
+	width:80px;
+	height:var(--title-height);
+}
+
+div.table table thead tr th:nth-child(8) {
+	width:100px;
+	height:var(--title-height);
+}
+
+div.table table thead tr th:nth-child(9) {
+	width:90px;
+	height:var(--title-height);
+}
+/*****************分頁*******************/
+div.pagination_block{
+	/*border:1px solid green;*/
+	display: inline;
+	float: right;
+}
+div.pagination_block ul{
+	/*border:1px solid blue;*/
+	font-size: 0px;
+	margin:0px;
+	padding:0px;
+}
+div.pagination_block ul li{
+	/*border:1px solid yellow;*/
+	display:inline-block;
+	width:25px;
+	height:25px;
+	padding:0px;
+}
+div.pagination_block ul li.active{
+	background-color: #00d1b2;
+	color:white;
+}
+div.pagination_block a.pagination_link{
+	/*border:1px solid purple;*/
+	font-size: 15px;
+	display:inline-block;
+	width:100%;
+	height:100%;
+	cursor:pointer;
+	text-align: center;
+	text-decoration: none;
+	color:black;
+	line-height: 25px;
+}
+/*****************查詢*******************/
+div.lookup_block{
+	/*border:3px solid #fff;*/
+	display:inline-block;
+	height:65px;
+	position:absolute;
+	right:calc(calc(100vw - 1100px) / 2);
+	top:150px;
+	font-size: 0px;
+	background-color: #fff;
+	padding: 25px;
+    border-radius: 50px;
+}
+div.lookup_block form{
+	position: relative;
+	top:50%;
+	transform:translateY(-50%);
+}
+div.lookup_block form input,
+div.lookup_block form select{
+	height:30px;
+	margin:0 10px;
+	font-size: 15px;
+}
+div.lookup_block form input[type="search"]{
+	margin-right:0px;
+}
+
+div.lookup_block form button{
+	margin: 0px;
+	border:none;
+	width:60px;
+	height:30px;
+	font-size: 15px;
+	display:inline-block;
+	
+}
+
+div.lookup_block form span{
+	margin: 0px;
+	font-size: 15px;
+}
+
+div.lookup_block form label{
+	font-size: 15px;
+}
+/*****************導覽列*******************/
