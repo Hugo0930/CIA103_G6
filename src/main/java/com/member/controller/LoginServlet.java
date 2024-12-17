@@ -49,9 +49,9 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 				//設定session key="mem" 
 				session.setAttribute("mem", mem);
 	
-				if(mem.getMemberStatus()==1){
+				if(mem.getMemberStatus()==1){//管理員
 //					System.out.println(mem.getMemberStatus());
-					resp.sendRedirect("../back-end/homepage/homepage.jsp");
+					resp.sendRedirect(req.getContextPath()+"/back-end/homepage/homepage.jsp");
 //					resp.sendRedirect("manage/index.jsp");
 				}
 				else {
