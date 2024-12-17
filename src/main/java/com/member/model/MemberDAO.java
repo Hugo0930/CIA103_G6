@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 import com.hr.dao.Basedao;
 import com.utils.datasource.HikariDataSourceUtil;
 
-public class MemberDAO {
+public class MemberDAO implements MemberDAO_interface {
 	private static final DataSource ds = HikariDataSourceUtil.getDataSource();
 
 	private static final String INSERTback_STMT = "INSERT INTO member (mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
