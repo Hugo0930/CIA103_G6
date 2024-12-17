@@ -2,6 +2,7 @@ package com.applicant.model;
 
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class ApplicantVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
@@ -13,14 +14,17 @@ public class ApplicantVO implements java.io.Serializable {
 	private String memName; // 應徵者名稱
 	private Timestamp applyTime; // 應徵時間
 	private Integer status; // 應徵狀態
+	private byte[] voiceFile;//錄音檔
 
+	
 	// 預設建構子
 	public ApplicantVO() {
 	}
 
-	// 全參數建構子
+
 	public ApplicantVO(Integer appId, Integer caseId, String title, Integer memId, String memName, Timestamp applyTime,
-			Integer status) {
+			Integer status, byte[] voiceFile) {
+		super();
 		this.appId = appId;
 		this.caseId = caseId;
 		this.title = title;
@@ -28,8 +32,17 @@ public class ApplicantVO implements java.io.Serializable {
 		this.memName = memName;
 		this.applyTime = applyTime;
 		this.status = status;
+		this.voiceFile = voiceFile;
 	}
 
+
+	public byte[] getVoiceFile() {
+	    return voiceFile;
+	}
+
+	public void setVoiceFile(byte[] voiceFile) {
+	    this.voiceFile = voiceFile;
+	}
 	// Getters 和 Setters
 	public Integer getAppId() {
 		return appId;
@@ -87,9 +100,12 @@ public class ApplicantVO implements java.io.Serializable {
 		this.status = status;
 	}
 
+
 	@Override
 	public String toString() {
 		return "ApplicantVO [appId=" + appId + ", caseId=" + caseId + ", title=" + title + ", memId=" + memId
-				+ ", memName=" + memName + ", applyTime=" + applyTime + ", status=" + status + "]";
+				+ ", memName=" + memName + ", applyTime=" + applyTime + ", status=" + status + ", voiceFile="
+				+ Arrays.toString(voiceFile) + "]";
 	}
+
 }
