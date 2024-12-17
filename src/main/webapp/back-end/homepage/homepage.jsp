@@ -1,11 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+ 
+<%@ page import="com.member.model.*"%>    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>後台首頁</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/back-end/homepage/css/homepage.css">  
+  <!-- 判斷有無登入且是否為管理員 -->
+<c:set var="memVO" value="${sessionScope.mem}" />
+
+<c:if test="${memVO.memberStatus != 1}">
+<script type="text/javascript">
+	alert('請先登入');
+	location.href="/CIA103g6/front-end/login.jsp";
+
+</script>
+</c:if>
+<!--  -->
 </head>
 <body>
     <!-- 漢堡 -->
@@ -87,7 +103,7 @@
             <div class="shop_btn_block">
                 <ul class="sub_func_name">
                     <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="./product_mgmt.html" class="sub_btn_name">商品管理</a></button>
+                        <button class="sub_btn_func"><a href="<%=request.getContextPath()%>/back-end/prodmanage/product_mgmt.jsp"  class="sub_btn_name">商品管理</a></button>
                     </li>
                     <li class="shop_sub_item">
                         <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/memberorders/memberorders.jsp" class="sub_btn_name">訂單管理</a></button>
@@ -139,11 +155,12 @@
     </nav>
     <!-- 現在位置 -->
     <div class="container">
-        <h2><i class="fa-solid fa-house"></i>首頁</h2>
+        <h2><i class="fa-solid fa-house"></i>首頁</h2>     
         <hr>
+        <h2><c:if test="${memVO!=null}">歡迎管理員:${memVO.memberName}</c:if></h2>
     </div>
     <script src="https://kit.fontawesome.com/155106be6f.js" crossorigin="anonymous"></script>
-    <script src="${pageContext.request.contextPath}/back-end/vendor/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/back-end/homepage/vendor/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/back-end/homepage/js/homepage.js"></script>
 	
 </body>
