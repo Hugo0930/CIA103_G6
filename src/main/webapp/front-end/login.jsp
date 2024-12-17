@@ -47,8 +47,77 @@ function hideURLbar() {
 
 <body>
 <!-- main -->
+
 <div class="w3layouts-main"> 
 	<div class="bg-layer">
+	
+	
+	
+	
+	<nav class="navbar navbar-expand-lg">
+			<div class="container">
+				<a class="navbar-brand me-lg-5 me-0"
+					href="${pageContext.request.contextPath}/front-end/jsp//index.jsp">
+					首頁
+				</a>
+				
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-lg-auto">
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
+							style="color: white; font-size: 18px;">關於我</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"
+							style="color: #000000; font-size: 18px;">商城</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"
+							style="color: #000000; font-size: 18px;">錄音室</a></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarLightDropdownMenuLink" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"
+							style="color: #000000; font-size: 18px;">配音員</a>
+							<ul class="dropdown-menu dropdown-menu-light"
+								aria-labelledby="navbarLightDropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp"
+									style="color: #000000;">配音員列表</a></li>
+							</ul></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarLightDropdownMenuLink" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"
+							style="color: white; font-size: 18px;">案件列表</a>
+							<ul class="dropdown-menu dropdown-menu-light"
+								aria-labelledby="navbarLightDropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="${pageContext.request.contextPath}">發案</a>
+								</li>
+								<li><a class="dropdown-item" href="#"
+									style="color: white;">接案</a></li>
+							</ul></li>
+						<li class="nav-item"><a class="nav-link" href="#"
+							style="color: white; font-size: 18px;">會員登入</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp"
+							style="color: white; font-size: 18px;">客服中心</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		<h1>VoiceBus-聲音巴士</h1>
 		<div class="header-main">
 			<div class="main-icon">
