@@ -131,17 +131,9 @@ button {
 							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
 							style="color: #000000; font-size: 18px;">關於我</a></li>
 
-						<li class="nav-item">
-							<form action="${pageContext.request.contextPath}/prod/prod.do"
-								method="post" style="display: inline;">
-								<input type="hidden" name="action" value="get_all">
-								<button type="submit" class="nav-link"
-									style="color: #000000; font-size: 18px; background: none; border: none; cursor: pointer;">
-									商城</button>
-							</form>
-						</li>
-						<!-- 						<li class="nav-item"><a class="nav-link" href="#" -->
-						<!-- 							style="color: #000000; font-size: 18px;">商城</a></li> -->
+
+												<li class="nav-item"><a class="nav-link" href="#"
+													style="color: #000000; font-size: 18px;">商城</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
 							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
