@@ -1,3 +1,101 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>VoiceBus聲音巴士</title>
+
+<!-- CSS FILES -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front-end/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front-end/css/bootstrap-icons.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front-end/css/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front-end/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front-end/css/templatemo-pod-talk.css">
+
+<style>
+.customer-service {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	width: 100px;
+	height: 100px;
+	cursor: grab;
+	z-index: 9999;
+}
+
+.customer-service img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 2px solid #ccc;
+}
+
+.popup-window {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	display: none;
+	border-radius: 10px;
+	z-index: 10000;
+}
+
+.popup-window .close-btn {
+	float: right;
+	font-size: 16px;
+	color: #333;
+	cursor: pointer;
+}
+
+.form-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.full-width {
+	grid-column: 1/-1;
+}
+
+label {
+	font-weight: bold;
+}
+
+input, select, textarea {
+	width: 100%;
+	padding: 8px;
+	margin-top: 5px;
+	box-sizing: border-box;
+}
+
+button {
+	padding: 10px 20px;
+	font-size: 16px;
+}
+</style>
+</head>
 
 <body>
 	<main>
@@ -9,16 +107,7 @@
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-<!-- 				<form action="#" method="get" -->
-<!-- 					class="custom-form search-form flex-fill me-3" role="search"> -->
-<!-- 					<div class="input-group input-group-lg"> -->
-<!-- 						<input name="search" type="search" class="form-control" -->
-<!-- 							id="search" placeholder="Search" aria-label="Search"> -->
-<!-- 						<button type="submit" class="form-control" id="submit"> -->
-<!-- 							<i class="bi-search"></i> -->
-<!-- 						</button> -->
-<!-- 					</div> -->
-<!-- 				</form> -->
+				
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
@@ -34,9 +123,8 @@
 							style="color: #000000; font-size: 18px;">關於我</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
 							style="color: #000000; font-size: 18px;">商城</a></li>
-						<li class="nav-item"><a class="nav-link" 
-						    href="${pageContext.request.contextPath}/front-end/reserve/Reserve.jsp"
-						    style="color: #000000; font-size: 18px;">錄音室</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"
+							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarLightDropdownMenuLink" role="button"
@@ -359,7 +447,7 @@
 								<div class="custom-block-top d-flex mb-1"></div>
 
 								<h5 class="mb-2">
-									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">角色配音 </a>
+									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">商業配音 </a>
 								</h5>
 								<div class="profile-block d-flex">
 									<img
@@ -368,11 +456,11 @@
 									<p>
 										浩鈞<img
 											src="${pageContext.request.contextPath}/front-end/images/verified.png"
-											class="verified-image img-fluid" alt=""> <strong>日文角色配音</strong>
+											class="verified-image img-fluid" alt=""> <strong>中文商業配音</strong>
 									</p>
 								</div>
 
-								<p class="mb-0">お前はもう死んでるナニ</p>
+								<p class="mb-0">聲音巴士專題報導，12/18號隆重登場 </p>
 
 								<div
 									class="custom-block-bottom d-flex justify-content-between mt-3">
@@ -390,22 +478,92 @@
 							</div>
 						</div>
 					</div>
+					<section class="topics-section section-padding pb-0" id="section_3">
+						<div class="container" style="padding: 0; margin: 0;">
+							<div class="row" style="padding: 0; margin: 0;">
+								<div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
+					<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+							<h4 class="section-title">配音廣告</h4>
+						</div>
 
+<section class="topics-section section-padding pb-0" id="section_3">
+    <div class="container-fluid" style="padding: 0; margin: 0;">
+        <div class="row" style="padding: 0; margin: 0;">
+            <div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
+                <div class="owl-carousel owl-theme">
+                    <!-- 第一張圖片 -->
+                    <div class="item">
+                        <div class="custom-block custom-block-overlay" style="margin: 0;">
+                            <img src="${pageContext.request.contextPath}/front-end/images/3.png"
+                                 class="img-fluid" alt="Image 3"
+                                 style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    <!-- 第二張圖片 -->
+                    <div class="item">
+                        <div class="custom-block custom-block-overlay" style="margin: 0;">
+                            <img src="${pageContext.request.contextPath}/front-end/images/2.png"
+                                 class="img-fluid" alt="Image 2"
+                                 style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    <!-- 第三張圖片 -->
+                    <div class="item">
+                        <div class="custom-block custom-block-overlay" style="margin: 0;">
+                            <img src="${pageContext.request.contextPath}/front-end/images/1.png"
+                                 class="img-fluid" alt="Image 1"
+                                 style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="custom-block custom-block-overlay" style="margin: 0;">
+                            <img src="${pageContext.request.contextPath}/front-end/images/4.png"
+                                 class="img-fluid" alt="Image 1"
+                                 style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- 引入必要的 CSS 和 JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-		<section class="trending-podcast-section section-padding"
-			style="margin-top: 1cm;">
-			<div class="container">
-				<div class="row">
+<!-- 輪播設定 -->
+<script>
+    $(document).ready(function () {
+        $('.owl-carousel').owlCarousel({
+            loop: true,            // 無限循環輪播
+            margin: 10,            // 圖片之間的間距
+            nav: true,             // 顯示左右導航按鈕
+            dots: true,            // 顯示輪播指示點
+            autoplay: true,        // 自動輪播
+            autoplayTimeout: 3000, // 每張圖片停留時間 (3 秒)
+            responsive: {
+                0: { items: 1 },    // 小螢幕顯示 1 張圖片
+                600: { items: 2 },  // 中等螢幕顯示 2 張圖片
+                1000: { items: 3 }  // 大螢幕顯示 3 張圖片
+            }
+        });
+    });
+</script>
 
+		<section class="topics-section section-padding pb-0" id="section_3">
+						<div class="container" style="padding: 0; margin: 0;">
+							<div class="row" style="padding: 0; margin: 0;">
+								<div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
+					<div class="col-lg-12 col-12">			
 
-
-					<!-- Optional JavaScript -->
-					<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-					<script
-						src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
+	<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+							<h4 class="section-title">熱門商品</h4>
+						</div>
 
 					<section class="topics-section section-padding pb-0" id="section_3">
 						<div class="container" style="padding: 0; margin: 0;">

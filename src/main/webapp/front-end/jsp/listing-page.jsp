@@ -42,16 +42,7 @@
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-<!-- 				<form action="#" method="get" -->
-<!-- 					class="custom-form search-form flex-fill me-3" role="search"> -->
-<!-- 					<div class="input-group input-group-lg"> -->
-<!-- 						<input name="search" type="search" class="form-control" -->
-<!-- 							id="search" placeholder="Search" aria-label="Search"> -->
-<!-- 						<button type="submit" class="form-control" id="submit"> -->
-<!-- 							<i class="bi-search"></i> -->
-<!-- 						</button> -->
-<!-- 					</div> -->
-<!-- 				</form> -->
+
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
@@ -144,7 +135,7 @@
 
 							<!-- 撥放按鈕區域 -->
 							<a href="#" class="custom-block-icon"
-								onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/聲音巴士專題報導.mp3')">
+								onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/お前はもう死んでる.mp3')">
 								<i class="bi-play-fill"></i>
 							</a>
 
@@ -192,12 +183,12 @@
     </a>
     <img src="${pageContext.request.contextPath}/front-end/images/verified.png"
          class="verified-image img-fluid" alt="">
-    <strong>中文商業配音</strong>
+    <strong>日文角色配音</strong>
 </p>
 
 					</div>
 
-					<p class="mb-0">聲音巴士專題報導</p>
+					<p class="mb-0">/お前はもう死んでる</p>
 
 					<div
 						class="custom-block-bottom d-flex justify-content-between mt-3">

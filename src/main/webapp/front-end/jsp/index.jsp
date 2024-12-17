@@ -447,7 +447,7 @@ button {
 								<div class="custom-block-top d-flex mb-1"></div>
 
 								<h5 class="mb-2">
-									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">角色配音 </a>
+									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">商業配音 </a>
 								</h5>
 								<div class="profile-block d-flex">
 									<img
@@ -456,11 +456,11 @@ button {
 									<p>
 										浩鈞<img
 											src="${pageContext.request.contextPath}/front-end/images/verified.png"
-											class="verified-image img-fluid" alt=""> <strong>日文角色配音</strong>
+											class="verified-image img-fluid" alt=""> <strong>中文商業配音</strong>
 									</p>
 								</div>
 
-								<p class="mb-0">お前はもう死んでるナニ</p>
+								<p class="mb-0">聲音巴士專題報導，12/18號隆重登場 </p>
 
 								<div
 									class="custom-block-bottom d-flex justify-content-between mt-3">
