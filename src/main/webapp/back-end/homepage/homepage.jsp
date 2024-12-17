@@ -122,7 +122,12 @@
             <div class="rent_btn_block">
                 <ul class="sub_func_name">
                     <li class="rent_sub_item">
-                        <button class="sub_btn_func"><a href="./rental_record_mgmt.html" class="sub_btn_name">租借記錄管理</a></button>
+                        <form method="post" action="${pageContext.request.contextPath}/OrderServlet">
+        		            <button type="submit" class="sub_btn_func" id="studioOrder_mgnt">租借訂單管理</button>
+							<input type="hidden" name="page" value="1">
+	                        <input type="hidden" name="action" value="get_all_orders">
+	                        <input type="hidden" name="toRent" value="toRent">
+                    	</form>
                     </li>
                     <li class="rent_sub_item">
                     	<form method="post" action="${pageContext.request.contextPath}/MyStudioServlet">
