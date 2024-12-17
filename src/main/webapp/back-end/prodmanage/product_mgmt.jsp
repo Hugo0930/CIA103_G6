@@ -22,149 +22,156 @@
 
 
 <body>
-    <!-- 漢堡 -->
-    <div class="shadow"></div>
-    <div class="top_side">
-        <div class="hamburger active">
-            <div class="bar top"></div>
-            <div class="bar middle"></div>
-            <div class="bar bottom"></div>
-        </div>
-        <!-- 大頭貼 -->
-        <div class="head_shot">
-            <a href="#"><img src="back-end/images/韓國瑜.jpg" alt="沒有圖片"></a>
-        </div>
-        <!-- 首頁 -->
-        <div class="project_name">
-            <a href="${pageContext.request.contextPath}/back-end/homepage/homepage.jsp">Voice Bus</a>
-        </div>
-    </div>
-    <nav class="right_slide">
-        <ul class="func_name">
-            <!-- 員工帳號管理 -->
-            <li class="main_item emp">
-                <button class="btn_func" id="emp_btn">
-                    <i class="fa-solid fa-user"></i><span class="btn_name">員工管理</span>
-                </button>
-            </li>
-            <div class="emp_btn_block">
-                <ul class="sub_func_name">
-                    <li class="emp_sub_item">
-                        <button class="sub_btn_func"><a href="./employee_mgmt.html" class="sub_btn_name">員工帳號管理</a ></button>
-                    </li>
-                    <li class="emp_sub_item">
-                        <button class="sub_btn_func"><a href="./permission_mgmt.html" class="sub_btn_name">員工權限管理</a ></button>
-                    </li>
-                </ul>
-            </div>
-            <!-- 會員帳號管理 -->
-            <li class="main_item member">
-                <button class="btn_func" id="member_btn">
-                    <i class="fa-solid fa-users"></i><span class="btn_name">會員管理</span>
-                </button>
-            </li>
-            <div class="member_btn_block">
-                <ul class="sub_func_name">
-                    <li class="member_sub_item">
-                        <button class="sub_btn_func"><a href="./member_mgmt.html" class="sub_btn_name">會員帳號管理</a></button>
-                    </li>
-                </ul>
-            </div>
-            <!-- 網頁管理 -->
-            <li class="main_item web">
-                <button class="btn_func" id="web_btn">
-                    <i class="fa-regular fa-window-restore"></i><span class="btn_name">網頁管理</span>
-                </button>
-            </li>
-            <div class="web_btn_block">
-                <ul class="sub_func_name">
-                    <li class="web_sub_item">
-                        <button class="sub_btn_func"><a href="./advertising_mgmt.html" class="sub_btn_name">廣告資訊管理</a></button>
-                    </li>
-                    <li class="web_sub_item">
-                        <button class="sub_btn_func"><a href="./notification.mgmt.html"class="sub_btn_name">通知公告管理</a></button>
-                    </li>
-                    <li class="web_sub_item">
-                    	<form method="post" action="${pageContext.request.contextPath}/CustomerServiceServlet">
-	                        <button type="submit" class="sub_btn_func">客服Q&A</button>
-	                        <input type="hidden" name="action" value="get_all_case">
-                    	</form>
-                    </li>
-                </ul>
-            </div>
-            <!-- 商城管理 -->
-            <li class="main_item shop">
-                <button class="btn_func" id="shop_btn">
-                    <i class="fa-brands fa-shopify"></i><span class="btn_name">商城管理</span>
-                </button>
-            </li>
-            <div class="shop_btn_block">
-                <ul class="sub_func_name">
-                    <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="./product_mgmt.html" class="sub_btn_name">商品管理</a></button>
-                    </li>
-                    <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="./order_mgmt.html" class="sub_btn_name">訂單管理</a></button>
-                    </li>
-                    <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="./report_mgmt.html" class="sub_btn_name">評價檢舉管理</a></button>
-                    </li>
-                </ul>
-            </div>
-            <!-- 租借管理 -->
-            <li class="main_item rent">
-                <button class="btn_func" id="rent_btn">
-                    <i class="fa-solid fa-microphone-lines"></i><span class="btn_name">租借管理</span>
-                </button>
-            </li>
-            <div class="rent_btn_block">
-                <ul class="sub_func_name">
-                    <li class="rent_sub_item">
-                        <button class="sub_btn_func"><a href="./rental_record_mgmt.html" class="sub_btn_name">租借記錄管理</a></button>
-                    </li>
-                    <li class="rent_sub_item">
-                        <form method="post" action="${pageContext.request.contextPath}/MyStudioServlet">
-        		            <button type="submit" class="sub_btn_func" id="studio_mgmt">場地管理</button>
-							<input type="hidden" name="page" value="1">
-	                        <input type="hidden" name="action" value="get_all">
-                    	</form>
-                    </li>
-                </ul>
-            </div>
-            <!-- 媒合管理 -->
-            <li class="main_item">
-                <button class="btn_func" id="match_btn">
-                    <i class="fa-brands fa-studiovinari"></i><span class="btn_name">媒合管理</span>
-                </button>
-            </li>
-            <div class="match_btn_block">
-                <ul class="sub_func_name">
-                    <li class="match_sub_item">
-                        <button class="sub_btn_func"><a href="./complaint_case_mgmt.html" class="sub_btn_name">申訴案件管理</a></button>
-                    </li>
-                    <li class="match_sub_item">
-                        <button class="sub_btn_func"><a href="./case_mgmt.html" class="sub_btn_name">案件管理</a></button>
-                    </li>
-                </ul>
-            </div>
-        </ul>
-        <!-- 登出 -->
-        <button type="button" id="log_out">登出</button>
-    </nav>
+<jsp:include page="/back-end/homepage/homepage.jsp"/>
+<!--     漢堡 -->
+<!--     <div class="shadow"></div> -->
+<!--     <div class="top_side"> -->
+<!--         <div class="hamburger active"> -->
+<!--             <div class="bar top"></div> -->
+<!--             <div class="bar middle"></div> -->
+<!--             <div class="bar bottom"></div> -->
+<!--         </div> -->
+<!--         大頭貼 -->
+<!--         <div class="head_shot"> -->
+<!--             <a href="#"><img src="back-end/images/韓國瑜.jpg" alt="沒有圖片"></a> -->
+<!--         </div> -->
+<!--         首頁 -->
+<!--         <div class="project_name"> -->
+<%--             <a href="${pageContext.request.contextPath}/back-end/homepage/homepage.jsp">Voice Bus</a> --%>
+<!--         </div> -->
+<!--     </div> -->
+<!--     <nav class="right_slide"> -->
+<!--         <ul class="func_name"> -->
+<!--             員工帳號管理 -->
+<!--             <li class="main_item emp"> -->
+<!--                 <button class="btn_func" id="emp_btn"> -->
+<!--                     <i class="fa-solid fa-user"></i><span class="btn_name">員工管理</span> -->
+<!--                 </button> -->
+<!--             </li> -->
+<!--             <div class="emp_btn_block"> -->
+<!--                 <ul class="sub_func_name"> -->
+<!--                     <li class="emp_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./employee_mgmt.html" class="sub_btn_name">員工帳號管理</a ></button> -->
+<!--                     </li> -->
+<!--                     <li class="emp_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./permission_mgmt.html" class="sub_btn_name">員工權限管理</a ></button> -->
+<!--                     </li> -->
+<!--                 </ul> -->
+<!--             </div> -->
+<!--             會員帳號管理 -->
+<!--             <li class="main_item member"> -->
+<!--                 <button class="btn_func" id="member_btn"> -->
+<!--                     <i class="fa-solid fa-users"></i><span class="btn_name">會員管理</span> -->
+<!--                 </button> -->
+<!--             </li> -->
+<!--             <div class="member_btn_block"> -->
+<!--                 <ul class="sub_func_name"> -->
+<!--                     <li class="member_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./member_mgmt.html" class="sub_btn_name">會員帳號管理</a></button> -->
+<!--                     </li> -->
+<!--                 </ul> -->
+<!--             </div> -->
+<!--             網頁管理 -->
+<!--             <li class="main_item web"> -->
+<!--                 <button class="btn_func" id="web_btn"> -->
+<!--                     <i class="fa-regular fa-window-restore"></i><span class="btn_name">網頁管理</span> -->
+<!--                 </button> -->
+<!--             </li> -->
+<!--             <div class="web_btn_block"> -->
+<!--                 <ul class="sub_func_name"> -->
+<!--                     <li class="web_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./advertising_mgmt.html" class="sub_btn_name">廣告資訊管理</a></button> -->
+<!--                     </li> -->
+<!--                     <li class="web_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./notification.mgmt.html"class="sub_btn_name">通知公告管理</a></button> -->
+<!--                     </li> -->
+<!--                     <li class="web_sub_item"> -->
+<%--                     	<form method="post" action="${pageContext.request.contextPath}/CustomerServiceServlet"> --%>
+<!-- 	                        <button type="submit" class="sub_btn_func">客服Q&A</button> -->
+<!-- 	                        <input type="hidden" name="action" value="get_all_case"> -->
+<!--                     	</form> -->
+<!--                     </li> -->
+<!--                 </ul> -->
+<!--             </div> -->
+<!--             商城管理 -->
+<!--             <li class="main_item shop"> -->
+<!--                 <button class="btn_func" id="shop_btn"> -->
+<!--                     <i class="fa-brands fa-shopify"></i><span class="btn_name">商城管理</span> -->
+<!--                 </button> -->
+<!--             </li> -->
+<!--             <div class="shop_btn_block"> -->
+<!--                 <ul class="sub_func_name"> -->
+<!--                     <li class="shop_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./product_mgmt.html" class="sub_btn_name">商品管理</a></button> -->
+<!--                     </li> -->
+<!--                     <li class="shop_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./order_mgmt.html" class="sub_btn_name">訂單管理</a></button> -->
+<!--                     </li> -->
+<!--                     <li class="shop_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./report_mgmt.html" class="sub_btn_name">評價檢舉管理</a></button> -->
+<!--                     </li> -->
+<!--                 </ul> -->
+<!--             </div> -->
+<!--             租借管理 -->
+<!--             <li class="main_item rent"> -->
+<!--                 <button class="btn_func" id="rent_btn"> -->
+<!--                     <i class="fa-solid fa-microphone-lines"></i><span class="btn_name">租借管理</span> -->
+<!--                 </button> -->
+<!--             </li> -->
+<!--             <div class="rent_btn_block"> -->
+<!--                 <ul class="sub_func_name"> -->
+<!--                     <li class="rent_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./rental_record_mgmt.html" class="sub_btn_name">租借記錄管理</a></button> -->
+<!--                     </li> -->
+<!--                     <li class="rent_sub_item"> -->
+<%--                         <form method="post" action="${pageContext.request.contextPath}/MyStudioServlet"> --%>
+<!--         		            <button type="submit" class="sub_btn_func" id="studio_mgmt">場地管理</button> -->
+<!-- 							<input type="hidden" name="page" value="1"> -->
+<!-- 	                        <input type="hidden" name="action" value="get_all"> -->
+<!--                     	</form> -->
+<!--                     </li> -->
+<!--                 </ul> -->
+<!--             </div> -->
+<!--             媒合管理 -->
+<!--             <li class="main_item"> -->
+<!--                 <button class="btn_func" id="match_btn"> -->
+<!--                     <i class="fa-brands fa-studiovinari"></i><span class="btn_name">媒合管理</span> -->
+<!--                 </button> -->
+<!--             </li> -->
+<!--             <div class="match_btn_block"> -->
+<!--                 <ul class="sub_func_name"> -->
+<!--                     <li class="match_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./complaint_case_mgmt.html" class="sub_btn_name">申訴案件管理</a></button> -->
+<!--                     </li> -->
+<!--                     <li class="match_sub_item"> -->
+<!--                         <button class="sub_btn_func"><a href="./case_mgmt.html" class="sub_btn_name">案件管理</a></button> -->
+<!--                     </li> -->
+<!--                 </ul> -->
+<!--             </div> -->
+<!--         </ul> -->
+<!--         登出 -->
+<!--         <button type="button" id="log_out">登出</button> -->
+<!--     </nav> -->
     <!-- 現在位置 -->
     <div class="container">
         <h2><i class="fa-solid fa-house"></i>商品管理</h2>
         <hr>
-        <div id="lookup_block">
-	        <select id="sort_type" style="position:absolute; top:115px; right:210px; height:20px; text-align:center">
-	        	<option>篩選方式</option>
-	        	<option value="std_on">僅顯示上架</option>
-	        	<option value="std_off">僅顯示下架</option>
-	        	<option value="std_all">顯示所有</option>
-	        </select>
-        </div>
+<!--         <div id="lookup_block"> -->
+<!-- 	        <select id="sort_type" style="position:absolute; top:115px; right:210px; height:20px; text-align:center"> -->
+<!-- 	        	<option>篩選方式</option> -->
+<!-- 	        	<option value="std_on">僅顯示上架</option> -->
+<!-- 	        	<option value="std_off">僅顯示下架</option> -->
+<!-- 	        	<option value="std_all">顯示所有</option> -->
+<!-- 	        </select> -->
+<!--         </div> -->
         <button type="submit"  id="btn_add"><i class="fa-solid fa-plus"></i>新增商品</button>
-        <h3>總共${pageQty}頁，現在第${currentPage}頁</h3>
+        
+        <h3>
+        <c:if test="${not empty errorMsgs}">
+				<div style="color:red">${errorMsgIn}</div >
+		</c:if>
+       	</h3>
+       	
 	   	<table>
 	     	<thead>
 	     		<tr>
@@ -191,8 +198,8 @@
 	     		</tr>
 	        </thead>
 	        <tbody>
-	        	
-				<c:forEach var="prodVO" items="${list}">
+	        	<%@ include file="page1.file" %>
+				<c:forEach var="prodVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		        	<tr>
 		        		<td>${prodVO.prodId}</td>
 		        		
@@ -256,33 +263,7 @@
 				</c:forEach>
 	        </tbody>
 		</table>
-<!-- 		<div class=page_block> -->
-<%-- 			<c:if test="${currentPage - 1 > 0 }"> --%>
-<!-- 				<div class="page"> -->
-<%-- 					<a href="${pageContext.request.contextPath}/MyStudioServlet?action=${action}&page=${currentPage - 1}"><i class="fa-solid fa-arrow-left"></i></a> --%>
-<!-- 				</div> -->
-<%-- 			</c:if> --%>
-<%-- 	      	<c:if test="${pageQty >= firstPage + 0}"> --%>
-<!-- 	      		<div class="page"> -->
-<%-- 			    	<a href="${pageContext.request.contextPath}/MyStudioServlet?action=${action}&page=${firstPage + 0}">${firstPage + 0}</a> --%>
-<!-- 	      		</div> -->
-<%-- 	      	</c:if> --%>
-<%-- 		    <c:if test="${pageQty >= firstPage + 1}"> --%>
-<!-- 		    	<div class="page"> -->
-<%-- 			    	<a href="${pageContext.request.contextPath}/MyStudioServlet?action=${action}&page=${firstPage + 1}">${firstPage + 1}</a> --%>
-<!-- 		    	</div>     -->
-<%-- 		    </c:if> --%>
-<%-- 		    <c:if test="${pageQty >= firstPage + 2}"> --%>
-<!-- 		    	<div class="page"> -->
-<%-- 			    	<a href="${pageContext.request.contextPath}/MyStudioServlet?action=${action}&page=${firstPage + 2}">${firstPage + 2}</a> --%>
-<!-- 		    	</div>     -->
-<%-- 		    </c:if> --%>
-<%--    			<c:if test="${currentPage + 1 <= pageQty }"> --%>
-<!-- 				<div class="page"> -->
-<%-- 					<a href="${pageContext.request.contextPath}/MyStudioServlet?action=${action}&page=${currentPage + 1}"><i class="fa-solid fa-arrow-right"></i></a> --%>
-<!-- 				</div> -->
-<%-- 			</c:if> --%>
-<!-- 		</div> -->
+		<%@ include file="page2.file" %>
     </div>
    	<%-- 新增商品表單 --%>
    	<div class="table_box">
@@ -290,16 +271,15 @@
 	        <form action="<%=request.getContextPath()%>/back-end/prodmanage/prodBack.do" METHOD="post">
             	<h2>新增商品</h2>
             	
-            	<c:if test="${not empty errorMsgs}">
-            	
+            	<c:if test="${not empty errorMsgs}">         	
 					<font style="color:red">請修正以下錯誤:</font>
 					<ul>
 					<c:forEach var="message" items="${errorMsgs}">
 					<li style="color:red">${message}</li>
 					</c:forEach>
-					</ul>
+					</ul>				
 				</c:if>
-				
+							
 	            <table>
 	                <tbody>
 	                   <tr>
