@@ -29,7 +29,12 @@
 <!-- <ProdVO> list = prodSvc.getAll();  -->
 <!-- req.setAttribute("list",list); -->
 
-
+<!-- 搜尋商品功能 -->
+<form action="<%=request.getContextPath()%>/prod/prod.do" method="POST" class="d-flex mb-4">
+    <input type="hidden" name="action" value="search_prod" />
+    <input class="form-control me-2" type="search" placeholder="輸入商品名稱" name="keyword" aria-label="Search" required>
+    <button class="btn btn-outline-success" type="submit">搜尋</button>
+</form>
 
 
 <body>

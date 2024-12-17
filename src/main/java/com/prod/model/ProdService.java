@@ -62,4 +62,8 @@ public class ProdService {
     public List<ProdVO> getByProdTypeId(Integer prodTypeId) {
         return dao.getByProdTypeId(prodTypeId);
     }
+    public List<ProdVO> searchByProdName(String keyword) {
+        return dao.searchByProdName(keyword);
+    }
+    
 }

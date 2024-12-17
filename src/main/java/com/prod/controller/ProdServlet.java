@@ -39,6 +39,8 @@ public class ProdServlet extends HttpServlet {
 			updateQty(req, res);
 		} else if ("remove_from_cart".equals(action)) {
 		    removeFromCart(req, res);
+		}if ("search_prod".equals(action)) {
+		    searchProd(req, res);
 		}
 	}
 
@@ -217,6 +219,16 @@ public class ProdServlet extends HttpServlet {
 
 	    out.print(result.toString());
 	    out.flush();
+	}
+	private void searchProd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    String keyword = req.getParameter("keyword"); // 從請求中取得搜尋關鍵字
+	    ProdService prodSvc = new ProdService();
+	    List<ProdVO> list = prodSvc.searchByProdName(keyword);
+
+	    req.setAttribute("list", list); // 將結果存入 request
+	    String url = "/front-end/browsestore/shop.jsp";
+	    RequestDispatcher successView = req.getRequestDispatcher(url);
+	    successView.forward(req, res);
 	}
 //	private void addToCart(HttpServletRequest req, HttpServletResponse res) throws IOException {
 //		Integer memId = 3; // 暫時固定會員編號

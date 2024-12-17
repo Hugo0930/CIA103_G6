@@ -21,4 +21,5 @@ public interface ProdDAO_interface {
     public List<ProdVO> getByProdTypeId(Integer prodTypeId); 
     // 可擴充的複合查詢方法，傳入 Map 作為查詢條件，回傳 List
     // public List<ProdvVO> getAll(Map<String, String[]> map); 
+    public List<ProdVO> searchByProdName(String keyword);
 }
