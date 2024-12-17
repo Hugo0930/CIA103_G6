@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
 
 
-import com.member.model.MemberDAO;
+import com.member.model.MemberFrontDAO;
 import com.member.model.MemberVO;
 
 public class LoginServlet extends HttpServlet {
@@ -34,7 +34,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 		req.setAttribute("very", veryCode);
 		
 		//查詢有無會員 結果回傳count
-		int count = MemberDAO.selectByNM(username, passWord);
+		int count = MemberFrontDAO.selectByNM(username, passWord);
 			
 		if(sysCode == null){
 			sysCode = "";
@@ -44,7 +44,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 			if(count>0){				
 				
 				//傳回會員物件
-				MemberVO mem = MemberDAO.selectAdmin(username, passWord);				
+				MemberVO mem = MemberFrontDAO.selectAdmin(username, passWord);				
 				
 				//設定session key="mem" 
 				session.setAttribute("mem", mem);

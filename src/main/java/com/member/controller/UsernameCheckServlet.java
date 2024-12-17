@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import com.member.model.MemberDAO;
+import com.member.model.MemberFrontDAO;
 //import com.hr.util.EncodeUtil;
 
 public class UsernameCheckServlet extends HttpServlet {
@@ -20,7 +20,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 //	EncodeUtil.encode(req);
 	resp.setContentType("text/html;charset=utf-8");
 	String name = req.getParameter("name").trim();
-	int count = MemberDAO.selectByName(name);
+	int count = MemberFrontDAO.selectByName(name);
 	System.out.println("name="+name+"1");
 	
 	PrintWriter out = resp.getWriter();

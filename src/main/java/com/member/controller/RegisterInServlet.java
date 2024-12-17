@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import java.sql.Date;
 import com.member.model.MemberVO;
-import com.member.model.MemberDAO;
+import com.member.model.MemberFrontDAO;
 
 public class RegisterInServlet extends HttpServlet {
 @Override
@@ -64,7 +64,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 	MemberVO mem = new MemberVO(new Integer(0), memberLvId, name, uId, year, sex, email, mobile, address, username, rePassWord, memberStatus);	
 
 	//	int count=EASYBUY_USERDao.insert(mem);
-	int count=MemberDAO.insert(mem);
+	int count=MemberFrontDAO.insert(mem);
 	
 	
 	PrintWriter out=resp.getWriter();
