@@ -46,6 +46,7 @@ public class StudioDAOImpl implements StudioDAO {
 				stdVO.setStudName(studio_name);
 				stdVO.setCapacity(capacity);
 				stdVO.setHourlyRate(hourly_rate);
+				stdVO.setState("下架");
 				Integer lastId = (Integer) session.save(stdVO);
 				
 				StudioPicVO stdPicVO = new StudioPicVO();

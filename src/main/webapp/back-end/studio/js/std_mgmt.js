@@ -68,15 +68,15 @@ $("select#sort_type").on("change",function(){
 	let value = $(this).val();
 	if(value != null){
 		if(value === 'std_on'){
-			window.location.href= "/CIA103G6-18Project/MyStudioServlet?action=get_all_std_on&page=1";
+			window.location.href= "/CIA103g6/MyStudioServlet?action=get_all_std_on&page=1";
 		}
 		
 		if(value === 'std_off'){
-			window.location.href= "/CIA103G6-18Project/MyStudioServlet?action=get_all_std_off&page=1";
+			window.location.href= "/CIA103g6/MyStudioServlet?action=get_all_std_off&page=1";
 		}
 		
 		if(value === 'std_all'){
-			window.location.href= "/CIA103G6-18Project/MyStudioServlet?action=get_all&page=1";
+			window.location.href= "/CIA103g6/MyStudioServlet?action=get_all&page=1";
 		}
 	}
 })

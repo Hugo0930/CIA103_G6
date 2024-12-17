@@ -127,7 +127,7 @@ public class MyStudioServlet extends HttpServlet {
 			
 				addOneStudio(studio_loc, studio_name, capacity, hourly_rate, studio_pic);
 				
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/MyStudioServlet?action=get_all");
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/MyStudioServlet?action=get_all&page=" + stdService.getPageQty());
 				requestDispatcher.forward(req, res);
 				break;
 			}case "std_off":{
@@ -284,8 +284,16 @@ public class MyStudioServlet extends HttpServlet {
 		if(currentPage == firstPage + PAGE_MAX -1 ) {
 			//firstPage = ( firstPage + currentPage ) / 2;
 			firstPage = firstPage + 1;
-			req.setAttribute("firstPage", firstPage);
 		}
+		
+		if("get_all_std_on".equals(req.getParameter("action"))) {
+			firstPage = 1;
+		}
+		
+		if("get_all_std_off".equals(req.getParameter("action"))) {
+			firstPage = 1;
+		}
+		req.setAttribute("firstPage", firstPage);
 		/**currentPage是否是第一個分頁*/
 		if(currentPage == firstPage) {
 			if(currentPage != 1) {

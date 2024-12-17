@@ -143,6 +143,8 @@ div.btn_block form{
 div.btn_block input.update_btn{
 	background-color:rgb(71, 110, 162);
 	color:#fff;
+    position: relative;
+    left: 30px;
 }
 div.btn_block input.update_btn:hover{
 	background-color:rgb(97, 133, 179);
@@ -150,6 +152,8 @@ div.btn_block input.update_btn:hover{
 div.btn_block input.off_btn{
 	background-color:rgb(232, 40, 40);
 	color:#fff;
+    position: relative;
+    left: 10px;
 }
 div.btn_block input.off_btn:hover{
 	background-color:rgb(230, 83, 83);
@@ -188,6 +192,8 @@ div.container button#btn_add i{
 div.btn_block input.on_btn{
 	background-color: #008400;
 	color:#fff;
+    position: relative;
+    left: 10px;
 }
 div.btn_block input.on_btn:hover{
 	background-color: #00a400;
