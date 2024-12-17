@@ -59,8 +59,6 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ms-lg-auto">
-						<li class="nav-item"><a class="nav-link active" href="#"
-							style="color: #000000; font-size: 18px;">公告</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
 							style="color: #000000; font-size: 18px;">關於我</a></li>
