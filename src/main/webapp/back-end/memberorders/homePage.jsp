@@ -29,7 +29,7 @@
 		</div>
 		<!-- 首頁 -->
 		<div class="project_name">
-			<a href="homepage.jsp">Voice Bus</a>
+			<a href="homePage.jsp">Voice Bus</a>
 		</div>
 	</div>
 	<nav class="right_slide">

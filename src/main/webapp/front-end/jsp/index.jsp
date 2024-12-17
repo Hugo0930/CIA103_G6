@@ -130,8 +130,18 @@ button {
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
 							style="color: #000000; font-size: 18px;">關於我</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">商城</a></li>
+
+						<li class="nav-item">
+							<form action="${pageContext.request.contextPath}/prod/prod.do"
+								method="post" style="display: inline;">
+								<input type="hidden" name="action" value="get_all">
+								<button type="submit" class="nav-link"
+									style="color: #000000; font-size: 18px; background: none; border: none; cursor: pointer;">
+									商城</button>
+							</form>
+						</li>
+						<!-- 						<li class="nav-item"><a class="nav-link" href="#" -->
+						<!-- 							style="color: #000000; font-size: 18px;">商城</a></li> -->
 						<li class="nav-item"><a class="nav-link" href="#"
 							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
@@ -153,8 +163,7 @@ button {
 							<ul class="dropdown-menu dropdown-menu-light"
 								aria-labelledby="navbarLightDropdownMenuLink">
 								<li><a class="dropdown-item"
-									href="${pageContext.request.contextPath}">發案</a>
-								</li>
+									href="${pageContext.request.contextPath}">發案</a></li>
 								<li><a class="dropdown-item" href="#"
 									style="color: #000000;">接案</a></li>
 							</ul></li>
@@ -371,7 +380,9 @@ button {
 								<div class="custom-block-top d-flex mb-1"></div>
 
 								<h5 class="mb-2">
-									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp"> 商業配音 </a>
+									<a
+										href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">
+										商業配音 </a>
 								</h5>
 								<div class="profile-block d-flex">
 									<img
@@ -412,7 +423,7 @@ button {
 										<div class="section-overlay"></div>
 										<!-- 圖片區域 -->
 										<a href="#" class="custom-block-image-wrap"> <img
-										src="${pageContext.request.contextPath}/front-end/images/podcast/12577967_02.jpg"
+											src="${pageContext.request.contextPath}/front-end/images/podcast/12577967_02.jpg"
 											class="custom-block-image img-fluid" alt="Podcast Cover">
 										</a>
 
@@ -456,7 +467,9 @@ button {
 								<div class="custom-block-top d-flex mb-1"></div>
 
 								<h5 class="mb-2">
-									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">角色配音 </a>
+									<a
+										href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">角色配音
+									</a>
 								</h5>
 								<div class="profile-block d-flex">
 									<img
@@ -475,7 +488,7 @@ button {
 									class="custom-block-bottom d-flex justify-content-between mt-3">
 									<a href="#" class="bi-headphones me-1"> <!-- 創建一個連結，帶有耳機圖標，用於顯示播放次數。 -->
 										<span>18</span>
-										</a> <a href="#" class="bi-heart me-1"> <span>6</span>
+									</a> <a href="#" class="bi-heart me-1"> <span>6</span>
 									</a> <a href="#" class="bi-chat me-1"> <span>16</span>
 									</a> <a href="#" class="bi-download"> <span>10</span>
 									</a>
@@ -490,194 +503,194 @@ button {
 
 
 
-		<section class="trending-podcast-section section-padding"
-			style="margin-top: 1cm;">
-			<div class="container">
-				<div class="row">
-
-					<div class="col-lg-12 col-12">
-						<div class="section-title-wrap mb-5">
-							<h4 class="section-title">配音員標籤</h4>
-						</div>
-					</div>
-					<div class="container mt-5">
-						<form>
+					<section class="trending-podcast-section section-padding"
+						style="margin-top: 1cm;">
+						<div class="container">
 							<div class="row">
-								<!-- 表格樣式排列 -->
-								<div class="table-responsive">
-									<table class="table table-bordered">
-										<tbody>
-											<tr>
-												<td><label for="tagCategory">標籤種類</label> <select
-													class="form-control" id="tagCategory">
-														<option value="" selected disabled>Select...</option>
-														<option value="1">口音</option>
-														<option value="2">語言</option>
-														<option value="3">配音類別</option>
-														<option value="4">聲音年齡</option>
-												</select></td>
-												<td><label for="accentTag">口音</label> <select
-													class="form-control" id="accentTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="1">英式</option>
-														<option value="2">美式</option>
-												</select></td>
-											</tr>
-											<tr>
-												<td><label for="languageTag">語言</label> <select
-													class="form-control" id="languageTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="3">中文</option>
-														<option value="4">英文</option>
-														<option value="5">日文</option>
-												</select></td>
-												<td><label for="voiceCategoryTag">配音類別</label> <select
-													class="form-control" id="voiceCategoryTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="6">商業配音</option>
-														<option value="7">角色配音</option>
-														<option value="8">旁白</option>
-												</select></td>
-											</tr>
-											<tr>
-												<td colspan="2"><label for="voiceAgeTag">聲音年齡</label> <select
-													class="form-control" id="voiceAgeTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="9">青年</option>
-														<option value="10">中年</option>
-														<option value="11">老年</option>
-												</select></td>
-											</tr>
-										</tbody>
-									</table>
+
+								<div class="col-lg-12 col-12">
+									<div class="section-title-wrap mb-5">
+										<h4 class="section-title">配音員標籤</h4>
+									</div>
 								</div>
-								<!-- 確認按鈕 -->
-								<div class="form-group col-md-12"
-									style="text-align: center; margin-top: 20px;">
-									<button type="submit" class="btn btn-warning">確認</button>
+								<div class="container mt-5">
+									<form>
+										<div class="row">
+											<!-- 表格樣式排列 -->
+											<div class="table-responsive">
+												<table class="table table-bordered">
+													<tbody>
+														<tr>
+															<td><label for="tagCategory">標籤種類</label> <select
+																class="form-control" id="tagCategory">
+																	<option value="" selected disabled>Select...</option>
+																	<option value="1">口音</option>
+																	<option value="2">語言</option>
+																	<option value="3">配音類別</option>
+																	<option value="4">聲音年齡</option>
+															</select></td>
+															<td><label for="accentTag">口音</label> <select
+																class="form-control" id="accentTag">
+																	<option value="" selected disabled>Select...</option>
+																	<option value="1">英式</option>
+																	<option value="2">美式</option>
+															</select></td>
+														</tr>
+														<tr>
+															<td><label for="languageTag">語言</label> <select
+																class="form-control" id="languageTag">
+																	<option value="" selected disabled>Select...</option>
+																	<option value="3">中文</option>
+																	<option value="4">英文</option>
+																	<option value="5">日文</option>
+															</select></td>
+															<td><label for="voiceCategoryTag">配音類別</label> <select
+																class="form-control" id="voiceCategoryTag">
+																	<option value="" selected disabled>Select...</option>
+																	<option value="6">商業配音</option>
+																	<option value="7">角色配音</option>
+																	<option value="8">旁白</option>
+															</select></td>
+														</tr>
+														<tr>
+															<td colspan="2"><label for="voiceAgeTag">聲音年齡</label>
+																<select class="form-control" id="voiceAgeTag">
+																	<option value="" selected disabled>Select...</option>
+																	<option value="9">青年</option>
+																	<option value="10">中年</option>
+																	<option value="11">老年</option>
+															</select></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<!-- 確認按鈕 -->
+											<div class="form-group col-md-12"
+												style="text-align: center; margin-top: 20px;">
+												<button type="submit" class="btn btn-warning">確認</button>
+											</div>
+										</div>
+									</form>
 								</div>
-							</div>
-						</form>
-					</div>
 
-					<!-- Optional JavaScript -->
-					<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-					<script
-						src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+								<!-- Optional JavaScript -->
+								<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+								<script
+									src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
 
-					<section class="topics-section section-padding pb-0" id="section_3">
-						<div class="container" style="padding: 0; margin: 0;">
-							<div class="row" style="padding: 0; margin: 0;">
-								<div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
-									<div class="owl-carousel owl-theme">
-										<div class="owl-carousel-info-wrap item" style="margin: 0;">
-											<div class="custom-block custom-block-overlay"
-												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
-													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/音響1.png"
-													class="custom-block-image img-fluid" alt="喇叭"
-													style="height: 400px; width: 100%; object-fit: cover;">
+								<section class="topics-section section-padding pb-0"
+									id="section_3">
+									<div class="container" style="padding: 0; margin: 0;">
+										<div class="row" style="padding: 0; margin: 0;">
+											<div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
+												<div class="owl-carousel owl-theme">
+													<div class="owl-carousel-info-wrap item" style="margin: 0;">
+														<div class="custom-block custom-block-overlay"
+															style="margin: 0;">
+															<a href="商城.html" class="custom-block-image-wrap"
+																style="margin: 0;"> <img
+																src="${pageContext.request.contextPath}/front-end/images/商品列表/音響1.png"
+																class="custom-block-image img-fluid" alt="喇叭"
+																style="height: 400px; width: 100%; object-fit: cover;">
 
-												</a>
-												<div class="custom-block-info custom-block-overlay-info"
-													style="margin-top: 0;">
-													<h5 class="mb-1">音響</h5>
-												</div>
-											</div>
-										</div>
-										<div class="owl-carousel-info-wrap item" style="margin: 0;">
-											<div class="custom-block custom-block-overlay"
-												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
-													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風防遮罩_2000x3000.png"
-													class="custom-block-image img-fluid" alt="麥克風防遮罩"
-													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-35px);">
-												</a> </a>
-												<div class="custom-block-info custom-block-overlay-info"
-													style="margin-top: 0;">
-													<h5 class="mb-1">麥克風防遮罩</h5>
-												</div>
-											</div>
-										</div>
-										<div class="owl-carousel-info-wrap item" style="margin: 0;">
-											<div class="custom-block custom-block-overlay"
-												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
-													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風線材_2000x3000.png"
-													class="custom-block-image img-fluid" alt="麥克風線"
-													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-25px);">
-												</a> </a>
-												<div class="custom-block-info custom-block-overlay-info"
-													style="margin-top: 0;">
-													<h5 class="mb-1">麥克風線</h5>
-												</div>
-											</div>
-										</div>
-										<div class="owl-carousel-info-wrap item" style="margin: 0;">
-											<div class="custom-block custom-block-overlay"
-												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
-													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/文稿架_2000x3000.png"
-													class="custom-block-image img-fluid" alt="文稿架"
-													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-25px);">
-												</a> </a>
-												<div class="custom-block-info custom-block-overlay-info"
-													style="margin-top: 0;">
-													<h5 class="mb-1">文稿架</h5>
-												</div>
-											</div>
-										</div>
-										<div class="owl-carousel-info-wrap item" style="margin: 0;">
-											<div class="custom-block custom-block-overlay"
-												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
-													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風_resized.png"
-													class="custom-block-image img-fluid" alt="麥克風"
-													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-35px);">
-												</a>
-												<div class="custom-block-info custom-block-overlay-info"
-													style="margin-top: 0;">
-													<h5 class="mb-1">麥克風</h5>
+															</a>
+															<div class="custom-block-info custom-block-overlay-info"
+																style="margin-top: 0;">
+																<h5 class="mb-1">音響</h5>
+															</div>
+														</div>
+													</div>
+													<div class="owl-carousel-info-wrap item" style="margin: 0;">
+														<div class="custom-block custom-block-overlay"
+															style="margin: 0;">
+															<a href="商城.html" class="custom-block-image-wrap"
+																style="margin: 0;"> <img
+																src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風防遮罩_2000x3000.png"
+																class="custom-block-image img-fluid" alt="麥克風防遮罩"
+																style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-35px);">
+															</a> </a>
+															<div class="custom-block-info custom-block-overlay-info"
+																style="margin-top: 0;">
+																<h5 class="mb-1">麥克風防遮罩</h5>
+															</div>
+														</div>
+													</div>
+													<div class="owl-carousel-info-wrap item" style="margin: 0;">
+														<div class="custom-block custom-block-overlay"
+															style="margin: 0;">
+															<a href="商城.html" class="custom-block-image-wrap"
+																style="margin: 0;"> <img
+																src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風線材_2000x3000.png"
+																class="custom-block-image img-fluid" alt="麥克風線"
+																style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-25px);">
+															</a> </a>
+															<div class="custom-block-info custom-block-overlay-info"
+																style="margin-top: 0;">
+																<h5 class="mb-1">麥克風線</h5>
+															</div>
+														</div>
+													</div>
+													<div class="owl-carousel-info-wrap item" style="margin: 0;">
+														<div class="custom-block custom-block-overlay"
+															style="margin: 0;">
+															<a href="商城.html" class="custom-block-image-wrap"
+																style="margin: 0;"> <img
+																src="${pageContext.request.contextPath}/front-end/images/商品列表/文稿架_2000x3000.png"
+																class="custom-block-image img-fluid" alt="文稿架"
+																style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-25px);">
+															</a> </a>
+															<div class="custom-block-info custom-block-overlay-info"
+																style="margin-top: 0;">
+																<h5 class="mb-1">文稿架</h5>
+															</div>
+														</div>
+													</div>
+													<div class="owl-carousel-info-wrap item" style="margin: 0;">
+														<div class="custom-block custom-block-overlay"
+															style="margin: 0;">
+															<a href="商城.html" class="custom-block-image-wrap"
+																style="margin: 0;"> <img
+																src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風_resized.png"
+																class="custom-block-image img-fluid" alt="麥克風"
+																style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-35px);">
+															</a>
+															<div class="custom-block-info custom-block-overlay-info"
+																style="margin-top: 0;">
+																<h5 class="mb-1">麥克風</h5>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-						</div>
+								</section>
+
+								<script>
+									$(document).ready(function() {
+										$('.owl-carousel').owlCarousel({
+											loop : true, // 讓輪播持續不斷地循環
+											margin : 0, // 確保圖片之間沒有多餘空白
+											nav : true,
+											autoplay : true, // 自動輪播
+											autoplayTimeout : 3000, // 每張圖片顯示時間 3 秒
+											responsive : {
+												0 : {
+													items : 1
+												},
+												600 : {
+													items : 2
+												},
+												1000 : {
+													items : 3
+												}
+											}
+										});
+									});
+								</script>
 					</section>
-
-					<script>
-						$(document).ready(function() {
-							$('.owl-carousel').owlCarousel({
-								loop : true, // 讓輪播持續不斷地循環
-								margin : 0, // 確保圖片之間沒有多餘空白
-								nav : true,
-								autoplay : true, // 自動輪播
-								autoplayTimeout : 3000, // 每張圖片顯示時間 3 秒
-								responsive : {
-									0 : {
-										items : 1
-									},
-									600 : {
-										items : 2
-									},
-									1000 : {
-										items : 3
-									}
-								}
-							});
-						});
-					</script>
-		</section>
-
 	</main>
 
 	<section class="trending-podcast-section section-padding">
@@ -732,14 +745,14 @@ button {
 
 					<div class="col-lg-7 col-md-9 col-12">
 						<ul class="site-footer-links">
-							<li class="site-footer-link-item"><a href="./questions.jsp" 
+							<li class="site-footer-link-item"><a href="./questions.jsp"
 								class="site-footer-link" style="color: black; font-size: 18px;">Q&A問題</a>
 							</li>
 
 							<li class="site-footer-link-item"><a href="./Service.jsp"
 								class="site-footer-link" style="color: black; font-size: 18px;">服務條款</a>
 							</li>
-						
+
 							<div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0 mb-lg-0"
 								style="margin-left: auto; color: black;">
 								<h6 class="site-footer-title mb-3" style="color: black;">聯絡方式</h6>

@@ -194,17 +194,21 @@
     <div class="container">
         <h2><i class="fa-solid fa-house"></i> 訂單管理</h2>
         
-        <!-- 訂單狀態切換按鈕 -->
-        <div class="tabs">
-            <button class="${currentStatus == 1 ? 'active' : ''}" 
-                onclick="location.href='${pageContext.request.contextPath}/orders/orders.do?action=getOrderSummary&status=1'">
-                待確認訂單
-            </button>
-            <button class="${currentStatus == 2 ? 'active' : ''}" 
-                onclick="location.href='${pageContext.request.contextPath}/orders/orders.do?action=getOrderSummary&status=2'">
-                已出貨訂單
-            </button>
-        </div>
+<!-- 訂單狀態切換按鈕 -->
+<div class="tabs">
+    <button class="${empty currentStatus || currentStatus eq 'all' ? 'active' : ''}" 
+        onclick="location.href='${pageContext.request.contextPath}/orders/orders.do?action=getOrderSummary&status=all'">
+        全部訂單
+    </button>
+    <button class="${currentStatus eq '1' ? 'active' : ''}" 
+        onclick="location.href='${pageContext.request.contextPath}/orders/orders.do?action=getOrderSummary&status=1'">
+        待確認訂單
+    </button>
+    <button class="${currentStatus eq '2' ? 'active' : ''}" 
+        onclick="location.href='${pageContext.request.contextPath}/orders/orders.do?action=getOrderSummary&status=2'">
+        已出貨訂單
+    </button>
+</div>
 
         <!-- 訂單列表 -->
         <c:forEach var="order" items="${orderSummaryList}">

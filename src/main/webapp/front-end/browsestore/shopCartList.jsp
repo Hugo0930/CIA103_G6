@@ -12,7 +12,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Shop Homepage - Start Bootstrap Template</title>
+<title>VoiceBus購物車</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -74,44 +74,60 @@ input[type="number"].cart-qty {
 
 <body>
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container px-4 px-lg-5">
-			<a class="navbar-brand" href="#!">VoiceBus</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#!">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">商品分類</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item"
-								href="<%=request.getContextPath()%>/prod/prod.do?action=get_all">全部商品</a></li>
-							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item"
-								href="<%=request.getContextPath()%>/prod/prod.do?action=get_by_type&prodTypeId=1">錄音相關</a></li>
-							<li><a class="dropdown-item"
-								href="<%=request.getContextPath()%>/prod/prod.do?action=get_by_type&prodTypeId=2">周邊</a></li>
-						</ul></li>
-				</ul>
-
-			</div>
-		</div>
-	</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">VoiceBus</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" 
+                       href="<%=request.getContextPath()%>/prod/prod.do?action=get_all">商城首頁</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">商品分類</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" 
+                            href="<%=request.getContextPath()%>/prod/prod.do?action=get_all">全部商品</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item"
+                            href="<%=request.getContextPath()%>/prod/prod.do?action=get_by_type&prodTypeId=1">錄音相關</a></li>
+                        <li><a class="dropdown-item"
+                            href="<%=request.getContextPath()%>/prod/prod.do?action=get_by_type&prodTypeId=2">周邊</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center me-3">
+                <span class="me-3">會員編號: ${param.memId != null ? param.memId : "3"}</span>
+                <a href="<%= request.getContextPath() %>/orders/orders.do?action=get_member_orders"
+                    class="btn btn-outline-dark me-2">
+                    <i class="bi bi-file-text me-1"></i>我的訂單
+                </a>
+            </div>
+            <!-- 顯示購物車數量 -->
+            <form action="<%=request.getContextPath()%>/prod/prod.do" method="POST" class="d-flex">
+                <input type="hidden" name="action" value="view_cart" />
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi-cart-fill me-1"></i> Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">
+                        ${sessionScope.cartTotal != null ? sessionScope.cartTotal : 0}
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
 	<!-- Header-->
 	<header class="bg-dark py-5">
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="text-center text-white">
 				<h1 class="display-4 fw-bolder">購物車</h1>
-				<p class="lead fw-normal text-white-50 mb-0">With this shop
-					homepage template</p>
+<!-- 				<p class="lead fw-normal text-white-50 mb-0">With this shop -->
+<!-- 					homepage template</p> -->
 			</div>
 		</div>
 	</header>
@@ -253,7 +269,8 @@ input[type="number"].cart-qty {
 	
 	
 	$(document).on('change', '.cart-qty', function() {
-	    var prodId = $(this).data('prod-id'); // 取得商品 ID
+	    var $this = $(this);  // 保存當前元素的引用
+	    var prodId = $(this).closest('tr').find('.delete-btn').data('prod-id'); // 從刪除按鈕獲取 prodId
 	    var newQty = $(this).val(); // 取得新的數量
 
 	    // 如果數量為 0，詢問是否刪除商品
@@ -261,41 +278,50 @@ input[type="number"].cart-qty {
 	        if (confirm("數量為 0，是否刪除該商品？")) {
 	            // 使用者確認刪除
 	            $.ajax({
-	                url: '<%=request.getContextPath()%>/prod/prod.do?action=remove_from_cart',
+	                url: '<%=request.getContextPath()%>/prod/prod.do',  // 修改這行
 	                type: 'POST',
-	                data: { prodId: prodId },
+	                data: { 
+	                    action: 'remove_from_cart',  // 新增這行
+	                    prodId: prodId 
+	                },
 	                success: function(response) {
-	                    alert("商品已刪除");
+	                    console.log("刪除成功");
+	                    $this.closest('tr').remove(); // 從畫面中移除該列
+	                    calculateTotal(); // 重新計算總金額
 	                    location.reload(); // 重新載入頁面
 	                },
 	                error: function(xhr, status, error) {
+	                    console.error("刪除失敗：", error);
 	                    alert("刪除失敗：" + error);
+	                    $this.val(1); // 恢復數量為 1
 	                }
 	            });
 	        } else {
 	            // 使用者取消刪除，恢復數量為 1
 	            $(this).val(1);
+	            calculateTotal(); // 重新計算總金額
 	        }
 	        return; // 停止後續操作
 	    }
 
 	    // 如果數量不為 0，正常更新數量
 	    $.ajax({
-	        url: '<%=request.getContextPath()%>/prod/prod.do?action=update_qty',
+	        url: '<%=request.getContextPath()%>/prod/prod.do',
 	        type: 'POST',
 	        data: {
+	            action: 'update_qty',
 	            prodId: prodId,
 	            cartlistQty: newQty
 	        },
 	        success: function(response) {
 	            console.log("數量已更新");
+	            calculateTotal(); // 重新計算總金額
 	        },
 	        error: function(xhr, status, error) {
 	            console.error("更新失敗：" + error);
 	        }
 	    });
 	});
-	
 	function calculateTotal() {
 	    let total = 0;
 
@@ -323,10 +349,10 @@ input[type="number"].cart-qty {
 
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Your
-				Website 2023</p>
-		</div>
+<!-- 		<div class="container"> -->
+<!-- 			<p class="m-0 text-center text-white">Copyright &copy; Your -->
+<!-- 				Website 2023</p> -->
+<!-- 		</div> -->
 	</footer>
 	<!-- Bootstrap core JS-->
 	<script
