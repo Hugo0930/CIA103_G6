@@ -14,8 +14,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/back-end/studioOrder/css/std_add.css">   
 </head>
 <%
-	List resultList = (List)request.getAttribute("resultList");
-	pageContext.setAttribute("resultList", resultList);
+	List all_order = (List)request.getAttribute("all_order");
+	pageContext.setAttribute("all_order", all_order);
 %>
 
 <body>
@@ -53,28 +53,28 @@
 	     		</tr>
 	        </thead>
 	        <tbody>
-    <c:forEach var="std" items="${resultList}">
+    <c:forEach var="std" items="${all_order}">
         <tr>
-            <td>${std.studOrderId}</td> <!-- STUD_ORDER_ID -->
+            <td>${std.orderId}</td> <!-- STUD_ORDER_ID -->
             <td>${std.memId}</td>       <!-- MEM_ID -->
-            <td>${std.studId}</td>      <!-- STUD_ID -->
+            <td>${std.studioVO.studId}</td>      <!-- STUD_ID -->
             <td>
                 <c:choose>
-                    <c:when test="${std.orderStatus == 0}">PENDING(待處理)</c:when>
-                    <c:when test="${std.orderStatus == 1}">CONFIRMED(確認)</c:when>
-                    <c:when test="${std.orderStatus == 2}">CANCELLED(取消)</c:when>
-                    <c:when test="${std.orderStatus == 3}">COMPLETED(完成)</c:when>
+                    <c:when test="${std.status == 0}">PENDING(待處理)</c:when>
+                    <c:when test="${std.status == 1}">CONFIRMED(確認)</c:when>
+                    <c:when test="${std.status == 2}">CANCELLED(取消)</c:when>
+                    <c:when test="${std.status == 3}">COMPLETED(完成)</c:when>
                 </c:choose>
             </td> <!-- ORDER_STATUS -->
             <td>
-                <c:choose>
-                    <c:when test="${std.overtimeStatus}">TRUE(超時)</c:when>
-                    <c:otherwise>FALSE(未超時)</c:otherwise>
-                </c:choose>
+<%--                 <c:choose> --%>
+<%--                     <c:when test="${std.overtimeStatus}">TRUE(超時)</c:when> --%>
+<%--                     <c:otherwise>FALSE(未超時)</c:otherwise> --%>
+<%--                 </c:choose> --%>
             </td> <!-- OVERTIME_STATUS -->
-            <td>${std.orderAmount}</td>   <!-- ORDER_AMOUNT -->
+            <td>${std.totalAmount}</td>   <!-- ORDER_AMOUNT -->
             <td>${std.rentalHour}</td>    <!-- RENTAL_HOUR -->
-            <td>${std.overtimeDuration}</td> <!-- OVERTIME_DURATION -->
+<%--             <td>${std.overtimeDuration}</td> <!-- OVERTIME_DURATION --> --%>
             <td>
                 <fmt:formatDate value="${std.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
             </td> <!-- START_TIME -->
@@ -124,39 +124,85 @@
             	<h2>新增錄音室訂單</h2>
 	            <table>
 	                <tbody>
-	                    <tr>
-	                        <td>錄音室地點</td>
-	                        <td><input type="text" name="studio_loc" class="loc"></td>
-	                    </tr>
-	                    <tr>
-	                        <td>錄音室名稱</td>
-	                        <td><input type="text" name="studio_name" class="name"></td>
-	                    </tr>
-	                    <tr>
-	                        <td>人數</td>
-	                        <td>
-	                            <select name="studio_capacity" class="capacity">
-	                                <option value="1">1</option>
-	                                <option value="2">2</option>
-	                                <option value="3">3</option>
-	                                <option value="4">4</option>
-	                                <option value="5">5</option>
-	                            </select>
-	                        </td>
-	                    </tr>
-	                    <tr>
-	                        <td>租金</td>
-	                        <td><input type="text" name="studio_hourly_rate" class="hourly_rate"></td>
-	                    </tr>
-	                    <tr>
-	                        <td>上架日期</td>
-	                        <td><input type="date" name="release_date" class="date"></td>
-	                    </tr>
-	                    <tr>
-	                        <td>上傳檔案</td>
-	                        <td><input type="file" name="studio_pic" accept="image/*" class="image"></td>
-	                    </tr>
-	                </tbody>
+						    <!-- 訂單編號 (STUD_ORDER_ID) -->
+						    <tr>
+						        <td>訂單編號</td>
+						        <td><input type="text" name="stud_order_id" id="stud_order_id" readonly></td>
+						    </tr>
+						
+						    <!-- 會員編號 (MEM_ID) -->
+						    <tr>
+						        <td>會員編號</td>
+						        <td><input type="text" name="mem_id" id="mem_id" class="mem_id"></td>
+						    </tr>
+						
+						    <!-- 錄音室編號 (STUD_ID) -->
+						    <tr>
+						        <td>錄音室編號</td>
+						        <td><input type="text" name="stud_id" id="stud_id" class="stud_id"></td>
+						    </tr>
+						
+						    <!-- 訂單狀態 (ORDER_STATUS) -->
+						    <tr>
+						        <td>訂單狀態</td>
+						        <td>
+						            <select name="order_status" id="order_status">
+						                <option value="0">PENDING (待處理)</option>
+						                <option value="1">CONFIRMED (確認)</option>
+						                <option value="2">CANCELLED (取消)</option>
+						                <option value="3">COMPLETED (完成)</option>
+						            </select>
+						        </td>
+						    </tr>
+						
+						    <!-- 超時狀態 (OVERTIME_STATUS) -->
+						    <tr>
+						        <td>超時狀態</td>
+						        <td>
+						            <select name="overtime_status" id="overtime_status">
+						                <option value="0">FALSE (未超時)</option>
+						                <option value="1">TRUE (超時)</option>
+						            </select>
+						        </td>
+						    </tr>
+						
+						    <!-- 訂單金額 (ORDER_AMOUNT) -->
+						    <tr>
+						        <td>訂單金額</td>
+						        <td><input type="number" step="0.1" name="order_amount" id="order_amount"></td>
+						    </tr>
+						
+						    <!-- 租借時數 (RENTAL_HOUR) -->
+						    <tr>
+						        <td>租借時數</td>
+						        <td><input type="number" name="rental_hour" id="rental_hour"></td>
+						    </tr>
+						
+						    <!-- 超時時數 (OVERTIME_DURATION) -->
+						    <tr>
+						        <td>超時時數</td>
+						        <td><input type="number" name="overtime_duration" id="overtime_duration"></td>
+						    </tr>
+						
+						    <!-- 開始時間 (START_TIME) -->
+						    <tr>
+						        <td>開始時間</td>
+						        <td><input type="datetime-local" name="start_time" id="start_time"></td>
+						    </tr>
+						
+						    <!-- 結束時間 (END_TIME) -->
+						    <tr>
+						        <td>結束時間</td>
+						        <td><input type="datetime-local" name="end_time" id="end_time"></td>
+						    </tr>
+						
+						    <!-- 訂單日期 (ORDER_DATE) -->
+						    <tr>
+						        <td>訂單日期</td>
+						        <td><input type="date" name="order_date" id="order_date"></td>
+						    </tr>
+						</tbody>
+	               
 	            </table>
 	            <div class="add_btn_block">
 	                <button type="button" id="submit_btn">送出</button>

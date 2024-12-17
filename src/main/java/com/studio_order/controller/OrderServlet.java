@@ -103,10 +103,16 @@ public class OrderServlet extends HttpServlet {
 				//System.out.println("ordList:" + ordservice.getAllOrder());
 				List<OrderVO> resultList = ordservice.getAllOrder();
 				req.setAttribute("all_order", resultList);
-				
+				System.out.println(resultList);
 				//changeFirstPage(req,resultList.size());
 				
-				RequestDispatcher rd = req.getRequestDispatcher("front-end/studio/order.jsp");
+				String toRent = req.getParameter("toRent");
+				RequestDispatcher rd = null;
+				if("toRent".equals(toRent)) {
+					rd = req.getRequestDispatcher("back-end/studioOrder/studioOrder_mgnt.jsp");
+				}else {
+					rd = req.getRequestDispatcher("front-end/studio/order.jsp");
+				}
 				rd.forward(req, res);
 				break;
 			
