@@ -11,6 +11,11 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+
+<c:set var="memVO" value="${sessionScope.mem}" />
+
+
+
 <title>VoiceBus聲音巴士</title>
 
 <!-- CSS FILES -->
@@ -147,13 +152,31 @@ button {
 								<li><a class="dropdown-item" href="#"
 									style="color: #000000;">接案</a></li>
 							</ul></li>
-						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">會員登入</a></li>
+													
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp"
 							style="color: #000000; font-size: 18px;">客服中心</a></li>
-					</ul>
+							
+						<c:if test="${memVO==null}">	
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/front-end/login.jsp"
+							style="color: #000000; font-size: 18px;">會員登入</a></li>	
+						</c:if>		
+													
+						<c:if test="${memVO!=null}">	
+						<li class="nav-item"><a class="nav-link"						
+							style="color: #000000; font-size: 18px;">歡迎:${memVO.memberName}</a></li>
+						</c:if>	
+						
+						<c:if test="${memVO!=null}">	
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath}/back-end/logout"
+							style="color: #000000; font-size: 18px;">退出</a></li>
+						</c:if>	
+							
+					</ul>													
 				</div>
+												
+				
 			</div>
 		</nav>
 		<section class="hero-section">
