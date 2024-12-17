@@ -33,4 +33,5 @@ public interface ApplyDAO_interface {
 
 	// 將該案件的其他未被媒合的應徵者的狀態更新為2（未媒合）
 	void rejectOtherApplicants(Integer caseId);
+	
 }
