@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -12,11 +13,9 @@ import com.utils.datasource.HikariDataSourceUtil;
 public class ApplyDAO implements ApplyDAO_interface {
 	private static final DataSource ds = HikariDataSourceUtil.getDataSource();
 
-	// SQL 語句
-	// 新增一筆應徵記錄到 APPLY 表中，包含的欄位有 CASE_ID, MEM_ID, TITLE, DESCRIPTION, BUDGET,
-	// STATUS, REMARKS, UPLOAD_DATE, VOICE_FILE
-	private static final String INSERT_STMT = "INSERT INTO APPLY (CASE_ID, MEM_ID, RECEIVER_ID, DESCRIPTION, BUDGET, STATUS, REMARKS, UPLOAD_DATE, VOICE_FILE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	// 只篩選 STATUS = 0 (應徵中) 的記錄
+	// 新增一筆應徵記錄到 APPLY 表中，只篩選 STATUS = 0 (應徵中) 的記錄，CASEID自增主鍵
+	private static final String INSERT_SQL = "INSERT INTO APPLY (MEM_ID, DESCRIPTION, BUDGET, STATUS, REMARKS, VOICE_FILE) VALUES (?, ?, ?, ?, ?, ?)";
+	//取得應徵中的紀錄
 	private static final String GET_PENDING_APPLIES_STMT = "SELECT * FROM APPLY WHERE STATUS = 0 ORDER BY UPLOAD_DATE DESC";
 	// 更新應徵記錄中描述、預算、狀態和備註，根據CASE_ID和MEM_ID進行更新
 	private static final String UPDATE_STMT = "UPDATE APPLY SET RECEIVER_ID = ?, DESCRIPTION = ?, BUDGET = ?, STATUS = ?, REMARKS = ? WHERE CASE_ID = ? AND MEM_ID = ? AND RECEIVER_ID = ?";
@@ -28,6 +27,10 @@ public class ApplyDAO implements ApplyDAO_interface {
 	private static final String FIND_BY_CASE_ID = "SELECT * FROM APPLY WHERE CASE_ID = ?";
 	// SQL 查詢語音檔案的語句
 	private static final String GET_VOICE_FILE = "SELECT VOICE_FILE FROM APPLY WHERE CASE_ID = ? AND MEM_ID = ?";
+	// 媒合指定的接案者，更新RECEIVER_ID，將STATUS設為1（已媒合）
+	private static final String MATCH_RECEIVER = "UPDATE APPLY SET STATUS = 1, RECEIVER_ID = ? WHERE CASE_ID = ? AND STATUS = 0";
+	// 將該案件的其他未被媒合的應徵者的狀態更新為2（未媒合）
+	private static final String REJECT_OTHER_APPLICANTS = "UPDATE APPLY SET STATUS = 2 WHERE CASE_ID = ? AND STATUS = 0";
 
 	// 更新應徵狀態為 "已媒合(1)"，根據 CASE_ID 和 MEM_ID 更新
 //	private static final String UPDATE_APPLY_STATUS_SUCCESS = "UPDATE APPLY SET STATUS = '1' WHERE CASE_ID = ? AND MEM_ID = ?";
@@ -55,7 +58,7 @@ public class ApplyDAO implements ApplyDAO_interface {
 				applyVO.setReceiverId(rs.getInt("RECEIVER_ID"));
 				applyVO.setDescription(rs.getString("DESCRIPTION"));
 				applyVO.setBudget(rs.getBigDecimal("BUDGET"));
-				applyVO.setStatus(rs.getString("STATUS"));
+				applyVO.setStatus(rs.getInt("STATUS"));
 				applyVO.setRemarks(rs.getString("REMARKS"));
 				applyVO.setUploadDate(rs.getDate("UPLOAD_DATE"));
 				applyVO.setVoiceFile(rs.getBytes("VOICE_FILE"));
@@ -66,30 +69,42 @@ public class ApplyDAO implements ApplyDAO_interface {
 		}
 		return list;
 	}
+	
+	// 新增一筆應徵記錄到 APPLY 表中，只篩選 STATUS = 0 (應徵中) 的記錄
+	public void insert(ApplyVO apply) {
+	    try (Connection con = ds.getConnection(); 
+	         PreparedStatement pstmt = con.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS)) { // ✅ RETURN_GENERATED_KEYS 用於獲取CASE_ID
 
-	public void insert(ApplyVO applyVO) {
-		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(INSERT_STMT)) {
-			pstmt.setInt(1, applyVO.getCaseId());
-			pstmt.setInt(2, applyVO.getMemId());
-			pstmt.setInt(3, applyVO.getReceiverId());
-			pstmt.setString(4, applyVO.getDescription());
-			pstmt.setBigDecimal(5, applyVO.getBudget());
-			pstmt.setString(6, applyVO.getStatus());
-			pstmt.setString(7, applyVO.getRemarks());
-			pstmt.setDate(8, applyVO.getUploadDate());
-			pstmt.setBytes(9, applyVO.getVoiceFile());
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			throw new RuntimeException("新增失敗: " + e.getMessage(), e);
-		}
+	        pstmt.setInt(1, apply.getMemId());
+	        pstmt.setString(2, apply.getDescription());
+	        pstmt.setBigDecimal(3, apply.getBudget());
+	        pstmt.setInt(4, apply.getStatus());
+	        pstmt.setString(5, apply.getRemarks());
+	        pstmt.setBytes(6, apply.getVoiceFile()); // 試音檔案
+
+	        pstmt.executeUpdate();
+
+	        // 這裡獲取生成的 CASE_ID（如果你想要用的話）
+	        try (ResultSet rs = pstmt.getGeneratedKeys()) {
+	            if (rs.next()) {
+	                int generatedCaseId = rs.getInt(1);
+	                apply.setCaseId(generatedCaseId); // 將生成的 CASE_ID 設置到 VO
+	                System.out.println("生成的CASE_ID為: " + generatedCaseId);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
+	
 	public void update(ApplyVO applyVO) {
 		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(UPDATE_STMT)) {
 			pstmt.setInt(1, applyVO.getReceiverId());
 			pstmt.setString(2, applyVO.getDescription());
 			pstmt.setBigDecimal(3, applyVO.getBudget());
-			pstmt.setString(4, applyVO.getStatus());
+			pstmt.setInt(4, applyVO.getStatus());
 			pstmt.setString(5, applyVO.getRemarks());
 			pstmt.setInt(6, applyVO.getCaseId());
 			pstmt.setInt(7, applyVO.getMemId());
@@ -112,7 +127,7 @@ public class ApplyDAO implements ApplyDAO_interface {
 				applyVO.setReceiverId(rs.getInt("RECEIVER_ID"));
 				applyVO.setDescription(rs.getString("DESCRIPTION"));
 				applyVO.setBudget(rs.getBigDecimal("BUDGET"));
-				applyVO.setStatus(rs.getString("STATUS"));
+				applyVO.setStatus(rs.getInt("STATUS"));
 				applyVO.setRemarks(rs.getString("REMARKS"));
 				applyVO.setUploadDate(rs.getDate("UPLOAD_DATE"));
 				applyVO.setVoiceFile(rs.getBytes("VOICE_FILE"));
@@ -134,7 +149,7 @@ public class ApplyDAO implements ApplyDAO_interface {
 				applyVO.setReceiverId(rs.getInt("RECEIVER_ID"));
 				applyVO.setDescription(rs.getString("DESCRIPTION"));
 				applyVO.setBudget(rs.getBigDecimal("BUDGET"));
-				applyVO.setStatus(rs.getString("STATUS"));
+				applyVO.setStatus(rs.getInt("STATUS"));
 				applyVO.setRemarks(rs.getString("REMARKS"));
 				applyVO.setUploadDate(rs.getDate("UPLOAD_DATE"));
 				applyVO.setVoiceFile(rs.getBytes("VOICE_FILE"));
@@ -161,7 +176,7 @@ public class ApplyDAO implements ApplyDAO_interface {
 				applyVO.setMemId(rs.getInt("RECEIVER_ID"));
 				applyVO.setDescription(rs.getString("DESCRIPTION"));
 				applyVO.setBudget(rs.getBigDecimal("BUDGET"));
-				applyVO.setStatus(rs.getString("STATUS"));
+				applyVO.setStatus(rs.getInt("STATUS"));
 				applyVO.setRemarks(rs.getString("REMARKS"));
 				applyVO.setUploadDate(rs.getDate("UPLOAD_DATE"));
 				applyVO.setVoiceFile(rs.getBytes("VOICE_FILE"));
@@ -191,5 +206,35 @@ public class ApplyDAO implements ApplyDAO_interface {
 			throw new RuntimeException("查詢 VOICE_FILE 失敗: " + e.getMessage(), e);
 		}
 		return voiceFile;
+	}
+
+	// 媒合指定的接案者，更新RECEIVER_ID，將STATUS設為1（已媒合）
+	@Override
+	public void matchReceiver(Integer caseId, Integer receiverId) {
+		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(MATCH_RECEIVER)) {
+
+			pstmt.setInt(1, receiverId);
+			pstmt.setInt(2, caseId);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("媒合接案者失敗: " + e.getMessage(), e);
+		}
+	}
+
+	// 將該案件的其他未被媒合的應徵者的狀態更新為2（未媒合）
+	@Override
+	public void rejectOtherApplicants(Integer caseId) {
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(REJECT_OTHER_APPLICANTS)) {
+
+			pstmt.setInt(1, caseId);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("拒絕其他應徵者失敗: " + e.getMessage(), e);
+		}
 	}
 }

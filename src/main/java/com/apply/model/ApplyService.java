@@ -14,29 +14,15 @@ public class ApplyService {
 	/**
 	 * 新增一筆應徵記錄
 	 */
-	public ApplyVO addApply(Integer caseId, Integer memId, Integer receiverId, String description,
-			java.math.BigDecimal budget, String status, String remarks, java.sql.Date uploadDate, byte[] voiceFile) {
-
-		ApplyVO applyVO = new ApplyVO();
-		applyVO.setCaseId(caseId);
-		applyVO.setMemId(memId);
-		applyVO.setReceiverId(receiverId);
-		applyVO.setDescription(description);
-		applyVO.setBudget(budget);
-		applyVO.setStatus(status);
-		applyVO.setRemarks(remarks);
-		applyVO.setUploadDate(uploadDate);
-		applyVO.setVoiceFile(voiceFile);
-
-		dao.insert(applyVO);
-		return applyVO;
-	}
+	 public void insertApply(ApplyVO applyVO) {
+	        dao.insert(applyVO);
+	    }
 
 	/**
 	 * 更新應徵記錄
 	 */
 	public ApplyVO updateApply(Integer caseId, Integer memId, Integer receiverId, String description,
-			java.math.BigDecimal budget, String status, String remarks) {
+			java.math.BigDecimal budget, Integer status, String remarks) {
 
 		ApplyVO applyVO = new ApplyVO();
 		applyVO.setCaseId(caseId);
@@ -76,4 +62,13 @@ public class ApplyService {
 		}
 		return dao.getVoiceFile(caseId, memId);
 	}
+    // 進行媒合，將該案件的RECEIVER_ID設為指定會員，並將狀態更新為1（已媒合）
+    public void matchReceiver(Integer caseId, Integer receiverId) {
+        dao.matchReceiver(caseId, receiverId);
+    }
+
+    // 拒絕該案件的其他未媒合的應徵者，將狀態更新為2（未媒合）
+    public void rejectOtherApplicants(Integer caseId) {
+        dao.rejectOtherApplicants(caseId);
+    }
 }

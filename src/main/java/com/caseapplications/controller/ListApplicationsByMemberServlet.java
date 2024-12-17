@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.caseapplications.model.CaseApplicationsService;
 import com.caseapplications.model.CaseApplicationsVO;
 
-//會員自己查詢自己的應徵記錄。
+//會員自己可以查詢到自己的應徵記錄。
 @WebServlet("/listApplicationsByMember")
 public class ListApplicationsByMemberServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -29,8 +29,10 @@ public class ListApplicationsByMemberServlet extends HttpServlet {
         Integer memberId = (Integer) session.getAttribute("memberId");
         
         if (memberId == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-            return;
+        	//先給假資料
+        	memberId = 5;
+//            response.sendRedirect(request.getContextPath() + "/login.jsp");
+//            return;
         }
 
         List<CaseApplicationsVO> applications = service.getApplicationsByMemberId(memberId);
