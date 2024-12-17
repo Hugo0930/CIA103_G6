@@ -368,7 +368,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			MemberService memberSvc = new MemberService();
-			memberVO = memberSvc.addMember(memberId, memberLvId, memberName, memberUid, memberBth, memberGender, memberEmail, memberTel,memberAdd, memberAcc, memberPw, memberStatus);
+			memberVO = memberSvc.updateMember( memberName, memberUid, memberBth, memberGender, memberEmail, memberTel,memberAdd, memberAcc, memberPw);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/back-end/member/listAllMember.jsp";
