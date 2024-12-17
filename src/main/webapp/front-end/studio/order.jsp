@@ -5,85 +5,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/front-end/studio/css/order.css" rel="stylesheet" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/front-end/reserve/style.css">
 <meta charset="UTF-8">
 <title>訂單查詢</title>
 </head>
 <body>
-   	<!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!">VoiceBus</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-		<li class="nav-item">
-			<a class="nav-link active" aria-current="page" href="#!">
-				<form action="${pageContext.request.contextPath}/SaveToSession" method="post">
-					<button type="submit">首頁</button>
-					<input type="hidden" name="action" value="toHomepage">
-				</form>
-			</a>
-		</li>
-	    <header class="header">
-	        <div class="logo">VoiceBus</div>
-	        <nav class="nav">
-	            <ul>
-	                <li><a href="#">關於我們</a></li>
-	                <li><a href="#">會員</a></li>
-	                <li><a href="#">配音員列表</a></li>
-	                <li><a href="#">商城</a></li>
-	                <li><a href="#">購物車</a></li>
-	            </ul>
-	        </nav>
-	    </header>
-		<li class="nav-item">
-                    	<a class="nav-link" href="#!">
-                    		<form action="${pageContext.request.contextPath}/SaveToSession" method="post">
-                     		<button type="submit">我的帳戶</button>
-                     		<input type="hidden" name="action" value="toMember">
-                    		</form>
-                   		</a>
-                   	</li>
-                    <li class="nav-item">
-                    		<a class="nav-link" href="#!">
-                  				<form action="${pageContext.request.contextPath}/OrderServlet?page=1" method="post">
-                      		<button type="submit">訂單查詢</button>
-                      		<input type="hidden" name="mem_id" value="2">
-                      		<input type="hidden" name="action" value="get_user_orders">
-                     		</form>
-                    		</a>
-                    	</li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">錄音室租借</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                            	<a class="dropdown-item" href="#!">
-                         		    <form action="${pageContext.request.contextPath}/OrderServlet" method="post">
-			                       		<button type="submit">所有錄音室</button>
-			                       		<input type="hidden" name="action" value="get_all_studio">
-                     			</form>
-                           		</a>
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">3人錄音室</a></li>
-                            <li><a class="dropdown-item" href="#!">4人錄音室</a></li>
-                            <li><a class="dropdown-item" href="#!">5人錄音室</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
-                        <i class="bi-cart-fill me-1"></i>
-                        Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </nav>
+    <header class="header">
+        <div class="logo">VoiceBus</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">關於我們</a></li>
+                <li><a href="#">會員</a></li>
+                <li><a href="#">配音員列表</a></li>
+                <li><a href="#">商城</a></li>
+                <li><a href="#">購物車</a></li>
+            </ul>
+        </nav>
+    </header>
 	<div class="lookup_block">
 	   	<form method="post" action="${pageContext.request.contextPath}/OrderServlet">
 	   		<label for="start_date">開始日期</label>

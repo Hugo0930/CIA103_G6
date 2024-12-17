@@ -62,3 +62,11 @@ $("#match_btn").on("click",function(){
 	}
 })
 
+$(document).ready(function(){
+	if($("div.container").length > 1){
+		$("div.container").first().hide();
+	}else{
+		$("div.container").first().show();
+	}
+})
+

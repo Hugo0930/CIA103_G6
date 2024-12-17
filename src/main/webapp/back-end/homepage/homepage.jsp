@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+   
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  
 <%@ page import="com.member.model.*"%>    
@@ -10,10 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <title>後台首頁</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/back-end/homepage/css/homepage.css">
-
-
-<!-- 判斷有無登入且是否為管理員 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/back-end/homepage/css/homepage.css">  
+  <!-- 判斷有無登入且是否為管理員 -->
 <c:set var="memVO" value="${sessionScope.mem}" />
 
 <c:if test="${memVO.memberStatus != 1}">
@@ -24,25 +22,8 @@
 </script>
 </c:if>
 <!--  -->
-
-
 </head>
 <body>
-		
-<!-- 	<div class="help"> -->
-<%-- 	<c:if test="${name!=null}"> --%>
-<%-- 	<a href="selectdd?dd=${name.EU_USER_ID }">个人订单</a> --%>
-<%-- 	</c:if> --%>
-<!-- 	<a href="ShopSelect" class="shopping">购物车</a> -->
-<%-- 	<c:if test="${name==null}"><a href="login.jsp">登录</a></c:if> --%>
-<%-- 	<c:if test="${name!=null}"><a href="zx">退出</a></c:if> --%>
-<!-- 	<a href="register.jsp">注册</a> -->
-<!-- 	<a href="SelallServlet">留言</a> -->
-<%-- 	<c:if test="${name.EU_STATUS==2}"><a href="manage/index.jsp" >去后台</a> --%>
-<%-- 	</c:if> --%>
-<!-- 	</div> -->
-		
-	
     <!-- 漢堡 -->
     <div class="shadow"></div>
     <div class="top_side">
@@ -53,13 +34,12 @@
         </div>
         <!-- 大頭貼 -->
         <div class="head_shot">
-            <a href="#"><img src="${pageContext.request.contextPath}/back-end/images/韓國瑜.jpg" alt="沒有圖片"></a>
+            <a href="#"><img src="${pageContext.request.contextPath}/back-end/homepage/user/user.png" alt="沒有圖片"></a>
         </div>
         <!-- 首頁 -->
         <div class="project_name">
-            <a href="homepage.jsp">Voice Bus</a>
+            <a href="${pageContext.request.contextPath}/back-end/homepage/homepage.jsp">Voice Bus</a>
         </div>
-        
     </div>
     <nav class="right_slide">
         <ul class="func_name">
@@ -88,7 +68,7 @@
             <div class="member_btn_block">
                 <ul class="sub_func_name">
                     <li class="member_sub_item">
-                        <button class="sub_btn_func"><a href="./member_mgmt.html" class="sub_btn_name">會員帳號管理</a></button>
+                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/membermanage/select_page.jsp" class="sub_btn_name">會員帳號管理</a></button>
                     </li>
                 </ul>
             </div>
@@ -101,7 +81,7 @@
             <div class="web_btn_block">
                 <ul class="sub_func_name">
                     <li class="web_sub_item">
-                        <button class="sub_btn_func"><a href="./advertising_mgmt.html" class="sub_btn_name">廣告資訊管理</a></button>
+                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/advertisement/select_page.jsp" class="sub_btn_name">廣告資訊管理</a></button>
                     </li>
                     <li class="web_sub_item">
                         <button class="sub_btn_func"><a href="./notification.mgmt.html"class="sub_btn_name">通知公告管理</a></button>
@@ -123,10 +103,10 @@
             <div class="shop_btn_block">
                 <ul class="sub_func_name">
                     <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="<%=request.getContextPath()%>/back-end/prodmanage/product_mgmt.jsp" class="sub_btn_name">商品管理</a></button>
+                        <button class="sub_btn_func"><a href="<%=request.getContextPath()%>/back-end/prodmanage/product_mgmt.jsp"  class="sub_btn_name">商品管理</a></button>
                     </li>
                     <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="./order_mgmt.html" class="sub_btn_name">訂單管理</a></button>
+                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/memberorders/memberorders.jsp" class="sub_btn_name">訂單管理</a></button>
                     </li>
                     <li class="shop_sub_item">
                         <button class="sub_btn_func"><a href="./report_mgmt.html" class="sub_btn_name">評價檢舉管理</a></button>
@@ -162,10 +142,10 @@
             <div class="match_btn_block">
                 <ul class="sub_func_name">
                     <li class="match_sub_item">
-                        <button class="sub_btn_func"><a href="./complaint_case_mgmt.html" class="sub_btn_name">申訴案件管理</a></button>
+                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/complaint/select_page.jsp" class="sub_btn_name">申訴案件管理</a></button>
                     </li>
                     <li class="match_sub_item">
-                        <button class="sub_btn_func"><a href="./case_mgmt.html" class="sub_btn_name">案件管理</a></button>
+                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/apply/select_page.jsp" class="sub_btn_name">案件管理</a></button>
                     </li>
                 </ul>
             </div>
@@ -179,9 +159,6 @@
         <hr>
         <h2><c:if test="${memVO!=null}">歡迎管理員:${memVO.memberName}</c:if></h2>
     </div>
-    
-     
-     
     <script src="https://kit.fontawesome.com/155106be6f.js" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/back-end/homepage/vendor/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/back-end/homepage/js/homepage.js"></script>

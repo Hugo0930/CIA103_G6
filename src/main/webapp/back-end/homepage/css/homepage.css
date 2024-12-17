@@ -97,7 +97,7 @@ nav ul.func_name li.main_item :focus{
 nav.right_slide button.btn_func:hover,button.sub_btn_func a.sub_btn_name:hover{
     color: rgb(255, 255, 116);
 }
-nav.right_slide .btn_func:hover::after{
+nav.right_slide button.sub_btn_func:hover{
     color: rgb(255, 255, 116);
 }
 /*****************側邊選單按鈕*****************/
