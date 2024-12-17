@@ -30,7 +30,7 @@ public class GetApplyByCaseServlet extends HttpServlet {
             memIdParam == null || memIdParam.trim().isEmpty()) {
             errorMsg = "請提供有效的案件編號和會員編號";
             request.setAttribute("errorMsg", errorMsg);
-            RequestDispatcher failureView = request.getRequestDispatcher("/apply/findApply.jsp");
+            RequestDispatcher failureView = request.getRequestDispatcher("/back-end/apply/findApply.jsp");
             failureView.forward(request, response);
             return;
         }
@@ -44,7 +44,7 @@ public class GetApplyByCaseServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             errorMsg = "案件編號和會員編號必須是有效的整數";
             request.setAttribute("errorMsg", errorMsg);
-            RequestDispatcher failureView = request.getRequestDispatcher("/apply/error.jsp");
+            RequestDispatcher failureView = request.getRequestDispatcher("/back-end/apply/error.jsp");
             failureView.forward(request, response);
             return;
         }
@@ -57,20 +57,20 @@ public class GetApplyByCaseServlet extends HttpServlet {
             if (applyVO == null) {
                 errorMsg = "找不到符合條件的案件資料";
                 request.setAttribute("errorMsg", errorMsg);
-                RequestDispatcher failureView = request.getRequestDispatcher("/apply/error.jsp");
+                RequestDispatcher failureView = request.getRequestDispatcher("/back-end/apply/error.jsp");
                 failureView.forward(request, response);
                 return;
             }
 
             // 成功取得案件資料，轉交給 JSP 顯示
             request.setAttribute("applyVO", applyVO);
-            RequestDispatcher successView = request.getRequestDispatcher("/apply/caseDetail.jsp");
+            RequestDispatcher successView = request.getRequestDispatcher("/back-end/apply/caseDetail.jsp");
             successView.forward(request, response);
 
         } catch (Exception e) {
             errorMsg = "無法取得案件資料: " + e.getMessage();
             request.setAttribute("errorMsg", errorMsg);
-            RequestDispatcher failureView = request.getRequestDispatcher("/apply/error.jsp");
+            RequestDispatcher failureView = request.getRequestDispatcher("/back-end/apply/error.jsp");
             failureView.forward(request, response);
         }
     }
