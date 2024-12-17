@@ -107,16 +107,16 @@ button {
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-				<form action="#" method="get"
-					class="custom-form search-form flex-fill me-3" role="search">
-					<div class="input-group input-group-lg">
-						<input name="search" type="search" class="form-control"
-							id="search" placeholder="Search" aria-label="Search">
-						<button type="submit" class="form-control" id="submit">
-							<i class="bi-search"></i>
-						</button>
-					</div>
-				</form>
+<!-- 				<form action="#" method="get" -->
+<!-- 					class="custom-form search-form flex-fill me-3" role="search"> -->
+<!-- 					<div class="input-group input-group-lg"> -->
+<!-- 						<input name="search" type="search" class="form-control" -->
+<!-- 							id="search" placeholder="Search" aria-label="Search"> -->
+<!-- 						<button type="submit" class="form-control" id="submit"> -->
+<!-- 							<i class="bi-search"></i> -->
+<!-- 						</button> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
@@ -495,70 +495,7 @@ button {
 			<div class="container">
 				<div class="row">
 
-					<div class="col-lg-12 col-12">
-						<div class="section-title-wrap mb-5">
-							<h4 class="section-title">配音員標籤</h4>
-						</div>
-					</div>
-					<div class="container mt-5">
-						<form>
-							<div class="row">
-								<!-- 表格樣式排列 -->
-								<div class="table-responsive">
-									<table class="table table-bordered">
-										<tbody>
-											<tr>
-												<td><label for="tagCategory">標籤種類</label> <select
-													class="form-control" id="tagCategory">
-														<option value="" selected disabled>Select...</option>
-														<option value="1">口音</option>
-														<option value="2">語言</option>
-														<option value="3">配音類別</option>
-														<option value="4">聲音年齡</option>
-												</select></td>
-												<td><label for="accentTag">口音</label> <select
-													class="form-control" id="accentTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="1">英式</option>
-														<option value="2">美式</option>
-												</select></td>
-											</tr>
-											<tr>
-												<td><label for="languageTag">語言</label> <select
-													class="form-control" id="languageTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="3">中文</option>
-														<option value="4">英文</option>
-														<option value="5">日文</option>
-												</select></td>
-												<td><label for="voiceCategoryTag">配音類別</label> <select
-													class="form-control" id="voiceCategoryTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="6">商業配音</option>
-														<option value="7">角色配音</option>
-														<option value="8">旁白</option>
-												</select></td>
-											</tr>
-											<tr>
-												<td colspan="2"><label for="voiceAgeTag">聲音年齡</label> <select
-													class="form-control" id="voiceAgeTag">
-														<option value="" selected disabled>Select...</option>
-														<option value="9">青年</option>
-														<option value="10">中年</option>
-														<option value="11">老年</option>
-												</select></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<!-- 確認按鈕 -->
-								<div class="form-group col-md-12"
-									style="text-align: center; margin-top: 20px;">
-									<button type="submit" class="btn btn-warning">確認</button>
-								</div>
-							</div>
-						</form>
-					</div>
+
 
 					<!-- Optional JavaScript -->
 					<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
