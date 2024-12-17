@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+/************表單*********/
+div.table{
+    /*border: 1px solid red;*/
+    width: 500px;
+    height: calc(100% - 50px);
+   
+}
+div.update_table_box div.table table{
+    /*border: 1px solid orange;*/
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    position:relative;
+    top:0;
+    table-layout: fixed;
+}
+div.update_table_box div.table form{
+    border: 1px solid black;
+	position:relative;
+	top:50%;
+	transform:translateY(-50%);
+	background-color: #fff;
+	display:block;
+	border-radius: 10px;
+}
+div.update_table_box div.table table td input[type="text"]
+,input[type="date"]
+,input[type="file"]{
+    display: block;
+    margin: auto;
+}
+div.update_table_box div.table td select{
+    margin-left: 5%;
+    position:absolute;
+    left:0;
+    transform:translateY(-50%);
+}
+div.update_table_box div.table table td input{
+    width: 90%;
+}
+div.update_table_box div.table tr{
+    height: 40px;
+}
+div.update_table_box div.table tr td:first-child{
+    text-align: center;
+    padding-left: 10px;
+    width:50px;
+}
+div.update_table_box td{
+    border: 1px solid black;
+    border-radius: 0px;
+    position: relative;
+}
+div.update_table_box div.update_btn_block{
+    margin-top: 20px;
+    margin-bottom:20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+div.update_table_box div.update_btn_block button{
+    margin-right: 10px;
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+}
+div.update_table_box h2{
+	margin:16px 5px;
+	text-align: center;
+}
+/************表單燈箱*********/
+div.update_table_box{
+	display:none;
+}
+div.update_table_box.active{
+	display:block;
+}
+div.update_table_box {
+	/*border:1px solid orange;*/
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height:100%;
+	background-color: hsla(0, 0%, 0%, .5);
+}
+div.update_table_box div.table{
+	margin:auto auto;
+}
