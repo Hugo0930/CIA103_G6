@@ -39,7 +39,7 @@
 		<nav class="navbar navbar-expand-lg">
 			<div class="container">
 				<a class="navbar-brand me-lg-5 me-0"
-					href="${pageContext.request.contextPath}/front-end/jsp//index.jsp">
+					href="${pageContext.request.contextPath}/index.jsp">
 					<img
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
@@ -92,6 +92,11 @@
 						<c:if test="${memVO==null}">	
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/front-end/login.jsp"
 							style="color: #000000; font-size: 18px;">會員登入</a></li>	
+						</c:if>		
+								
+						<c:if test="${memVO==null}">	
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/front-end/register.jsp"
+							style="color: #000000; font-size: 18px;">注冊</a></li>	
 						</c:if>		
 													
 						<c:if test="${memVO!=null}">	
