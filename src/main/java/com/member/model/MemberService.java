@@ -11,29 +11,29 @@ public class MemberService {
 		dao = new MemberDAO();
 	}
 
-	public MemberVO addMember(Integer memberId, Byte memberLvId, String memberName, String memberUid, Date memberBth,
-			Byte memberGender, String memberEmail, String memberTel, String memberAdd, String memberAcc,
-			String memberPw, Byte memberStatus) {
-
-		MemberVO MemberVO = new MemberVO();
-
-		MemberVO.setMemberId(memberId);
-		MemberVO.setMemberLvId(memberLvId);
-		MemberVO.setMemberName(memberName);
-		MemberVO.setMemberUid(memberUid);
-		MemberVO.setMemberBth(memberBth);
-		MemberVO.setMemberGender(memberGender);
-		MemberVO.setMemberEmail(memberEmail);
-		MemberVO.setMemberTel(memberTel);
-		MemberVO.setMemberAdd(memberAdd);
-		MemberVO.setMemberAcc(memberAcc);
-		MemberVO.setMemberPw(memberPw);
-		MemberVO.setMemberStatus(memberStatus);
-
-		dao.insert(MemberVO);
-
-		return MemberVO;
-	}
+//	public MemberVO addMember(Integer memberId, Byte memberLvId, String memberName, String memberUid, Date memberBth,
+//			Byte memberGender, String memberEmail, String memberTel, String memberAdd, String memberAcc,
+//			String memberPw, Byte memberStatus) {
+//
+//		MemberVO MemberVO = new MemberVO();
+//
+//		MemberVO.setMemberId(memberId);
+//		MemberVO.setMemberLvId(memberLvId);
+//		MemberVO.setMemberName(memberName);
+//		MemberVO.setMemberUid(memberUid);
+//		MemberVO.setMemberBth(memberBth);
+//		MemberVO.setMemberGender(memberGender);
+//		MemberVO.setMemberEmail(memberEmail);
+//		MemberVO.setMemberTel(memberTel);
+//		MemberVO.setMemberAdd(memberAdd);
+//		MemberVO.setMemberAcc(memberAcc);
+//		MemberVO.setMemberPw(memberPw);
+//		MemberVO.setMemberStatus(memberStatus);
+//
+//		dao.insert(MemberVO);
+//
+//		return MemberVO;
+//	}
 
 	/**
 	 * 更新會員的個人資料 (不包括會員ID, 會員等級, 會員狀態)
