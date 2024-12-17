@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.complaint.model.*"%>
+
+
 
 <html lang="zh">
 <head>
@@ -113,8 +115,12 @@ h3 {
 		<img src="<%=request.getContextPath()%>/back-end/complaint/images/c8763.gif" alt="Sidebar Image" class="img-fluid">
 		<h4>申訴案件管理</h4>
 		<ul class="list-unstyled">
-			<li><a href="<%=request.getContextPath()%>/back-end/complaint/listAllComplaint.jsp" class="btn btn-info"> <i class="fas fa-list"></i> 查看全部案件
-			</a></li>
+			<li>
+				<a href="<%=request.getContextPath()%>/back-end/complaint/listAllComplaint.jsp" class="btn btn-info">
+					<i class="fas fa-list"></i>
+					查看全部案件
+				</a>
+			</li>
 		</ul>
 	</div>
 
@@ -144,14 +150,21 @@ h3 {
 				<h4>申訴資料查詢:</h4>
 				<form method="GET" action="<%=request.getContextPath()%>/complaintServlet" onsubmit="return validateForm()">
 					<div class="form-group">
-						<label><b>輸入申訴編號:</b></label> <input type="text" name="complaintId" id="complaintId" class="form-control" placeholder="輸入申訴編號">
+						<label>
+							<b>輸入申訴編號:</b>
+						</label>
+						<input type="text" name="complaintId" id="complaintId" class="form-control" placeholder="輸入申訴編號">
 					</div>
 					<div class="form-group">
-						<label><b>輸入會員編號:</b></label> <input type="text" name="memberId" id="memberId" class="form-control" placeholder="輸入會員編號">
+						<label>
+							<b>輸入會員編號:</b>
+						</label>
+						<input type="text" name="memberId" id="memberId" class="form-control" placeholder="輸入會員編號">
 					</div>
 					<input type="hidden" name="action" value="getOne_For_Display">
 					<button type="submit" class="btn btn-primary">
-						<i class="fas fa-search"></i> 查詢
+						<i class="fas fa-search"></i>
+						查詢
 					</button>
 				</form>
 			</div>
@@ -170,6 +183,17 @@ h3 {
 			return true;
 		}
 	</script>
+	<!-- 判斷有無登入且是否為管理員 -->
+	<c:set var="memVO" value="${sessionScope.mem}" />
+	<c:if test="${memVO.memberStatus != 1}">
+		<script type="text/javascript">
+			alert('請先登入');
 
+			location.href = "/CIA103g6/front-end/login.jsp";
+		</script>
+
+	</c:if>
+
+	<!--  -->
 </body>
 </html>

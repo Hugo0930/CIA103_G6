@@ -37,7 +37,7 @@
     <p>${errorMsg}</p> <!-- 從 Servlet 中傳遞的錯誤訊息 -->
 
     <!-- 提供返回首頁的連結或其他操作 -->
-    <p><a href="${pageContext.request.contextPath}/index.jsp">返回首頁</a></p>
+    <p><a href="${pageContext.request.contextPath}/back-end/apply/findApply.jsp">返回搜尋</a></p>
 
 </body>
 </html>

@@ -42,100 +42,97 @@ public class ComplaintServlet extends HttpServlet {
 	}
 
 	private void handleInsert(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	    List<String> errorMsgs = new LinkedList<>();
-	    req.setAttribute("errorMsgs", errorMsgs);
+		List<String> errorMsgs = new LinkedList<>();
+		req.setAttribute("errorMsgs", errorMsgs);
 
-	    try {
-	        // 驗證申訴內容是否為空
-	        String complaintCon = req.getParameter("complaintCon").trim();
-	        if (complaintCon == null || complaintCon.isEmpty()) {
-	            errorMsgs.add("申訴內容不可為空！");
-	        }
-//	        // fake獲取 memberId 和 caseId，直接從 request 中獲取
-//	        Integer memberId = Integer.valueOf(req.getParameter("memId"));
-//	        Integer caseId = Integer.valueOf(req.getParameter("caseId"));
+		try {
+			// 驗證申訴內容是否為空
+			String complaintCon = req.getParameter("complaintCon").trim();
+			if (complaintCon == null || complaintCon.isEmpty()) {
+				errorMsgs.add("申訴內容不可為空！");
+			}
+			// 從 Session 中獲取會員 ID
 
-	        // 從 Session 中獲取會員 ID
-	        HttpSession session = req.getSession();
-	        Integer memberId = (Integer) session.getAttribute("memberId");
+			HttpSession session = req.getSession();
+			Integer memberId = (Integer) session.getAttribute("memberId");
+			Integer caseId = (Integer) session.getAttribute("caseId");
 
-	        // 測試時使用假 ID（如果 Session 中不存在 memberId）
-	        if (memberId == null) {
-	            // errorMsgs.add("會員編號不存在，請重新操作！");
-	        	memberId = 5;
-	        }
+			// 測試時使用假 ID（如果 Session 中不存在 memberId）
+			if (memberId == null) {
+				errorMsgs.add("會員編號不存在，請重新操作！");
+//	        	memberId = 5;
+			}
 
-	        // 從 Session 中獲取案件 ID
-	        Integer caseId = (Integer) session.getAttribute("caseId");
-	        if (caseId == null) {
-	            // errorMsgs.add("案件編號不存在，請重新操作！");
-	        	memberId = 5;
-	        }
+			// 從 Session 中獲取案件 ID
+			if (caseId == null) {
+				 errorMsgs.add("案件編號不存在，請重新操作！");
+//				memberId = 5;
+			}
 
-	        // 處理圖片上傳
-	        Collection<Part> fileParts = req.getParts();
-	        List<ComplaintPhotosVO> photos = new ArrayList<>();
+			// 處理圖片上傳
+			Collection<Part> fileParts = req.getParts();
+			List<ComplaintPhotosVO> photos = new ArrayList<>();
 
-	        // 限制最多上傳 5 張照片
-	        int MAX_FILES = 5; // 最多允許的照片數
-	        int uploadedFileCount = 0;
+			// 限制最多上傳 5 張照片
+			int MAX_FILES = 5; // 最多允許的照片數
+			int uploadedFileCount = 0;
 
-	        for (Part filePart : fileParts) {
-	            if (filePart.getName().equals("photos") && filePart.getSize() > 0) {
-	                uploadedFileCount++;
+			for (Part filePart : fileParts) {
+				if (filePart.getName().equals("photos") && filePart.getSize() > 0) {
+					uploadedFileCount++;
 
-	                // 如果超過限制，加入錯誤消息並跳出
-	                if (uploadedFileCount > MAX_FILES) {
-	                    errorMsgs.add("最多只能上傳 " + MAX_FILES + " 張照片！");
-	                    break;
-	                }
+					// 如果超過限制，加入錯誤消息並跳出
+					if (uploadedFileCount > MAX_FILES) {
+						errorMsgs.add("最多只能上傳 " + MAX_FILES + " 張照片！");
+						break;
+					}
 
-	                String fileName = filePart.getSubmittedFileName();
-	                String mimeType = filePart.getContentType();
+					String fileName = filePart.getSubmittedFileName();
+					String mimeType = filePart.getContentType();
 
-	                if (!isValidImage(filePart)) {
-	                    errorMsgs.add("圖片 " + fileName + " 格式不正確或超過 5MB，請重新上傳！");
-	                    continue;
-	                }
+					if (!isValidImage(filePart)) {
+						errorMsgs.add("圖片 " + fileName + " 格式不正確或超過 5MB，請重新上傳！");
+						continue;
+					}
 
-	                try (InputStream is = filePart.getInputStream()) {
-	                    byte[] photoData = is.readAllBytes();
-	                    ComplaintPhotosVO photo = new ComplaintPhotosVO();
-	                    photo.setComPic(photoData);
-	                    photo.setFileName(fileName);
-	                    photo.setMimeType(mimeType);
-	                    photos.add(photo);
-	                }
-	            }
-	        }
+					try (InputStream is = filePart.getInputStream()) {
+						byte[] photoData = is.readAllBytes();
+						ComplaintPhotosVO photo = new ComplaintPhotosVO();
+						photo.setComPic(photoData);
+						photo.setFileName(fileName);
+						photo.setMimeType(mimeType);
+						photos.add(photo);
+					}
+				}
+			}
 
-	        // 如果有錯誤，返回失敗頁面
-	        if (!errorMsgs.isEmpty()) {
-	            req.setAttribute("complaintCon", complaintCon);
-	            RequestDispatcher failureView = req.getRequestDispatcher("/back-end/member/addComplaint.jsp");
-	            failureView.forward(req, res);
-	            return;
-	        }
+			// 如果有錯誤，返回失敗頁面
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("complaintCon", complaintCon);
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/member/addComplaint.jsp");
+				failureView.forward(req, res);
+				return;
+			}
 
-	        // 呼叫 Service 層新增申訴
-	        ComplaintService service = new ComplaintService();
-	        //不能刪
-	        Integer complaintId = service.addComplaintWithPhotos(memberId, caseId, complaintCon, photos);
+			// 呼叫 Service 層新增申訴
+			ComplaintService service = new ComplaintService();
+			// 不能刪
+			Integer complaintId = service.addComplaintWithPhotos(memberId, caseId, complaintCon, photos);
 
-	        // 查詢會員所有申訴
-	        List<ComplaintVO> list = service.getAllByMemberId(memberId);
-	        req.setAttribute("complaintList", list);
+			// 查詢會員所有申訴
+			List<ComplaintVO> list = service.getAllByMemberId(memberId);
+			req.setAttribute("complaintList", list);
 
-	        // 成功頁面
-	        RequestDispatcher successView = req.getRequestDispatcher("/back-end/member/listMemberComplaint.jsp");
-	        successView.forward(req, res);
+			// 成功頁面
+			RequestDispatcher successView = req.getRequestDispatcher("/back-end/member/listMemberComplaint.jsp");
+			successView.forward(req, res);
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        errorMsgs.add("新增申訴失敗：" + e.getMessage());
-	        RequestDispatcher failureView = req.getRequestDispatcher("/back-end/member/addComplaint.jsp");
-	        failureView.forward(req, res);
-	    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorMsgs.add("新增申訴失敗：" + e.getMessage());
+			RequestDispatcher failureView = req.getRequestDispatcher("/back-end/member/addComplaint.jsp");
+			failureView.forward(req, res);
+		}
 	}
 
 	private void handleGetOneForDisplay(HttpServletRequest req, HttpServletResponse res)

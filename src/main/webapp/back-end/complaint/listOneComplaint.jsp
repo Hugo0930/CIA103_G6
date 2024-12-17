@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html lang="zh">
@@ -8,8 +8,7 @@
 <title>單一申訴案件</title>
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <style>
 body {
@@ -130,8 +129,7 @@ footer a:hover {
 				<div class="row mb-3">
 					<div class="col-md-4 data-label">申訴日期：</div>
 					<div class="col-md-8 data-value">
-						<fmt:formatDate value="${complaintVO.complaintTime}"
-							pattern="yyyy-MM-dd HH:mm:ss" />
+						<fmt:formatDate value="${complaintVO.complaintTime}" pattern="yyyy-MM-dd HH:mm:ss" />
 					</div>
 				</div>
 
@@ -156,14 +154,10 @@ footer a:hover {
 				<!-- 按鈕區域 -->
 				<div class="text-center mt-4">
 					<!-- 返回首頁按鈕 -->
-					<a
-						href="<%=request.getContextPath()%>/back-end/complaint/select_page.jsp"
-						class="btn btn-primary"> 回首頁 </a>
+					<a href="<%=request.getContextPath()%>/back-end/complaint/select_page.jsp" class="btn btn-primary"> 回首頁 </a>
 
 					<!-- 修改案件按鈕 -->
-					<a
-						href="<%= request.getContextPath() %>/complaintServlet?action=getOne_For_Update&complaintId=${complaintVO.complaintId}"
-						class="btn btn-warning"> 修改 </a>
+					<a href="<%= request.getContextPath() %>/complaintServlet?action=getOne_For_Update&complaintId=${complaintVO.complaintId}" class="btn btn-warning"> 修改 </a>
 
 				</div>
 
@@ -174,16 +168,28 @@ footer a:hover {
 	<!-- 頁腳 -->
 	<footer>
 		<p>
-			© 2024 所有版權歸公司所有. <a href="#">隐私政策</a> | <a href="#">聯繫我們</a>
+			© 2024 所有版權歸公司所有.
+			<a href="#">隐私政策</a>
+			|
+			<a href="#">聯繫我們</a>
 		</p>
 	</footer>
 
 	<!-- 載入Bootstrap JS和jQuery -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- 判斷有無登入且是否為管理員 -->
+	<c:set var="memVO" value="${sessionScope.mem}" />
+	<c:if test="${memVO.memberStatus != 1}">
+		<script type="text/javascript">
+			alert('請先登入');
 
+			location.href = "/CIA103g6/front-end/login.jsp";
+		</script>
+
+	</c:if>
+
+	<!--  -->
 </body>
 </html>

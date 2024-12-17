@@ -5,8 +5,6 @@
 <%@ page import="com.complaint.model.*"%>
 
 <%
-Integer memberId = (Integer) session.getAttribute("memberId");
-
 ComplaintService complaintSvc = new ComplaintService();
 List<ComplaintVO> list = complaintSvc.getAll();
 pageContext.setAttribute("list", list);
@@ -147,6 +145,17 @@ footer {
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- 判斷有無登入且是否為管理員 -->
+	<c:set var="memVO" value="${sessionScope.mem}" />
+	<c:if test="${memVO.memberStatus != 1}">
+		<script type="text/javascript">
+			alert('請先登入');
 
+			location.href = "/CIA103g6/front-end/login.jsp";
+		</script>
+
+	</c:if>
+
+	<!--  -->
 </body>
 </html>
