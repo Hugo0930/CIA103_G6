@@ -25,6 +25,7 @@ public class ProdServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
 
+
 		if ("get_all".equals(action)) {
 			getAll(req, res);
 		} else if ("get_pic".equals(action)) {
@@ -42,8 +43,27 @@ public class ProdServlet extends HttpServlet {
 		}if ("search_prod".equals(action)) {
 		    searchProd(req, res);
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private void getAll(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		ProdService prodSvc = new ProdService();
 		List<ProdVO> list = prodSvc.getAll();
