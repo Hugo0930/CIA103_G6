@@ -154,7 +154,7 @@ button {
 							</ul></li>
 													
 						<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp"
+							href="${pageContext.request.contextPath}/front-end/jsp/Service.jsp"
 							style="color: #000000; font-size: 18px;">客服中心</a></li>
 							
 						<c:if test="${memVO==null}">	
