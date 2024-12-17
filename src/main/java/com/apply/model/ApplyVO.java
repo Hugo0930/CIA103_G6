@@ -20,7 +20,7 @@ public class ApplyVO implements java.io.Serializable{
     private Integer receiverId;
     private String description;
     private BigDecimal budget;
-    private String status;
+    private Integer status;
     private String remarks;
     private Date uploadDate; 
     private byte[] voiceFile;
@@ -31,7 +31,7 @@ public class ApplyVO implements java.io.Serializable{
 	}
 
 	public ApplyVO(Integer caseId, Integer memId, Integer receiverId, String description, BigDecimal budget,
-			String status, String remarks, Date uploadDate, byte[] voiceFile) {
+			Integer status, String remarks, Date uploadDate, byte[] voiceFile) {
 		this.caseId = caseId;
 		this.memId = memId;
 		this.receiverId = receiverId;
@@ -86,11 +86,11 @@ public class ApplyVO implements java.io.Serializable{
         this.budget = budget;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

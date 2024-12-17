@@ -21,7 +21,7 @@ public class UpdateApplyServlet extends HttpServlet {
         Integer memId = Integer.parseInt(request.getParameter("memId"));
         Integer receiverId = Integer.parseInt(request.getParameter("receiverId"));
         String description = request.getParameter("description");
-        String status = request.getParameter("status");
+        Integer status = Integer.parseInt(request.getParameter("status"));
 
         // 構建 ApplyVO 物件
         ApplyVO applyVO = new ApplyVO();

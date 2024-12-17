@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.apply.model.ApplyService;
 import com.apply.model.ApplyVO;
-//取得應徵中的會員資料就好
+//取得應徵中的會員資料
 @WebServlet("/apply/getPendingApplies")
 public class GetPendingAppliesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

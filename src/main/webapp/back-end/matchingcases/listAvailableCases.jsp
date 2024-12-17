@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page import="java.util.*"%>
 <%@ page import="com.matchingcases.model.*"%>
 
@@ -14,7 +15,8 @@ pageContext.setAttribute("availableCases", list);
 <head>
 <meta charset="UTF-8">
 <title>可應徵的案件列表</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 
 <style>
 .success-message {
@@ -107,9 +109,9 @@ pageContext.setAttribute("availableCases", list);
 						<td>${caseItem.budget}</td>
 						<td>${caseItem.caseTot}</td>
 						<td class="check-application" data-caseid="${caseItem.caseId}">
-                            <!-- 這裡的按鈕會通過 jQuery 和 /checkApplicationExists 動態渲染 -->
-                            <span class="badge bg-info">檢查中...</span>
-                        </td>
+							<!-- 這裡的按鈕會通過 jQuery 和 /checkApplicationExists 動態渲染 --> <span
+							class="badge bg-info">檢查中...</span>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
