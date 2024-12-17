@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
 	alert('請先登入');
-	location.href="/CIA103g6/front-end/login.jsp";
+	location.href="/CIA103G6/front-end/login.jsp";
 </script>
 </c:if>
 <!--  -->
@@ -156,7 +156,11 @@
             </div>
         </ul>
         <!-- 登出 -->
-        <button type="button" id="log_out">登出</button>
+        
+        <form method="post" action="${pageContext.request.contextPath}/back-end/logout">
+        		  <button type="submit"  id="log_out">登出</button>
+        </form>
+       
     </nav>
     <!-- 現在位置 -->
     <div class="container">

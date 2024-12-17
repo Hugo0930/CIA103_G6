@@ -22,6 +22,13 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+    <!-- 設定 session 過期時間為 30 分鐘 -->
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
+
+
+
 	<servlet>
 		<servlet-name>CartListServlet</servlet-name>
 		<servlet-class>com.cartlist.controller.CartListServlet</servlet-class>
@@ -121,6 +128,16 @@
 
 
 
+<!--登出-->
+ <servlet>
+    <servlet-name>LogOutServlet</servlet-name>
+    <servlet-class>com.member.controller.LogOutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogOutServlet</servlet-name>
+    <url-pattern>/back-end/logout</url-pattern>
+  </servlet-mapping>
+<!-- -->
 
 
 
