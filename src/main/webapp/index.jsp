@@ -407,7 +407,7 @@ button {
 
 										<!-- 撥放按鈕區域 -->
 										<a href="#" class="custom-block-icon"
-											onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/お前はもう死んでる.mp3')">
+											onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/聲音巴士專題報導.mp3')">
 											<i class="bi-play-fill"></i>
 										</a>
 
