@@ -7,7 +7,7 @@ import java.sql.Date;
 
 public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/g6?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/voicebus?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "liupeter480";
 

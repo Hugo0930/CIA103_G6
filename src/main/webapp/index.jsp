@@ -126,7 +126,7 @@ button {
 							style="color: #000000; font-size: 18px;">關於我</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
 							style="color: #000000; font-size: 18px;">商城</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end"
 							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"

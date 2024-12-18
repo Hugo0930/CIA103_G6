@@ -106,7 +106,7 @@
                         <button class="sub_btn_func"><a href="<%=request.getContextPath()%>/back-end/prodmanage/product_mgmt.jsp"  class="sub_btn_name">商品管理</a></button>
                     </li>
                     <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/memberorders/memberorders.jsp" class="sub_btn_name">訂單管理</a></button>
+                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/memberorders/memberOrdersBack.jsp" class="sub_btn_name">訂單管理</a></button>
                     </li>
                     <li class="shop_sub_item">
                         <button class="sub_btn_func"><a href="./report_mgmt.html" class="sub_btn_name">評價檢舉管理</a></button>
