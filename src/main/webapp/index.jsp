@@ -728,11 +728,11 @@ button {
 
 					<div class="col-lg-7 col-md-9 col-12">
 						<ul class="site-footer-links">
-							<li class="site-footer-link-item"><a href="./questions.jsp" 
+							<li class="site-footer-link-item"><a href="/front-end/jsp/questions.jsp" 
 								class="site-footer-link" style="color: black; font-size: 18px;">Q&A問題</a>
 							</li>
 
-							<li class="site-footer-link-item"><a href="./Service.jsp"
+							<li class="site-footer-link-item"><a href="/front-end/jsp/Service.jsp"
 								class="site-footer-link" style="color: black; font-size: 18px;">服務條款</a>
 							</li>
 						
