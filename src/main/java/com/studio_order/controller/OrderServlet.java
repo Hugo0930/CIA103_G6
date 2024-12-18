@@ -23,6 +23,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.json.JSONObject;
 
+import com.member.model.MemberVO;
 import com.studio.model.StudioService;
 import com.studio.model.StudioVO;
 import com.studio_order.model.OrderService;
@@ -260,15 +261,15 @@ public class OrderServlet extends HttpServlet {
         		break;
 			}case "get_from_confirm": {
 				String timeduration = req.getParameter("timeduration");
-					//System.out.println("timeduration: " + timeduration);
+					System.out.println("timeduration: " + timeduration);
 				String timeSlot = req.getParameter("timeSlot");
-					//System.out.println("timeSlot: " + timeSlot);
+					System.out.println("timeSlot: " + timeSlot);
 				String bookingDate = req.getParameter("bookingDate");
-					//System.out.println("bookingDate: " + bookingDate);
+					System.out.println("bookingDate: " + bookingDate);
 				String studioName = req.getParameter("studio_name");
 				String cost = req.getParameter("cost");
         		sessionh = req.getSession();
-        		sessionh.setAttribute("timeduration", timeduration);
+        		sessionh.setAttribute("timeduration", timeduration.substring(0, 1));
         		sessionh.setAttribute("timeSlot", timeSlot);
         		sessionh.setAttribute("bookingDate", bookingDate);
         		sessionh.setAttribute("studioName", studioName);	
@@ -299,14 +300,24 @@ public class OrderServlet extends HttpServlet {
         		String lastThreeNumber = req.getParameter("last_three_number");
         			System.out.println("lastThreeNumber : " + lastThreeNumber);
         		//錄音室ID
-        		//String id = req.getParameter("id");
-        		//System.out.println("id : " + id);
+
+        		
+        		String id = (String) session2.getAttribute("stdId");
+
+        		System.out.println("id : " + id);
+        		MemberVO mem = (MemberVO) session2.getAttribute("mem");
+        		Integer memId = null;
+        		if(mem != null) {
+        			memId = mem.getMemberId();
+        		}else {
+        			memId = 1;
+        		}
         		try {
 					session.beginTransaction();
 					OrderVO newOrder = new OrderVO();
-					StudioVO std = session.get(StudioVO.class, Integer.valueOf(1));
+					StudioVO std = session.get(StudioVO.class, Integer.valueOf(id));
 	        		//會員ID
-					newOrder.setMemId(2);
+					newOrder.setMemId(memId);
 					//錄音室
 	        		newOrder.setStudioVO(std);
 	        		//訂單狀態
@@ -341,8 +352,8 @@ public class OrderServlet extends HttpServlet {
 					e.printStackTrace();
 					session.getTransaction().rollback();
 				}
-        		//RequestDispatcher rd = req.getRequestDispatcher("front-end/studio/homepage.jsp");
-        		//rd.forward(req, res);
+        		RequestDispatcher rd = req.getRequestDispatcher("/MyStudioServlet?action=get_all_std_on&to=front-end");
+        		rd.forward(req, res);
         		break;
         	}
 			}

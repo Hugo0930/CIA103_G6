@@ -22,9 +22,9 @@ public class Carttest {
 			pstmt = con.prepareStatement(SQL);
 			
 //			// 1. setBlob (JDBC 4.0)
-			InputStream is = getPictureStream("src/main/webapp/images/speaker.png");
+			InputStream is = getPictureStream("src/main/webapp/images/musicstand.png");
 			pstmt.setBlob(1, is);
-			 pstmt.setInt(2, 2);
+			 pstmt.setInt(2, 8);
 			pstmt.executeUpdate();
 			is.close();
 

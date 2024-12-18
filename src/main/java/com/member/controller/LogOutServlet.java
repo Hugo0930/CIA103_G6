@@ -16,6 +16,7 @@ public class LogOutServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		session.removeAttribute("mem");
+		session.removeAttribute("cartTotal");
 		resp.sendRedirect(req.getContextPath()+"/front-end/login.jsp");
 	}
 }

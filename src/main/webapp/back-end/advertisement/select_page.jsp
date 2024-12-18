@@ -32,7 +32,7 @@
                 <a href="listAllAdvertisement.jsp" class="link">顯示全部廣告</a>
             </li>
             <li>
-                <form method="post" action="advertisement.do">
+                <form method="post" action="${pageContext.request.contextPath}/advertisement.do">
                     <label for="advertisementId"><b>輸入廣告編號: </b></label>
                     <input type="text" id="advertisementId" name="advertisementId" placeholder="廣告編號">
                     <input type="hidden" name="action" value="getOne_For_Display">

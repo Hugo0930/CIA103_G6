@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 
 import com.prodtype.model.*;
 import com.shopcartlist.model.ShopCartListService;
+import com.member.model.MemberVO;
 import com.prod.model.*;
 import com.shopcartlist.model.*;
 
@@ -25,7 +26,6 @@ public class ProdServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
 
-
 		if ("get_all".equals(action)) {
 			getAll(req, res);
 		} else if ("get_pic".equals(action)) {
@@ -40,38 +40,39 @@ public class ProdServlet extends HttpServlet {
 			updateQty(req, res);
 		} else if ("remove_from_cart".equals(action)) {
 		    removeFromCart(req, res);
-		}if ("search_prod".equals(action)) {
+		}else if ("search_prod".equals(action)) {
 		    searchProd(req, res);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	private void getAll(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		ProdService prodSvc = new ProdService();
-		List<ProdVO> list = prodSvc.getAll();
-		req.setAttribute("list", list);
-		String url = "/front-end/browsestore/shop.jsp";
-		// String url = "/front-end/browsestore/shopCartList.jsp";
-		RequestDispatcher successView = req.getRequestDispatcher(url);
-		successView.forward(req, res);
+	    
+		
+		// 取得所有商品
+	    ProdService prodSvc = new ProdService();
+	    List<ProdVO> list = prodSvc.getAll();
+	    req.setAttribute("list", list);
+
+//	    // 確保用戶購物車數量更新
+//	    HttpSession session = req.getSession();
+//	    MemberVO memVO = (MemberVO) session.getAttribute("mem");
+//	    System.out.println("=========================================" + memVO);
+//	    if (memVO != null) {
+//	        Integer memId = memVO.getMemberId();
+//	        ShopCartListService cartSvc = new ShopCartListService();
+//
+//	        // 更新購物車數量
+//	        int cartTotal = cartSvc.getCartTotalItems(memId);
+//	        session.setAttribute("cartTotal", cartTotal);
+//	        System.out.println("=========================================" + cartTotal);
+//	    } else {
+//	        session.setAttribute("cartTotal", 0); // 未登入設置購物車數量為 0
+//	    }
+
+	    // 跳轉到首頁
+	    String url = "/front-end/browsestore/shop.jsp";
+	    RequestDispatcher successView = req.getRequestDispatcher(url);
+	    successView.forward(req, res);
 	}
 
 	private void getPic(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -112,8 +113,14 @@ public class ProdServlet extends HttpServlet {
 		JSONObject result = new JSONObject();
 
 		try {
-			HttpSession session = req.getSession(false);
-			Integer memId = 3; // 若未登入，使用固定的測試值 3
+			HttpSession session = req.getSession();		
+			MemberVO memVO = (MemberVO) session.getAttribute("mem");
+			Integer memId = memVO.getMemberId();
+			
+			
+			
+//			HttpSession session = req.getSession(false);
+//			Integer memId = 3; // 若未登入，使用固定的測試值 3
 			Integer prodId = Integer.valueOf(req.getParameter("prodId"));
 			Integer cartlistQty = Integer.valueOf(req.getParameter("cartlistQty"));
 
@@ -140,17 +147,26 @@ public class ProdServlet extends HttpServlet {
 
 	private void viewCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// 從 session 獲取會員 ID
-
-		Integer memId = 3;
-
-//		Integer memId = (Integer) req.getSession().getAttribute("memId");
-//		if (memId == null) {
-//		    res.sendRedirect(req.getContextPath() + "/login.jsp");
-//		    return;
-//		}
-
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
+		HttpSession session = req.getSession();		
+		MemberVO memVO = (MemberVO) session.getAttribute("mem");
+			
+		if(memVO == null)
+		{
+			
+			PrintWriter out = res.getWriter();
+			out.print("<script>");
+			out.print("alert('請先登入');");
+			out.print("location.href='/CIA103g6/front-end/login.jsp';");
+			out.print("</script>");
+			out.close();
+		}
+		
+		Integer memId = memVO.getMemberId();
+		
 		// 使用服務類別獲取購物車資料
-		ShopCartListService cartSvc = new ShopCartListService();
+		 ShopCartListService cartSvc = new ShopCartListService();
 		List<ShopCartListVO> cartItems = cartSvc.getByMemId(memId); // 假設此方法存在
 		   // 更新購物車數量到 session
 	    int cartTotal = cartSvc.getCartTotalItems(memId);
@@ -241,11 +257,21 @@ public class ProdServlet extends HttpServlet {
 	    out.flush();
 	}
 	private void searchProd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	    String keyword = req.getParameter("keyword"); // 從請求中取得搜尋關鍵字
+	    req.setCharacterEncoding("UTF-8");  // 設定請求編碼
+	    String keyword = req.getParameter("keyword");
+	    
+	    // 檢查編碼狀況
+	    //System.out.println("原始關鍵字: " + keyword);
+	    //System.out.println("轉換後關鍵字: " + new String(keyword.getBytes("ISO-8859-1"), "UTF-8"));
+	    
+	    // 進行編碼轉換
+	    keyword = new String(keyword.getBytes("ISO-8859-1"), "UTF-8");
+	    
 	    ProdService prodSvc = new ProdService();
 	    List<ProdVO> list = prodSvc.searchByProdName(keyword);
-
-	    req.setAttribute("list", list); // 將結果存入 request
+	    //System.out.println("搜尋結果數量: " + list.size());
+	    
+	    req.setAttribute("list", list);
 	    String url = "/front-end/browsestore/shop.jsp";
 	    RequestDispatcher successView = req.getRequestDispatcher(url);
 	    successView.forward(req, res);

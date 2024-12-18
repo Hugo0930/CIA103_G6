@@ -1,6 +1,7 @@
 package com.orders.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +69,7 @@ public class OrderServlet extends HttpServlet {
 		String[] prices = request.getParameterValues("prices");
 
 		if (prodIds == null || quantities == null || prices == null) {
-			response.sendRedirect(request.getContextPath() + "/shopcartlist.jsp");
+			response.sendRedirect(request.getContextPath() + "/front-end/browsestore/shopCartList.jsp");
 			return;
 		}
 
@@ -103,66 +104,139 @@ public class OrderServlet extends HttpServlet {
 	}
 
 	// 新增處理提交訂單的方法
+
 	private void handleSubmitOrder(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<String> errorMsgs = new ArrayList<>();
-		request.setAttribute("errorMsgs", errorMsgs);
 
-		try {
-			// 獲取表單參數
-			String ordersAdd = request.getParameter("ordersAdd");
-			String ordersMemo = request.getParameter("ordersMemo");
-			String[] prodIds = request.getParameterValues("prodIds");
-			String[] quantities = request.getParameterValues("quantities");
-			String[] prices = request.getParameterValues("prices");
+	        throws ServletException, IOException {
+	    String addressError = null;
+	    String memoError = null;
 
-			// 基本驗證
-			if (ordersAdd == null || ordersAdd.trim().isEmpty()) {
-				errorMsgs.add("請輸入配送地址");
-			}
+	    try {
+	        // 獲取表單參數
+	        String ordersAdd = request.getParameter("ordersAdd");
+	        String ordersMemo = request.getParameter("ordersMemo");
+	        String[] prodIds = request.getParameterValues("prodIds");
+	        String[] quantities = request.getParameterValues("quantities");
+	        String[] prices = request.getParameterValues("prices");
 
-			if (!errorMsgs.isEmpty()) {
-				handleCheckout(request, response);
-				return;
-			}
+	        boolean hasError = false;
 
-			// 建立訂單
-			OrdersService ordersService = new OrdersService();
-			OrdersVO newOrder = ordersService.processCheckout(ordersAdd, ordersMemo, prodIds, quantities, prices);
+	        // 地址格式驗證
+	        if (ordersAdd == null || ordersAdd.trim().isEmpty()) {
+	            addressError = "配送地址不能為空！";
+	            hasError = true;
 
-			// 從購物車資料庫中刪除已購買的商品
-			HttpSession session = request.getSession();
-			ShopCartListService shopCartListService = new ShopCartListService();
+	        } else if (!ordersAdd.matches("^[\\u4e00-\\u9fa5a-zA-Z0-9\\s,，-]+$")) {
+	            addressError = "地址格式不正確，請輸入有效地址！";
 
-			// 會員ID暫時固定為3
-			Integer memId = 3;
+	            hasError = true;
+	        } else if (ordersAdd.matches("^\\d+$")) {
+	            addressError = "配送地址不能只包含數字！";
+	            hasError = true;
+	        }
 
-			// 刪除已購買的商品
-			for (String prodIdStr : prodIds) {
-				Integer prodId = Integer.parseInt(prodIdStr);
-				shopCartListService.deleteShopCartList(memId, prodId);
-			}
+	        // 備註驗證
+	        if (ordersMemo != null && ordersMemo.trim().length() > 200) {
+	            memoError = "備註內容不能超過200個字！";
+	            hasError = true;
+	        }
 
-			// 更新購物車數量
-			int newCartTotal = shopCartListService.getCartTotalItems(memId);
-			session.setAttribute("cartTotal", newCartTotal);
 
-			// 轉導到成功頁面
-			request.setAttribute("orderVO", newOrder);
-			String url = "/front-end/browsestore/orderSuccess.jsp";
-			RequestDispatcher successView = request.getRequestDispatcher(url);
-			successView.forward(request, response);
+	        // 設置商品資訊（即使驗證失敗）
+	        List<Map<String, Object>> checkoutItems = new ArrayList<>();
+	        int total = 0;
+	        ProdService prodService = new ProdService();
 
-		} catch (Exception e) {
-			errorMsgs.add("訂單處理失敗：" + e.getMessage());
-			handleCheckout(request, response);
-		}
+
+
+	        for (int i = 0; i < prodIds.length; i++) {
+	            int prodId = Integer.parseInt(prodIds[i]);
+	            int quantity = Integer.parseInt(quantities[i]);
+	            int price = Integer.parseInt(prices[i]);
+	            int subtotal = quantity * price;
+
+
+
+	            // 從商品服務中獲取商品名稱與圖片
+	            ProdVO prodVO = prodService.getOneProd(prodId);
+
+
+	            Map<String, Object> item = new HashMap<>();
+	            item.put("prodId", prodId);
+	            item.put("prodName", prodVO != null ? prodVO.getProdName() : "商品名稱缺失");
+	            item.put("prodImage", prodVO != null 
+	                ? request.getContextPath() + "/prod/prod.do?action=get_pic&prodId=" + prodId 
+	                : "");
+	            item.put("quantity", quantity);
+	            item.put("price", price);
+	            item.put("subtotal", subtotal);
+	            checkoutItems.add(item);
+
+
+
+	            total += subtotal;
+	        }
+
+
+
+	        // 若有錯誤，返回 JSP 並顯示錯誤訊息與商品資訊
+	        if (hasError) {
+	            request.setAttribute("ordersAdd", ordersAdd);
+	            request.setAttribute("ordersMemo", ordersMemo);
+	            request.setAttribute("addressError", addressError);
+	            request.setAttribute("memoError", memoError);
+
+	            request.setAttribute("checkoutItems", checkoutItems);
+	            request.setAttribute("total", total);
+
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/front-end/browsestore/checkOut.jsp");
+	            dispatcher.forward(request, response);
+	            return;
+	        }
+
+	        // 無錯誤，處理訂單邏輯
+	        OrdersService ordersService = new OrdersService();
+	        OrdersVO newOrder = ordersService.processCheckout(ordersAdd, ordersMemo, prodIds, quantities, prices);
+
+	        HttpSession session = request.getSession();
+	        session.setAttribute("cartTotal", 0);
+
+
+	        request.setAttribute("orderVO", newOrder);
+	        RequestDispatcher successView = request.getRequestDispatcher("/front-end/browsestore/orderSuccess.jsp");
+	        successView.forward(request, response);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        request.setAttribute("errorMsgs", "訂單處理失敗：" + e.getMessage());
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/front-end/browsestore/checkOut.jsp");
+	        dispatcher.forward(request, response);
+	    }
 	}
-
 	private void getMemberOrders(HttpServletRequest req, HttpServletResponse res) 
 	        throws ServletException, IOException {
 	    try {
 	        // 取得狀態參數
+	    	
+	    	
+	    	req.setCharacterEncoding("UTF-8");
+			res.setContentType("text/html; charset=UTF-8");
+			HttpSession session = req.getSession();		
+			MemberVO memVO = (MemberVO) session.getAttribute("mem");
+				
+			if(memVO == null)
+			{
+				
+				PrintWriter out = res.getWriter();
+				out.print("<script>");
+				out.print("alert('請先登入');");
+				out.print("location.href='/CIA103g6/front-end/login.jsp';");
+				out.print("</script>");
+				out.close();
+			}
+	    	
+	    	
+	    	
 	        String statusParam = req.getParameter("status");
 	        Byte status = (statusParam != null && !"all".equals(statusParam)) ? Byte.valueOf(statusParam) : null;
 
