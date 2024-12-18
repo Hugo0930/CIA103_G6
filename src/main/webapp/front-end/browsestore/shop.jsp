@@ -37,7 +37,7 @@
 <body>
 	<!--=================================================-->
 	<c:set var="memVO" value="${sessionScope.mem}" />
-	
+
 	<!--=================================================-->
 	<script>
     // 從後端頁面取得訊息
@@ -134,9 +134,9 @@
 					method="POST" class="d-flex">
 					<input type="hidden" name="action" value="view_cart" />
 					<button class="btn btn-outline-dark" type="submit">
-						<i class="bi-cart-fill me-1"></i> Cart <span class="badge bg-dark text-white ms-1 rounded-pill">
-    ${sessionScope.cartTotal != null ? sessionScope.cartTotal : 0}
-</span>
+						<i class="bi-cart-fill me-1"></i> Cart <span
+							class="badge bg-dark text-white ms-1 rounded-pill">
+							${sessionScope.cartTotal != null ? sessionScope.cartTotal : 0} </span>
 					</button>
 				</form>
 
@@ -167,7 +167,9 @@
 			<input type="hidden" name="action" value="search_prod" /> <input
 				class="form-control me-2" type="search" placeholder="輸入商品名稱"
 				name="keyword" aria-label="Search" required>
-			<button class="btn btn-outline-success" type="submit">搜尋</button>
+			<button class="btn btn-outline-success" type="submit"
+				style="display: inline-block; margin-left: 8px; padding: 8px 30px; line-height: 1; text-align: center; writing-mode: horizontal-tb; white-space: nowrap;">
+				搜尋</button>
 		</form>
 	</div>
 	<!-- Header-->
