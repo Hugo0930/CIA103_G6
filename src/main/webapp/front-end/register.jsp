@@ -40,6 +40,38 @@
 	<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
 	<!-- //web font -->
 
+
+<style>
+  .error-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+              
+   .nav-links {
+    display: flex; /* 使用 Flexbox */
+    justify-content: center; /* 對齊至右邊 */
+    gap: 20px; /* 設定各項之間的間隔 */
+    padding: 10px; /* 預留內邊距 */
+  }
+
+  .nav-links a {
+    color: white; /* 設定字體顏色 */
+    font-size: 23px; /* 字體大小 */
+    text-decoration: none; /* 移除底線 */
+    transition: color 0.3s; /* 顏色變化效果 */
+  }
+
+  .nav-links a:hover {
+    color: lightgray; /* 滑鼠懸停時顏色變淺 */
+  }
+          
+    </style>
+
+
+
+
+
 </head>
 
 
@@ -48,6 +80,18 @@
 <!-- main -->
 <div class="w3layouts-main"> 
 	<div class="bg-layer">
+	
+	<div class="nav-links">
+  		<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
+  		<a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
+  		<a href="#">商城</a>
+  		<a href="#">錄音室</a>
+  		<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
+  		<a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
+  		<a href="${pageContext.request.contextPath}/front-end/register.jsp">注冊</a>
+  		<a href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp">客服中心</a>
+	</div>
+		
 		<h1>VoiceBus-聲音巴士</h1>
 		<div class="header-main">
 		

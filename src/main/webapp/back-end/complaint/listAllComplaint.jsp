@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.complaint.model.*"%>
@@ -9,8 +9,10 @@ ComplaintService complaintSvc = new ComplaintService();
 List<ComplaintVO> list = complaintSvc.getAll();
 pageContext.setAttribute("list", list);
 %>
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 <head>
+<meta charset="UTF-8">
 <title>所有申訴資料 - listAllComplaint.jsp</title>
 
 <!-- 引入Bootstrap样式 -->
@@ -116,8 +118,11 @@ footer {
 						<td>${complaintVO.memberId}</td>
 						<td>${complaintVO.caseId}</td>
 						<td>${complaintVO.complaintCon}</td>
-						<td><fmt:formatDate value="${complaintVO.complaintTime}" pattern="yyyy-MM-dd" /></td>
-						<td><c:choose>
+						<td>
+							<fmt:formatDate value="${complaintVO.complaintTime}" pattern="yyyy-MM-dd" />
+						</td>
+						<td>
+							<c:choose>
 								<c:when test="${complaintVO.complaintStatus == 0}">待處理</c:when>
 								<c:when test="${complaintVO.complaintStatus == 1}">處理中</c:when>
 								<c:when test="${complaintVO.complaintStatus == 2}">已解決</c:when>
@@ -127,35 +132,35 @@ footer {
 								<c:when test="${complaintVO.complaintStatus == 6}">待補件</c:when>
 								<c:when test="${complaintVO.complaintStatus == 7}">審核中</c:when>
 								<c:otherwise>未知</c:otherwise>
-							</c:choose></td>
+							</c:choose>
+						</td>
 
 						<td>${complaintVO.complaintResult}</td>
-						<td><a href="<%= request.getContextPath() %>/complaintServlet?action=getOne_For_Update&complaintId=${complaintVO.complaintId}" class="btn btn-sm btn-primary">修改</a></td>
+						<td>
+							<a href="<%= request.getContextPath() %>/complaintServlet?action=getOne_For_Update&complaintId=${complaintVO.complaintId}" class="btn btn-sm btn-primary">修改</a>
+						</td>
+
 					</tr>
 				</c:forEach>
+
+
+
 			</tbody>
 		</table>
 	</div>
 
 	<footer>
 		<p>
-			© 2024 版權所有. <a href="#">隐私政策</a> | <a href="#">聯繫我們</a>
+			© 2024 版權所有.
+			<a href="#">隐私政策</a>
+			|
+			<a href="#">聯繫我們</a>
 		</p>
 	</footer>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- 判斷有無登入且是否為管理員 -->
-	<c:set var="memVO" value="${sessionScope.mem}" />
-	<c:if test="${memVO.memberStatus != 1}">
-		<script type="text/javascript">
-			alert('請先登入');
 
-			location.href = "/CIA103g6/front-end/login.jsp";
-		</script>
 
-	</c:if>
-
-	<!--  -->
 </body>
 </html>

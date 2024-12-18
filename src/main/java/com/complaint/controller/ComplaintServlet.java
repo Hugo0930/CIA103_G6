@@ -38,6 +38,10 @@ public class ComplaintServlet extends HttpServlet {
 			handleUpdate(req, res);
 		} else if ("listAll".equals(action)) {
 			handleListAll(req, res);
+		} else if ("showImg".equals(action)) {
+			showImg(req, res);
+		} else {
+			res.sendError(HttpServletResponse.SC_NOT_FOUND, "未支援的操作");
 		}
 	}
 
@@ -65,7 +69,7 @@ public class ComplaintServlet extends HttpServlet {
 
 			// 從 Session 中獲取案件 ID
 			if (caseId == null) {
-				 errorMsgs.add("案件編號不存在，請重新操作！");
+				errorMsgs.add("案件編號不存在，請重新操作！");
 //				memberId = 5;
 			}
 
@@ -293,9 +297,9 @@ public class ComplaintServlet extends HttpServlet {
 			// 1. 使用 Service 查詢所有的申訴數據，不再依賴 memberId
 			ComplaintService complaintSvc = new ComplaintService();
 			List<ComplaintVO> list = complaintSvc.getAll();
-
+			
 			// 2. 將查詢結果設置到請求屬性中，並發送到 JSP 頁面
-			req.setAttribute("complaintList", list);
+			req.setAttribute("list", list);
 
 			// 3. 導向 JSP 顯示申訴列表
 			RequestDispatcher successView = req.getRequestDispatcher("/back-end/complaint/listAllComplaint.jsp");
@@ -305,6 +309,34 @@ public class ComplaintServlet extends HttpServlet {
 			req.setAttribute("errorMsg", "系統發生錯誤：" + e.getMessage());
 			RequestDispatcher failureView = req.getRequestDispatcher("/back-end/complaint/select_page.jsp");
 			failureView.forward(req, res);
+		}
+	}
+
+//列出所有圖片
+	protected void showImg(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		try {
+			// 從請求中獲取申訴編號
+			Integer complaintId = Integer.parseInt(req.getParameter("complaintId"));
+
+			// 查詢對應的申訴記錄
+			ComplaintService complaintSvc = new ComplaintService();
+			ComplaintVO complaintVO = complaintSvc.getOneComplaint(complaintId);
+
+			// 獲取圖片數據並輸出到響應
+			byte[] imgData = complaintVO.getComplaintImg();
+			if (imgData != null) {
+				res.setContentType("image/jpeg");
+				res.getOutputStream().write(imgData);
+			} else {
+				// 如果沒有圖片，使用預設圖片
+				InputStream is = getServletContext().getResourceAsStream("/images/no_image.png");
+				byte[] defaultImg = is.readAllBytes();
+				res.setContentType("image/png");
+				res.getOutputStream().write(defaultImg);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "無法加載圖片");
 		}
 	}
 

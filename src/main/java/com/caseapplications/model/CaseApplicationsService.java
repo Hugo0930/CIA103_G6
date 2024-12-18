@@ -39,4 +39,5 @@ public class CaseApplicationsService {
 	public List<Map<String, Integer>> getApplicantCountByCase() {
 		return dao.getApplicantCountByCase();
 	}
+
 }

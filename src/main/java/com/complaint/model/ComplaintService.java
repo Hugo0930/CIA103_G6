@@ -2,14 +2,17 @@ package com.complaint.model;
 
 import java.util.List;
 
+import com.complaintphotos.model.ComplaintPhotosDAO;
 import com.complaintphotos.model.ComplaintPhotosVO;
 
 public class ComplaintService {
 
 	private ComplaintDAO_interface dao;
+	private ComplaintPhotosDAO photoDao;
 
 	public ComplaintService() {
 		dao = new ComplaintDAO();
+		photoDao = new ComplaintPhotosDAO();
 	}
 
 	// 🚀 僅更新 申訴狀態 和 處理結果
@@ -45,8 +48,13 @@ public class ComplaintService {
 		complaintVO.setComplaintCon(complaintCon);
 		return dao.insertWithPhotos(complaintVO, photos);
 	}
+
 	public ComplaintVO getOneComplaintByComIdAndMemId(Integer comId, Integer memberId) {
-	    return dao.getOneComplaintByComIdAndMemId(comId, memberId);
+		return dao.getOneComplaintByComIdAndMemId(comId, memberId);
 	}
 
+	// 🚀 查詢申訴相關的所有照片
+	public List<ComplaintPhotosVO> getPhotosByComplaintId(Integer complaintId) {
+		return photoDao.findPhotosByComplaintId(complaintId);
+	}
 }
