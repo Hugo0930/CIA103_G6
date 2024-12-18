@@ -126,12 +126,14 @@ public class OrderServlet extends HttpServlet {
 				if(page == null) {
 					page = "1";
 				}
+				
 				/**取得第?頁的資料**/
 				List<OrderVO> subList = getOrderByPage(resultList, page);
 				req.setAttribute("user_order", subList);
 				//req.setAttribute("user_order", resultList);
 				/**第一頁的數字要隨著使用者點擊分頁而改變**/
 				changeFirstPage(req,resultList.size(),page);
+				
 				
 				RequestDispatcher rd = req.getRequestDispatcher("front-end/studio/order.jsp");
 				rd.forward(req, res);
