@@ -214,6 +214,7 @@ public class MyStudioServlet extends HttpServlet {
 			}case "toConfirm":{
 				
 				HttpSession session = req.getSession();
+<<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
 				//MemberVO mem = (MemberVO)session.getAttribute("mem");
 				session.setAttribute("img", req.getParameter("img"));
 				session.setAttribute("stdName", req.getParameter("stdName"));
@@ -226,6 +227,18 @@ public class MyStudioServlet extends HttpServlet {
 				//}else {
 					requestDispatcher = req.getRequestDispatcher("/front-end/studio/confirmDateTime.jsp");
 				//}
+=======
+				MemberVO mem = (MemberVO)session.getAttribute("mem");
+				session.setAttribute("img", req.getParameter("img"));
+				session.setAttribute("stdName", req.getParameter("stdName"));
+				session.setAttribute("stdId", req.getParameter("stdId"));
+				RequestDispatcher requestDispatcher = null;
+				if(mem != null) {
+					requestDispatcher = req.getRequestDispatcher("/front-end/login.jsp");
+				}else {
+					requestDispatcher = req.getRequestDispatcher("/front-end/studio/confirmDateTime.jsp");
+				}
+>>>>>>> 09e13d5 上傳錄音室預約
 				requestDispatcher.forward(req, res);
 				break;
 			}
