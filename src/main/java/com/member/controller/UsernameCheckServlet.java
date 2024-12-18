@@ -24,9 +24,11 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 	System.out.println("name="+name+"1");
 	
 	PrintWriter out = resp.getWriter();
-	 if(count>0 || name.equals("")){
+	 if(name.equals("")){
+		out.print("space");
+	}else if(count>0){
 		out.print("false");
-	}else{
+	}else {
 		out.print("true");
 	}
 	out.close();
