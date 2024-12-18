@@ -21,19 +21,22 @@ public class MemberUpdateServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		HttpSession session = req.getSession();
-		Integer memberId = (Integer) session.getAttribute("memId");
+//		HttpSession session = req.getSession();
+//		Integer memberId = (Integer) session.getAttribute("memId");
 
-		if (memberId == null) {
-			res.sendRedirect("/login.jsp"); // 如果用戶未登入，重定向到登入頁面
-			return;
-		}
-
+//		if (memberId == null) {
+//			res.sendRedirect("/login.jsp"); // 如果用戶未登入，重定向到登入頁面
+//			return;
+//		}
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		List<String> errorMsgs = new LinkedList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
 
 		try {
 			/*************************** 1. 取得請求參數 & 輸入驗證 **********************/
+			Integer memberId = Integer.valueOf(req.getParameter("memberId"));
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbb");
+			System.out.println(memberId);
 			String memberName = req.getParameter("memberName");
 			if (memberName == null || memberName.trim().length() == 0) {
 				errorMsgs.add("會員姓名: 請勿空白");
@@ -85,8 +88,8 @@ public class MemberUpdateServlet extends HttpServlet {
 
 			/*************************** 2. 開始更新會員資料 ******************************/
 			MemberService memberSvc = new MemberService();
-			MemberVO memberVO = memberSvc.updateMember( memberName, memberUid, memberBth, memberGender,
-					memberEmail, memberTel, memberAdd, memberAcc, memberPw);
+			MemberVO memberVO = memberSvc.update(memberId, memberName, memberUid, memberBth, memberGender, memberEmail,
+					memberTel, memberAdd, memberAcc, memberPw);
 
 			if (memberVO == null) {
 				errorMsgs.add("更新失敗，請稍後重試");
