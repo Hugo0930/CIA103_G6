@@ -23,6 +23,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.json.JSONObject;
 
+import com.member.model.MemberVO;
 import com.studio.model.StudioService;
 import com.studio.model.StudioVO;
 import com.studio_order.model.OrderService;
@@ -299,14 +300,21 @@ public class OrderServlet extends HttpServlet {
         		String lastThreeNumber = req.getParameter("last_three_number");
         			System.out.println("lastThreeNumber : " + lastThreeNumber);
         		//錄音室ID
-        		//String id = req.getParameter("id");
-        		//System.out.println("id : " + id);
+        		String id = (String) session2.getAttribute("studId");
+        		System.out.println("id : " + id);
+        		MemberVO mem = (MemberVO) session2.getAttribute("mem");
+        		Integer memId = null;
+        		if(mem != null) {
+        			memId = mem.getMemberId();
+        		}else {
+        			memId = 1;
+        		}
         		try {
 					session.beginTransaction();
 					OrderVO newOrder = new OrderVO();
-					StudioVO std = session.get(StudioVO.class, Integer.valueOf(1));
+					StudioVO std = session.get(StudioVO.class, Integer.valueOf(id));
 	        		//會員ID
-					newOrder.setMemId(2);
+					newOrder.setMemId(memId);
 					//錄音室
 	        		newOrder.setStudioVO(std);
 	        		//訂單狀態
@@ -341,8 +349,8 @@ public class OrderServlet extends HttpServlet {
 					e.printStackTrace();
 					session.getTransaction().rollback();
 				}
-        		//RequestDispatcher rd = req.getRequestDispatcher("front-end/studio/homepage.jsp");
-        		//rd.forward(req, res);
+        		RequestDispatcher rd = req.getRequestDispatcher("/MyStudioServlet?action=get_all_std_on&to=front-end");
+        		rd.forward(req, res);
         		break;
         	}
 			}
