@@ -73,6 +73,7 @@ input[type="number"].cart-qty {
 </head>
 
 <body>
+	<c:set var="memVO" value="${sessionScope.mem}" />
 	<!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
@@ -103,7 +104,7 @@ input[type="number"].cart-qty {
                 </li>
             </ul>
             <div class="d-flex align-items-center me-3">
-                <span class="me-3">會員編號: ${param.memId != null ? param.memId : "3"}</span>
+                <span class="me-3">會員名稱: ${memVO.memberName}</span>
                 <a href="<%= request.getContextPath() %>/orders/orders.do?action=get_member_orders"
                     class="btn btn-outline-dark me-2">
                     <i class="bi bi-file-text me-1"></i>我的訂單
