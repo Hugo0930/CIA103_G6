@@ -12,7 +12,7 @@
 <meta name="keywords" content="Slide Login Form template Responsive, Login form web template, Flat Pricing tables, Flat Drop downs Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
 
-<script type="text/javascript" src="loginfile/scripts/function.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/front-end/loginfile/scripts/function.js"></script>
 <script type="text/javascript">
 	function selectname(){
 	  	var name = document.getElementById("selectname").value;
@@ -32,8 +32,8 @@
 
 
 	<!-- Custom Theme files -->
-	<link href="loginfile/css/stylereg.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="loginfile/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="${pageContext.request.contextPath}/front-end/loginfile/css/stylereg.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="${pageContext.request.contextPath}/front-end/loginfile/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- //Custom Theme files -->
 
 	<!-- web font -->
@@ -84,7 +84,7 @@
 	<div class="nav-links">
   		<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
   		<a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
-  		<a href="#">商城</a>
+  		<a href="${pageContext.request.contextPath}/front-end/browsestore/shop.jsp">商城</a>
   		<a href="#">錄音室</a>
   		<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
   		<a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
