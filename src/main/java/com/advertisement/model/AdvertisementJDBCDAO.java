@@ -11,11 +11,11 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 	String userid = "root";
 	String passwd = "liupeter480";
 
-	private static final String INSERT_STMT = "INSERT INTO advertisement (ad_id, adim_id, title, descript, img_url, target_url, str_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT ad_id, adim_id, title, descript, img_url, target_url, str_date, end_date FROM advertisement order by ad_id";
-	private static final String GET_ONE_STMT = "SELECT ad_id, adim_id, title, descript, img_url, target_url, str_date, end_date  FROM advertisement where ad_id= ?";
+	private static final String INSERT_STMT = "INSERT INTO advertisement (ad_id, admin_id, title, descript, img_url, target_url, str_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT ad_id, admin_id, title, descript, img_url, target_url, str_date, end_date FROM advertisement order by ad_id";
+	private static final String GET_ONE_STMT = "SELECT ad_id, admin_id, title, descript, img_url, target_url, str_date, end_date  FROM advertisement where ad_id= ?";
 	private static final String DELETE = "DELETE FROM advertisement where ad_id = ?";
-	private static final String UPDATE = "UPDATE advertisement set ad_id=?, adim_id=?, title=?, descript=?, img_url=?, target_url=?, str_date=?, end_date=?,  where ad_id = ?";
+	private static final String UPDATE = "UPDATE advertisement set ad_id=?, admin_id=?, title=?, descript=?, img_url=?, target_url=?, str_date=?, end_date=?  where ad_id = ?";
 
 	@Override
 	public void insert(AdvertisementVO advertisementVO) {
@@ -86,7 +86,7 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 			pstmt.setString(6, advertisementVO.getTargetUrl());
 			pstmt.setDate(7, advertisementVO.getStrDate());
 			pstmt.setDate(8, advertisementVO.getEndDate());
-
+			pstmt.setInt(9, advertisementVO.getAdvertisementId());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -179,7 +179,7 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 				// empVo �]�٬� Domain objects
 				adveatisementVO = new AdvertisementVO();
 				adveatisementVO.setAdvertisementId(rs.getInt("ad_id"));
-				adveatisementVO.setAdminId(rs.getInt("adim_id"));
+				adveatisementVO.setAdminId(rs.getInt("admin_id"));
 				adveatisementVO.setTitle(rs.getString("title"));
 				adveatisementVO.setDescript(rs.getString("descript"));
 				adveatisementVO.setImgUrl(rs.getString("img_url"));
@@ -240,7 +240,7 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 				// empVO �]�٬� Domain objects
 				advertisementVO = new AdvertisementVO();
 				advertisementVO.setAdvertisementId(rs.getInt("ad_id"));
-				advertisementVO.setAdminId(rs.getInt("adim_id"));
+				advertisementVO.setAdminId(rs.getInt("admin_id"));
 				advertisementVO.setTitle(rs.getString("title"));
 				advertisementVO.setDescript(rs.getString("descript"));
 				advertisementVO.setImgUrl(rs.getString("img_url"));

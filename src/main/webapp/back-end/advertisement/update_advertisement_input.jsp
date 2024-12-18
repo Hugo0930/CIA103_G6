@@ -9,7 +9,7 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>廣告資料修改 - update_advertisement_input.jsp</title>
+<title>廣告資料修改 </title>
 <!--css路徑  -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/back-end/advertisement/css/update_advertisement_input.css">
 
@@ -19,9 +19,9 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 
 <table id="table-1">
 	<tr><td>
-		 <h3>廣告資料修改 - update_advertisement_input.jsp</h3>
+		 <h3>廣告資料修改 </h3>
 		 <h4>
-		 <a href="select_page.jsp"><img src="<%=request.getContextPath()%>/back-end/advertisement/images/back1.gif"  width="100" height="32" border="0">回首頁</a>
+		 <a href="back-end/advertisement/select_page.jsp"><img src="<%=request.getContextPath()%>/back-end/advertisement/images/back1.gif"  width="100" height="32" border="0">回首頁</a>
 		 </h4>
 	</td></tr>
 </table>
@@ -87,7 +87,7 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="memberId" value="<%=advertisementVO.getAdvertisementId()%>">
+<input type="hidden" name="advertisementId" value="<%=advertisementVO.getAdvertisementId()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 
