@@ -293,7 +293,7 @@ function hideURLbar() {
       
       <div style="text-align: center;">
       
-           <img id="veryCode" alt="看不清，換一張" style="cursor: pointer; display: inline-block; outline: none; background: none;" src="usernum?<%=new Date().getTime() %>" onclick="change(this)" />
+           <img id="veryCode" alt="看不清，換一張" style="cursor: pointer; display: inline-block; outline: none; background: none;" src="${pageContext.request.contextPath}/front-end/usernum?<%=new Date().getTime() %>" onclick="change(this)" />
           <span onclick="change(veryCode)">
               <font style="color: white; font-weight: bold; margin-bottom: 10px; cursor: pointer;">換一張</font>
           </span>

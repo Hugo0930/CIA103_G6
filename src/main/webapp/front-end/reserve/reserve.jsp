@@ -41,9 +41,13 @@
 		            <input type="hidden" name="stdName" value="${studio.studName}">
 		            <input type="hidden" name="stdId" value="${studio.studId}">
 <<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
+<<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
 		            <input type="hidden" name="hourlyRate" value="${studio.hourlyRate}">
 =======
 >>>>>>> 09e13d5 上傳錄音室預約
+=======
+		            <input type="hidden" name="hourlyRate" value="${studio.hourlyRate}">
+>>>>>>> 9627c5a 123123123
 		        </div>
     		</form>
         </c:forEach>
