@@ -76,7 +76,7 @@ function hideURLbar() {
   		<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
   		<a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
   		<a href="${pageContext.request.contextPath}/front-end/browsestore/shop.jsp">商城</a>
-  		<a href="${pageContext.request.contextPath}/front-end/">錄音室</a>
+  		<a href="${pageContext.request.contextPath}/front-end/reserve/enter.jsp">錄音室</a>
   		<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
   		<a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
   		<a href="${pageContext.request.contextPath}/front-end/register.jsp">注冊</a>
