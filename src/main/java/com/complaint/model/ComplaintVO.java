@@ -1,7 +1,7 @@
 package com.complaint.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.complaintphotos.model.ComplaintPhotosVO;
@@ -20,14 +20,24 @@ public class ComplaintVO implements java.io.Serializable {
 	private Date complaintTime;
 	private Byte complaintStatus;
 	private String complaintResult;
+	private byte[] complaintImg;// 照片處理
+	private List<ComplaintPhotosVO> photos; // 圖片列表
 
-	private List<ComplaintPhotosVO> photos = new ArrayList<>();
+	public byte[] getComplaintImg() {
+		return complaintImg;
+	}
+
+	public void setComplaintImg(byte[] complaintImg) {
+		this.complaintImg = complaintImg;
+	}
+
 
 	public ComplaintVO() {
 	}
 
 	public ComplaintVO(Integer complaintId, Integer memberId, Integer caseId, String complaintCon, Date complaintTime,
-			Byte complaintStatus, String complaintResult) {
+			Byte complaintStatus, String complaintResult, byte[] complaintImg, List<ComplaintPhotosVO> photos) {
+		super();
 		this.complaintId = complaintId;
 		this.memberId = memberId;
 		this.caseId = caseId;
@@ -35,6 +45,8 @@ public class ComplaintVO implements java.io.Serializable {
 		this.complaintTime = complaintTime;
 		this.complaintStatus = complaintStatus;
 		this.complaintResult = complaintResult;
+		this.complaintImg = complaintImg;
+		this.photos = photos;
 	}
 
 	public Integer getComplaintId() {
@@ -93,7 +105,6 @@ public class ComplaintVO implements java.io.Serializable {
 		this.complaintResult = complaintResult;
 	}
 
-
 	// **圖片操作方法**
 	public List<ComplaintPhotosVO> getPhotos() {
 		return photos;
@@ -105,6 +116,14 @@ public class ComplaintVO implements java.io.Serializable {
 
 	public void addPhoto(ComplaintPhotosVO photo) {
 		this.photos.add(photo);
+	}
+
+	@Override
+	public String toString() {
+		return "ComplaintVO [complaintId=" + complaintId + ", memberId=" + memberId + ", caseId=" + caseId
+				+ ", complaintCon=" + complaintCon + ", complaintTime=" + complaintTime + ", complaintStatus="
+				+ complaintStatus + ", complaintResult=" + complaintResult + ", complaintImg="
+				+ Arrays.toString(complaintImg) + ", photos=" + photos + "]";
 	}
 
 }

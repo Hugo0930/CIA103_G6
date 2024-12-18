@@ -11,6 +11,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<c:set var="memVO" value="${sessionScope.mem}" />
+
 <title>VoiceBus聲音巴士</title>
 
 <!-- CSS FILES -->
@@ -37,12 +39,12 @@
 		<nav class="navbar navbar-expand-lg">
 			<div class="container">
 				<a class="navbar-brand me-lg-5 me-0"
-					href="${pageContext.request.contextPath}/front-end/jsp//index.jsp">
+					href="${pageContext.request.contextPath}/index.jsp">
 					<img
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-
+				
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
@@ -51,13 +53,12 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ms-lg-auto">
-					
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
 							style="color: #000000; font-size: 18px;">關於我</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
 							style="color: #000000; font-size: 18px;">商城</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end"
 							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
@@ -78,18 +79,41 @@
 							<ul class="dropdown-menu dropdown-menu-light"
 								aria-labelledby="navbarLightDropdownMenuLink">
 								<li><a class="dropdown-item"
-									href="${pageContext.request.contextPath}/front-end/jsp/project-posting.jsp">發案</a>
+									href="${pageContext.request.contextPath}">發案</a>
 								</li>
 								<li><a class="dropdown-item" href="#"
 									style="color: #000000;">接案</a></li>
 							</ul></li>
-						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">會員登入</a></li>
+													
 						<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp"
+							href="${pageContext.request.contextPath}/front-end/jsp/Service.jsp"
 							style="color: #000000; font-size: 18px;">客服中心</a></li>
-					</ul>
+							
+						<c:if test="${memVO==null}">	
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/front-end/login.jsp"
+							style="color: #000000; font-size: 18px;">會員登入</a></li>	
+						</c:if>		
+								
+						<c:if test="${memVO==null}">	
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/front-end/register.jsp"
+							style="color: #000000; font-size: 18px;">注冊</a></li>	
+						</c:if>		
+													
+						<c:if test="${memVO!=null}">	
+						<li class="nav-item"><a class="nav-link"						
+							style="color: #000000; font-size: 18px;">歡迎:${memVO.memberName}</a></li>
+						</c:if>	
+						
+						<c:if test="${memVO!=null}">	
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath}/back-end/logout"
+							style="color: #000000; font-size: 18px;">退出</a></li>
+						</c:if>	
+							
+					</ul>													
 				</div>
+												
+				
 			</div>
 		</nav>
 

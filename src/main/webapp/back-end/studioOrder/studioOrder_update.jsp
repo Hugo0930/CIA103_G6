@@ -47,15 +47,15 @@
 						    </tr>
 						
 						    <!-- 超時狀態 (OVERTIME_STATUS) -->
-						    <tr>
-						        <td>超時狀態</td>
-						        <td>
-						            <select name="overtime_status" id="overtime_status">
-						                <option value="0">FALSE (未超時)</option>
-						                <option value="1">TRUE (超時)</option>
-						            </select>
-						        </td>
-						    </tr>
+<!-- 						    <tr> -->
+<!-- 						        <td>超時狀態</td> -->
+<!-- 						        <td> -->
+<!-- 						            <select name="overtime_status" id="overtime_status"> -->
+<!-- 						                <option value="0">FALSE (未超時)</option> -->
+<!-- 						                <option value="1">TRUE (超時)</option> -->
+<!-- 						            </select> -->
+<!-- 						        </td> -->
+<!-- 						    </tr> -->
 						
 						    <!-- 訂單金額 (ORDER_AMOUNT) -->
 						    <tr>
@@ -70,10 +70,10 @@
 						    </tr>
 						
 						    <!-- 超時時數 (OVERTIME_DURATION) -->
-						    <tr>
-						        <td>超時時數</td>
-						        <td><input type="number" name="overtime_duration" id="overtime_duration"></td>
-						    </tr>
+<!-- 						    <tr> -->
+<!-- 						        <td>超時時數</td> -->
+<!-- 						        <td><input type="number" name="overtime_duration" id="overtime_duration"></td> -->
+<!-- 						    </tr> -->
 						
 						    <!-- 開始時間 (START_TIME) -->
 						    <tr>

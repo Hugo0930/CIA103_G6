@@ -56,7 +56,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 				}
 				else {
 //					resp.sendRedirect("indexSelect");
-					resp.sendRedirect("index.html");
+					resp.sendRedirect(req.getContextPath()+"/index.jsp");
 				}
 			}else{
 				//賬號密碼錯誤

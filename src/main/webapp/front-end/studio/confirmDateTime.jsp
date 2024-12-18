@@ -31,7 +31,7 @@
     <div class="breadcrumb">
         <a href="#">首頁</a> &gt; 
         <a href="#">錄音室租借</a> &gt; 
-        <span>小日子 | 最多 2 人錄音</span>
+        <span>${stdName}</span>
     </div>
     <div class="container mt-4">
         <div class="row">
@@ -42,7 +42,7 @@
                     <!-- Image Gallery -->
                     <div class="col-md-6">
 	                    <div class="col-4">
-	                        <img src="${pageContext.request.contextPath}/back-end/images/std-1.jpg" alt="Gallery 1" class="img-fluid">
+	                        <img src="data:image/*;base64,${img}" alt="Gallery 1" class="img-fluid">
 	                    </div>
                     </div>
                     <!-- Booking Form -->
@@ -88,7 +88,7 @@
                                 <label for="calendar" class="form-label">選擇日期：</label>
                                 <input type="date" id="calendar" class="form-control" name="bookingDate">
                             </div>
-                            <input type="hidden" name="studio_name" value="小日子 | 最多 2 人錄音">
+                            <input type="hidden" name="studio_name" value="${stdName}">
                             <input type="hidden" name="cost" value="2000">
 							<input type="hidden" name="action" value="get_from_confirm">
                             <button type="submit" class="btn btn-primary">立即預約</button>
