@@ -230,7 +230,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			MemberService memberSvc = new MemberService();
-			memberVO = memberSvc.updateMember( memberName, memberUid, memberBth, memberGender, memberEmail, memberTel,memberAdd, memberAcc, memberPw);
+			memberVO = memberSvc.update(memberId, memberName, memberUid, memberBth, memberGender, memberEmail, memberTel,memberAdd, memberAcc, memberPw);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的memberVO物件,存入req
@@ -368,7 +368,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			MemberService memberSvc = new MemberService();
-			memberVO = memberSvc.updateMember( memberName, memberUid, memberBth, memberGender, memberEmail, memberTel,memberAdd, memberAcc, memberPw);
+			memberVO = memberSvc.update(memberId, memberName, memberUid, memberBth, memberGender, memberEmail, memberTel,memberAdd, memberAcc, memberPw);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/back-end/member/listAllMember.jsp";

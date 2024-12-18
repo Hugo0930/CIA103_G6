@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
@@ -109,13 +111,13 @@ h3 {
 			<input type="hidden" name="action" value="insert">
 
 			<!-- 			會員編號 (用於提交表單) -->
-			<input type="hidden" name="memId" value="${sessionScope.memberId}">
+			<input type="hidden" name="memId" value="${memId}">
 			<!-- 			案件編號 (用於提交表單) -->
 			<input type="hidden" name="caseId" value="${param.caseId}">
 
 			<!-- 顯示會員編號 -->
 			<div class="form-group">
-				<label>會員編號：</label> <span class="form-control-plaintext">${sessionScope.memberId}</span>
+				<label>會員編號：</label> <span class="form-control-plaintext">${memId}</span>
 			</div>
 
 			<!-- 顯示案件編號 -->
