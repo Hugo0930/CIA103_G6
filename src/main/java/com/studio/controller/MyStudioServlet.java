@@ -214,16 +214,17 @@ public class MyStudioServlet extends HttpServlet {
 			}case "toConfirm":{
 				
 				HttpSession session = req.getSession();
+
+
 				MemberVO mem = (MemberVO)session.getAttribute("mem");
+				//MemberVO mem = (MemberVO)session.getAttribute("mem");
 				session.setAttribute("img", req.getParameter("img"));
 				session.setAttribute("stdName", req.getParameter("stdName"));
 				session.setAttribute("stdId", req.getParameter("stdId"));
+				session.setAttribute("hourlyRate", req.getParameter("hourlyRate"));
+				//System.out.println("stdId" + req.getParameter("stdId"));
 				RequestDispatcher requestDispatcher = null;
-				if(mem != null) {
-					requestDispatcher = req.getRequestDispatcher("/front-end/login.jsp");
-				}else {
-					requestDispatcher = req.getRequestDispatcher("/front-end/studio/confirmDateTime.jsp");
-				}
+				requestDispatcher = req.getRequestDispatcher("/front-end/studio/confirmDateTime.jsp");
 				requestDispatcher.forward(req, res);
 				break;
 			}

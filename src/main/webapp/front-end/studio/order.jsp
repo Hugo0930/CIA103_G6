@@ -12,7 +12,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="logo">VoiceBus</div>
+        <div class="logo"><a href="${pageContext.request.contextPath}/index.jsp" style="color:black; text-decoration:none;">VoiceBus</a></div>
         <nav class="nav">
             <ul>
                 <li><a href="#">關於我們</a></li>
@@ -86,30 +86,30 @@
 		<div class="pagination_block">
 			<ul>
 				<c:if test="${current_page - 1 > 0}">
-					<li><a class="pagination_link prev" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=2&page=${current_page - 1}">&laquo;</a></li>
+					<li><a class="pagination_link prev" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=1&page=${current_page - 1}">&laquo;</a></li>
 				</c:if>
 				<c:if test="${pageQty >= first_page + 0}">
-					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=2&page=${first_page + 0}">${first_page + 0}</a></li>
+					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=1&page=${first_page + 0}">${first_page + 0}</a></li>
 				</c:if>
 				<c:if test="${pageQty >= first_page + 1}">
-					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=2&page=${first_page + 1}">${first_page + 1}</a></li>
+					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=1&page=${first_page + 1}">${first_page + 1}</a></li>
 				</c:if>
 				<c:if test="${pageQty >= first_page + 2}">
-					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=2&page=${first_page + 2}">${first_page + 2}</a></li>
+					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=1&page=${first_page + 2}">${first_page + 2}</a></li>
 				</c:if>
 				<c:if test="${pageQty >= first_page + 3}">
-					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=2&page=${first_page + 3}">${first_page + 3}</a></li>
+					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=1&page=${first_page + 3}">${first_page + 3}</a></li>
 				</c:if>
 				<c:if test="${pageQty >= first_page + 4}">
-					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=2&page=${first_page + 4}">${first_page + 4}</a></li>
+					<li><a class="pagination_link page" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=1&page=${first_page + 4}">${first_page + 4}</a></li>
 				</c:if>
 				<c:if test="${current_page + 1 <= pageQty}">
-					<li><a class="pagination_link last" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=2&page=${current_page + 1}">&raquo;</a></li>
+					<li><a class="pagination_link last" href="${pageContext.request.contextPath}/OrderServlet?action=${action}&mem_id=1&page=${current_page + 1}">&raquo;</a></li>
 				</c:if>
 			</ul>
 		</div>
 	</div>
-	<c:set var="mem_id" value="2"></c:set>
+	<c:set var="mem_id" value="1"></c:set>
 	<c:set var="baseURL" value="${pageContext.request.contextPath}/OrderServlet"></c:set>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/155106be6f.js" crossorigin="anonymous"></script>

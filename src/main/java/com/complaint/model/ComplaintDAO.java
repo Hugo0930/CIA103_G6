@@ -20,7 +20,7 @@ public class ComplaintDAO implements ComplaintDAO_interface {
 	private static final String GET_ALL_BY_MEMBER_ID = "SELECT * FROM complaint WHERE mem_id = ? ORDER BY com_id";
 	private static final String INSERT_BY_PHOTOS = "INSERT INTO complaint_photos (COM_ID, COM_PIC, FILE_NAME, MIME_TYPE, UPLOAD_TIME) VALUES (?, ?, ?, ?, NOW())";
 	private static final String GET_BY_COMID_AND_MEMID = "SELECT * FROM complaint WHERE com_id = ? AND mem_id = ?";
-
+	
 	/**
 	 * 只更新「申訴狀態」和「處理結果」
 	 */

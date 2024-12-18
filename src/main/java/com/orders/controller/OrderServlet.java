@@ -104,7 +104,9 @@ public class OrderServlet extends HttpServlet {
 	}
 
 	// 新增處理提交訂單的方法
-	private void handleSubmitOrder(HttpServletRequest request, HttpServletResponse response) 
+
+	private void handleSubmitOrder(HttpServletRequest request, HttpServletResponse response)
+
 	        throws ServletException, IOException {
 	    String addressError = null;
 	    String memoError = null;
@@ -123,8 +125,10 @@ public class OrderServlet extends HttpServlet {
 	        if (ordersAdd == null || ordersAdd.trim().isEmpty()) {
 	            addressError = "配送地址不能為空！";
 	            hasError = true;
-	        } else if (!ordersAdd.matches(".*[\\u4e00-\\u9fa5\\d]+.*")) {
-	            addressError = "地址必須包含中文或數字！";
+
+	        } else if (!ordersAdd.matches("^[\\u4e00-\\u9fa5a-zA-Z0-9\\s,，-]+$")) {
+	            addressError = "地址格式不正確，請輸入有效地址！";
+
 	            hasError = true;
 	        } else if (ordersAdd.matches("^\\d+$")) {
 	            addressError = "配送地址不能只包含數字！";
@@ -137,38 +141,51 @@ public class OrderServlet extends HttpServlet {
 	            hasError = true;
 	        }
 
-	        // 若有錯誤，設置錯誤訊息與購物車資訊
+
+	        // 設置商品資訊（即使驗證失敗）
+	        List<Map<String, Object>> checkoutItems = new ArrayList<>();
+	        int total = 0;
+	        ProdService prodService = new ProdService();
+
+
+
+	        for (int i = 0; i < prodIds.length; i++) {
+	            int prodId = Integer.parseInt(prodIds[i]);
+	            int quantity = Integer.parseInt(quantities[i]);
+	            int price = Integer.parseInt(prices[i]);
+	            int subtotal = quantity * price;
+
+
+
+	            // 從商品服務中獲取商品名稱與圖片
+	            ProdVO prodVO = prodService.getOneProd(prodId);
+
+
+	            Map<String, Object> item = new HashMap<>();
+	            item.put("prodId", prodId);
+	            item.put("prodName", prodVO != null ? prodVO.getProdName() : "商品名稱缺失");
+	            item.put("prodImage", prodVO != null 
+	                ? request.getContextPath() + "/prod/prod.do?action=get_pic&prodId=" + prodId 
+	                : "");
+	            item.put("quantity", quantity);
+	            item.put("price", price);
+	            item.put("subtotal", subtotal);
+	            checkoutItems.add(item);
+
+
+
+	            total += subtotal;
+	        }
+
+
+
+	        // 若有錯誤，返回 JSP 並顯示錯誤訊息與商品資訊
 	        if (hasError) {
-	            List<Map<String, Object>> checkoutItems = new ArrayList<>();
-	            int total = 0;
-	            ProdService prodService = new ProdService();
-
-	            for (int i = 0; i < prodIds.length; i++) {
-	                int prodId = Integer.parseInt(prodIds[i]);
-	                int quantity = Integer.parseInt(quantities[i]);
-	                int price = Integer.parseInt(prices[i]);
-	                int subtotal = quantity * price;
-
-	                ProdVO prodVO = prodService.getOneProd(prodId);
-	                Map<String, Object> item = new HashMap<>();
-	                item.put("prodId", prodId);
-	                item.put("prodName", prodVO != null ? prodVO.getProdName() : "商品名稱缺失");
-	                item.put("prodImage", prodVO != null 
-	                	    ? request.getContextPath() + "/prod/prod.do?action=get_pic&prodId=" + prodId 
-	                	    : "");
-	                item.put("quantity", quantity);
-	                item.put("price", price);
-	                item.put("subtotal", subtotal);
-	                checkoutItems.add(item);
-
-	                total += subtotal;
-	            }
-
-	            // 設置 request 屬性並返回頁面
 	            request.setAttribute("ordersAdd", ordersAdd);
 	            request.setAttribute("ordersMemo", ordersMemo);
 	            request.setAttribute("addressError", addressError);
 	            request.setAttribute("memoError", memoError);
+
 	            request.setAttribute("checkoutItems", checkoutItems);
 	            request.setAttribute("total", total);
 
@@ -181,21 +198,10 @@ public class OrderServlet extends HttpServlet {
 	        OrdersService ordersService = new OrdersService();
 	        OrdersVO newOrder = ordersService.processCheckout(ordersAdd, ordersMemo, prodIds, quantities, prices);
 
-	        // 從購物車中刪除已結帳的商品
 	        HttpSession session = request.getSession();
-	        Integer memId = 3; // 假設會員 ID，這裡應從 session 或其他方式獲取
-	        ShopCartListService cartService = new ShopCartListService();
+	        session.setAttribute("cartTotal", 0);
 
-	        for (String prodIdStr : prodIds) {
-	            int prodId = Integer.parseInt(prodIdStr);
-	            cartService.deleteShopCartList(memId, prodId);
-	        }
 
-	        // 更新購物車的總數量
-	        int newCartTotal = cartService.getCartTotalItems(memId);
-	        session.setAttribute("cartTotal", newCartTotal);
-
-	        // 將訂單資訊傳遞至成功頁面
 	        request.setAttribute("orderVO", newOrder);
 	        RequestDispatcher successView = request.getRequestDispatcher("/front-end/browsestore/orderSuccess.jsp");
 	        successView.forward(request, response);

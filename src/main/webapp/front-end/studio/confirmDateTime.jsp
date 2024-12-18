@@ -88,7 +88,7 @@
                                 <label for="calendar" class="form-label">選擇日期：</label>
                                 <input type="date" id="calendar" class="form-control" name="bookingDate">
                             </div>
-                            <input type="hidden" name="studio_name" value="小日子 | 最多 2 人錄音">
+                            <input type="hidden" name="studio_name" value="${stdName}">
                             <input type="hidden" name="cost" value="2000">
 							<input type="hidden" name="action" value="get_from_confirm">
                             <button type="submit" class="btn btn-primary">立即預約</button>

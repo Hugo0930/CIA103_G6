@@ -9,7 +9,7 @@ MatchingCasesService matchingcasesSvc = new MatchingCasesService();
 List<MatchingCasesVO> list = matchingcasesSvc.getAvailableCasesForReceiver();
 pageContext.setAttribute("availableCases", list);
 %>
-
+<!-- 只有可應徵的案件列表 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>

@@ -10,7 +10,7 @@ ApplicantService applicantSvc = new ApplicantService();
 List<ApplicantVO> list = applicantSvc.getApplicantsByMemId(1);
 pageContext.setAttribute("list", list);
 %>
-
+<!-- 查看會員自己的案件有幾個人正在應徵中 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>

@@ -59,7 +59,7 @@
 							style="color: #000000; font-size: 18px;">關於我</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
 							style="color: #000000; font-size: 18px;">商城</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end"
 							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
@@ -144,7 +144,9 @@
                         <div class="section-title-wrap mb-4">
                             <h4 class="section-title">會員權限</h4>
                         </div>
-                        <p style="color: black;">一般會員是免費註冊，只能瀏覽配音員資訊來選擇所需的試音者，來執行正式配音工作及主動發案邀請配音員接案。</p>
+                        <p style="color: black;">發案者可瀏覽所有配音員，對心儀的配音員，主動發案邀請配音員接案。</p>
+                        <p style="color: black;">接案者可瀏覽可接的案件及接下發案者發送的案件。</p>
+                        
                     </div>
                 </div>
 
