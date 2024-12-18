@@ -72,6 +72,7 @@ function hideURLbar() {
  
  
 
+
  <div class="nav-links">
     <a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
     <a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
@@ -147,6 +148,7 @@ function hideURLbar() {
   </div>
  </div>
 </div> 
+
 <!-- //main -->
 
 </body>
