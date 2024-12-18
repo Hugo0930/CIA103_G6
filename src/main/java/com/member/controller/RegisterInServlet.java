@@ -24,6 +24,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
 //    EncodeUtil.encode(req);
 	req.setCharacterEncoding("UTF-8");
+	resp.setContentType("text/html; charset=UTF-8");
 	//賬號
 	String username=req.getParameter("userName");
 	
@@ -70,10 +71,14 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
 	PrintWriter out=resp.getWriter();
 	if(sysCode.equals(veryCode)){
 		if(count>0){
-			resp.sendRedirect("reg-result.jsp");
+			
+			out.write("<script>");
+	        out.write("alert('注冊成功');");
+	        out.write("location.href='/CIA103g6/front-end/login.jsp';"); // 使用 JavaScript 跳轉
+	        out.write("</script>");
 		}else{
 			out.write("<script>");
-			out.write("alert('ע��ʧ��');");
+			out.write("alert('驗證碼錯誤')");
 			out.write("location.href='register.jsp'");
 			out.write("</script>");
 			out.close();

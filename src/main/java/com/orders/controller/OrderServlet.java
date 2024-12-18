@@ -1,6 +1,7 @@
 package com.orders.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +69,7 @@ public class OrderServlet extends HttpServlet {
 		String[] prices = request.getParameterValues("prices");
 
 		if (prodIds == null || quantities == null || prices == null) {
-			response.sendRedirect(request.getContextPath() + "/shopcartlist.jsp");
+			response.sendRedirect(request.getContextPath() + "/front-end/browsestore/shopCartList.jsp");
 			return;
 		}
 
@@ -216,6 +217,26 @@ public class OrderServlet extends HttpServlet {
 	        throws ServletException, IOException {
 	    try {
 	        // 取得狀態參數
+	    	
+	    	
+	    	req.setCharacterEncoding("UTF-8");
+			res.setContentType("text/html; charset=UTF-8");
+			HttpSession session = req.getSession();		
+			MemberVO memVO = (MemberVO) session.getAttribute("mem");
+				
+			if(memVO == null)
+			{
+				
+				PrintWriter out = res.getWriter();
+				out.print("<script>");
+				out.print("alert('請先登入');");
+				out.print("location.href='/CIA103g6/front-end/login.jsp';");
+				out.print("</script>");
+				out.close();
+			}
+	    	
+	    	
+	    	
 	        String statusParam = req.getParameter("status");
 	        Byte status = (statusParam != null && !"all".equals(statusParam)) ? Byte.valueOf(statusParam) : null;
 
