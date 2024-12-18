@@ -261,15 +261,15 @@ public class OrderServlet extends HttpServlet {
         		break;
 			}case "get_from_confirm": {
 				String timeduration = req.getParameter("timeduration");
-					//System.out.println("timeduration: " + timeduration);
+					System.out.println("timeduration: " + timeduration);
 				String timeSlot = req.getParameter("timeSlot");
-					//System.out.println("timeSlot: " + timeSlot);
+					System.out.println("timeSlot: " + timeSlot);
 				String bookingDate = req.getParameter("bookingDate");
-					//System.out.println("bookingDate: " + bookingDate);
+					System.out.println("bookingDate: " + bookingDate);
 				String studioName = req.getParameter("studio_name");
 				String cost = req.getParameter("cost");
         		sessionh = req.getSession();
-        		sessionh.setAttribute("timeduration", timeduration);
+        		sessionh.setAttribute("timeduration", timeduration.substring(0, 1));
         		sessionh.setAttribute("timeSlot", timeSlot);
         		sessionh.setAttribute("bookingDate", bookingDate);
         		sessionh.setAttribute("studioName", studioName);	
@@ -300,7 +300,7 @@ public class OrderServlet extends HttpServlet {
         		String lastThreeNumber = req.getParameter("last_three_number");
         			System.out.println("lastThreeNumber : " + lastThreeNumber);
         		//錄音室ID
-        		String id = (String) session2.getAttribute("studId");
+        		String id = (String) session2.getAttribute("stdId");
         		System.out.println("id : " + id);
         		MemberVO mem = (MemberVO) session2.getAttribute("mem");
         		Integer memId = null;

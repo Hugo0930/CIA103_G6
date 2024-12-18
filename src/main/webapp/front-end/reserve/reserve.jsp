@@ -11,11 +11,11 @@
 </head>
 <body>
     <header class="header">
-        <div class="logo">VoiceBus</div>
+        <div class="logo"><a href="${pageContext.request.contextPath}/index.jsp" style="color:black; text-decoration:none;">VoiceBus</a></div>
         <nav class="nav">
             <ul>
                 <li><a href="#">關於我們</a></li>
-                <li><a href="#">會員</a></li>
+                <li><a href="${pageContext.request.contextPath}/OrderServlet?action=get_user_orders&mem_id=1&page=1">會員</a></li>
                 <li><a href="#">配音員列表</a></li>
                 <li><a href="#">商城</a></li>
                 <li><a href="#">購物車</a></li>
@@ -40,6 +40,7 @@
 		            <input type="hidden" name="img" value="${studio.imgBase64}">
 		            <input type="hidden" name="stdName" value="${studio.studName}">
 		            <input type="hidden" name="stdId" value="${studio.studId}">
+		            <input type="hidden" name="hourlyRate" value="${studio.hourlyRate}">
 		        </div>
     		</form>
         </c:forEach>
