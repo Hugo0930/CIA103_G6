@@ -124,12 +124,7 @@ button {
 								method="post" style="display: none;">
 								<input type="hidden" name="action" value="get_all">
 							</form></li>
-
-
-
-
-
-
+							<li class="nav-item"><a class="nav-link" href="#"
 							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
