@@ -25,12 +25,12 @@
         <h2><i class="fa-solid fa-house"></i>租借訂單管理</h2>
         <hr>
         <div id="lookup_block">
-	        <select id="sort_type" style="position:absolute; top:115px; right:210px; height:20px; text-align:center">
-	        	<option>篩選方式</option>
-	        	<option value="std_on">僅顯示上架</option>
-	        	<option value="std_off">僅顯示下架</option>
-	        	<option value="std_all">顯示所有</option>
-	        </select>
+<!-- 	        <select id="sort_type" style="position:absolute; top:115px; right:210px; height:20px; text-align:center"> -->
+<!-- 	        	<option>篩選方式</option> -->
+<!-- 	        	<option value="std_on">僅顯示上架</option> -->
+<!-- 	        	<option value="std_off">僅顯示下架</option> -->
+<!-- 	        	<option value="std_all">顯示所有</option> -->
+<!-- 	        </select> -->
         </div>
         <button type="submit"  id="btn_add"><i class="fa-solid fa-plus"></i>新增租借訂單</button>
         <h3>總共${pageQty}頁，現在第${currentPage}頁</h3>
@@ -55,15 +55,15 @@
 	        <tbody>
     <c:forEach var="std" items="${all_order}">
         <tr>
-            <td>${orderId}</td> <!-- STUD_ORDER_ID -->
-            <td>${memId}</td>       <!-- MEM_ID -->
-            <td>${studId}</td>      <!-- STUD_ID -->
+            <td>${std.orderId}</td> <!-- STUD_ORDER_ID -->
+            <td>${std.memId}</td>       <!-- MEM_ID -->
+            <td>${std.studioVO.studId}</td>      <!-- STUD_ID -->
             <td>
                 <c:choose>
-                    <c:when test="${status == 0}">PENDING(待處理)</c:when>
-                    <c:when test="${status == 1}">CONFIRMED(確認)</c:when>
-                    <c:when test="${status == 2}">CANCELLED(取消)</c:when>
-                    <c:when test="${status == 3}">COMPLETED(完成)</c:when>
+                    <c:when test="${std.status == 0}">PENDING(待處理)</c:when>
+                    <c:when test="${std.status == 1}">CONFIRMED(確認)</c:when>
+                    <c:when test="${std.status == 2}">CANCELLED(取消)</c:when>
+                    <c:when test="${std.status == 3}">COMPLETED(完成)</c:when>
                 </c:choose>
             </td> <!-- ORDER_STATUS -->
             <td>
@@ -72,49 +72,49 @@
 <%--                     <c:otherwise>FALSE(未超時)</c:otherwise> --%>
 <%--                 </c:choose> --%>
             </td> <!-- OVERTIME_STATUS -->
-            <td>${orderStatus}</td>   <!-- ORDER_AMOUNT -->
-            <td>${totalAmount}</td>    <!-- RENTAL_HOUR -->
-            <td>${rentalHour}</td> <!-- OVERTIME_DURATION -->
+            <td>${std.status}</td>   <!-- ORDER_AMOUNT -->
+            <td>${std.totalAmount}</td>    <!-- RENTAL_HOUR -->
+            <td>${std.rentalHour}</td> <!-- OVERTIME_DURATION -->
             <td>
-                <fmt:formatDate value="${bookingDate}" pattern="yyyy-MM-dd"/>
+                <fmt:formatDate value="${std.bookDate}" pattern="yyyy-MM-dd"/>
             </td> <!-- ORDER_DATE -->
             <td>
-                <fmt:formatDate value="${startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${std.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
             </td> <!-- START_TIME -->
             <td>
-                <fmt:formatDate value="${endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${std.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
             </td> <!-- END_TIME -->
             <td>
-                <fmt:formatDate value="${orderDate}" pattern="yyyy-MM-dd"/>
+                <fmt:formatDate value="${std.orderDate}" pattern="yyyy-MM-dd"/>
             </td> <!-- ORDER_DATE -->
             <td>
-		 	        		<fmt:parseNumber  var="parsedNumber" value="${std.hourlyRate}"/>
+		 	        		<fmt:parseNumber  var="parsedNumber" value="${std.studioVO.hourlyRate}"/>
 		 	        		<div class="btn_block">		 	        		
 		        				<input type="submit" value="修改" class="update_btn" 
-			        				                                data-orderId="${orderId}" 
-									                                data-memId="${memId}" 
-									                                data-studId="${studId}" 
-									                                data-orderStatus="${orderStatus}" 
-									                                data-totalAmount="${totalAmount}" 
-									                                data-rentalHour="${rentalHour}">
-												        			data-img="${rentalHour}">
-												        			data-img="${rentalHour}">
+			        				                                data-orderId="${std.orderId}" 
+									                                data-memId="${std.memId}" 
+									                                data-studId="${std.studioVO.studId}" 
+									                                data-orderStatus="${std.status}" 
+									                                data-totalAmount="${std.totalAmount}" 
+									                                data-rentalHour="${std.rentalHour}">
+<%-- 												        			data-img="${std.studioVO.imgBase64}"> --%>
+												        			
 			        			
-			        			<form method="post" action="${pageContext.request.contextPath}/OrderServlet"> 
-     				                <c:if test="${std.state == '上架'}">
-				                        <!-- 如果錄音室是上架狀態，顯示下架按鈕 -->
-				                        <input type="submit" value="下架" class="off_btn">
-				                        <input type="hidden" name="action" value="std_off">
-				                        <input type="hidden" name="page" value="${currentPage}">
-				                    </c:if>
-				                    <c:if test="${std.state == '下架'}">
-				                        <!-- 如果錄音室是下架狀態，顯示上架按鈕 -->
-				                        <input type="submit" value="上架" class="on_btn">
-				                        <input type="hidden" name="action" value="std_on">
-				                        <input type="hidden" name="page" value="${currentPage}">
-				                    </c:if> 
-				                    <input type="hidden" name="studio_id" value="${std.studId}">
-			        			</form> 
+<%-- 			        			<form method="post" action="${pageContext.request.contextPath}/OrderServlet">  --%>
+<%--      				                <c:if test="${std.status == 0}"> --%>
+<!-- 				                        如果錄音室是上架狀態，顯示下架按鈕 -->
+<!-- 				                        <input type="submit" value="下架" class="off_btn"> -->
+<!-- 				                        <input type="hidden" name="action" value="std_off"> -->
+<%-- 				                        <input type="hidden" name="page" value="${currentPage}"> --%>
+<%-- 				                    </c:if> --%>
+<%-- 				                    <c:if test="${std.status == 1}"> --%>
+<!-- 				                        如果錄音室是下架狀態，顯示上架按鈕 -->
+<!-- 				                        <input type="submit" value="上架" class="on_btn"> -->
+<!-- 				                        <input type="hidden" name="action" value="std_on"> -->
+<%-- 				                        <input type="hidden" name="page" value="${currentPage}"> --%>
+<%-- 				                    </c:if>  --%>
+<%-- 				                    <input type="hidden" name="studio_id" value="${std.studioVO.studId}"> --%>
+<!-- 			        			</form>  -->
 		 	        		</div>
 		       			</td>
           
