@@ -28,24 +28,10 @@ function hideURLbar() {
 }
 </script>
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
-<<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
  <!-- Custom Theme files -->
  <link href="${pageContext.request.contextPath}/front-end/loginfile/css/stylelog.css" rel="stylesheet" type="text/css" media="all" />
  <link href="${pageContext.request.contextPath}/front-end/loginfile/css/fontlog-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
  <!-- //Custom Theme files -->
-=======
-	<!-- Custom Theme files -->
-	<link href="${pageContext.request.contextPath}/front-end/loginfile/css/stylelog.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="${pageContext.request.contextPath}/front-end/loginfile/css/fontlog-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- //Custom Theme files -->
->>>>>>> f1af365 commit login
-=======
- <!-- Custom Theme files -->
- <link href="${pageContext.request.contextPath}/front-end/loginfile/css/stylelog.css" rel="stylesheet" type="text/css" media="all" />
- <link href="${pageContext.request.contextPath}/front-end/loginfile/css/fontlog-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
- <!-- //Custom Theme files -->
->>>>>>> 9732d7a WWSSSWW
 
  <!-- web font -->
  <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
@@ -86,8 +72,7 @@ function hideURLbar() {
  
  
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
-<<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
+
  <div class="nav-links">
     <a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
     <a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
@@ -140,7 +125,7 @@ function hideURLbar() {
       
       <div style="text-align: center;">
       
-           <img id="veryCode" alt="看不清，換一張" style="cursor: pointer; display: inline-block; outline: none; background: none;" src="${pageContext.request.contextPath}/front-end/usernum?<%=new Date().getTime() %>" onclick="change(this)" />
+           <img id="veryCode" alt="看不清，換一張" style="cursor: pointer; display: inline-block; outline: none; background: none;" src="usernum?<%=new Date().getTime() %>" onclick="change(this)" />
           <span onclick="change(veryCode)">
               <font style="color: white; font-weight: bold; margin-bottom: 10px; cursor: pointer;">換一張</font>
           </span>
@@ -163,160 +148,7 @@ function hideURLbar() {
   </div>
  </div>
 </div> 
-=======
-	<div class="nav-links">
-  		<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
-  		<a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
-  		<a href="${pageContext.request.contextPath}/front-end/browsestore/shop.jsp">商城</a>
-  		<a href="${pageContext.request.contextPath}/front-end/">錄音室</a>
-  		<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
-  		<a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
-  		<a href="${pageContext.request.contextPath}/front-end/register.jsp">注冊</a>
-  		<a href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp">客服中心</a>
-	</div>
-	
-			
-		<h1>VoiceBus-聲音巴士</h1>
-		<div class="header-main">
-			<div class="main-icon">
-				<span class="fa fa-eercast">登入</span>
-			</div>
-			
-			<div class="header-left-bottom">
-				<form id="loginForm" method="post" action="login" onsubmit="return checkForm(this)">
-														
-					 <% 
-            			String errorMessage = (String) request.getAttribute("eMessage"); 
-            			if (errorMessage != null) { 
-       				 %>
-            			<div class="error-message"><%= errorMessage %></div>
-        			 <% 
-            			} 
-        			 %>
-					<!--驗證碼錯誤提示 -->
-					<span id="msg"></span>													
-					
-					<div class="icon1">
-						<span class="fa fa-user"></span> 
-						<input class="text" type="text" name="userName" value="<%=request.getAttribute("user") == null ? "":request.getAttribute("user")%>" required  placeholder="賬號"/>
-					</div>
-					
-					<div class="icon1">
-						<span class="fa fa-lock"></span>
-						<input type="password"  name="passWord" id="passWord" value="<%=request.getAttribute("pass") == null ? "":request.getAttribute("pass")%>" required placeholder="密碼"/>
-					</div>
-										
-					<div class="icon1">
-						<span class="fa fa-lock"></span>
-						<input class="text verycode" type="text" name="veryCode" placeholder="驗證碼"  onblur="Checknum(this);" required/>						
-					</div>
-					
-<%-- 					<img id="veryCode" alt="看不清，換一張" style="cursor:hand; display: block; margin: 0 auto;" src="usernum?<%=new Date().getTime() %>" onclick="change(this)" /> --%>
-<!-- 					<span onclick="change(veryCode)" ><font style=' color: blue; font-weight: bold; margin-bottom: 10px; cursor: hand;'>換一張</font></span> -->
-						
-						<div style="text-align: center;">
-						
-   							 <img id="veryCode" alt="看不清，換一張" style="cursor: pointer; display: inline-block; outline: none; background: none;" src="usernum?<%=new Date().getTime() %>" onclick="change(this)" />
-    						<span onclick="change(veryCode)">
-        						<font style="color: white; font-weight: bold; margin-bottom: 10px; cursor: pointer;">換一張</font>
-    						</span>
-						</div>
-						
-						
-					<div class="bottom">
-						<button class="btn" name="submit" id="sub" >Login</button>
-<!-- 						<label class="ui-green"><input type="submit" name="submit"id="sub" value="立即登录" /></label> -->
-					</div>
-					
-					<div class="links">
-						<p><a href="#">Forgot Password?</a></p>
-						<p class="right"><a href="register.jsp">新用戶？ 注冊</a></p>
-						<div class="clear"></div>
-					</div>
-					
-				</form>	
-			</div>
-		</div>
-	</div>
-</div>	
->>>>>>> fa4972a commit login register
-=======
- <div class="nav-links">
-    <a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
-    <a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
-    <a href="${pageContext.request.contextPath}/front-end/browsestore/shop.jsp">商城</a>
-    <a href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end">錄音室</a>
-    <a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
-    <a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
-    <a href="${pageContext.request.contextPath}/front-end/register.jsp">注冊</a>
-    <a href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp">客服中心</a>
- </div>
- 
-   
-  <h1>VoiceBus-聲音巴士</h1>
-  <div class="header-main">
-   <div class="main-icon">
-    <span class="fa fa-eercast">登入</span>
-   </div>
-   
-   <div class="header-left-bottom">
-    <form id="loginForm" method="post" action="login" onsubmit="return checkForm(this)">
-              
-      <% 
-               String errorMessage = (String) request.getAttribute("eMessage"); 
-               if (errorMessage != null) { 
-            %>
-               <div class="error-message"><%= errorMessage %></div>
-            <% 
-               } 
-            %>
-     <!--驗證碼錯誤提示 -->
-     <span id="msg"></span>             
-     
-     <div class="icon1">
-      <span class="fa fa-user"></span> 
-      <input class="text" type="text" name="userName" value="<%=request.getAttribute("user") == null ? "":request.getAttribute("user")%>" required  placeholder="賬號"/>
-     </div>
-     
-     <div class="icon1">
-      <span class="fa fa-lock"></span>
-      <input type="password"  name="passWord" id="passWord" value="<%=request.getAttribute("pass") == null ? "":request.getAttribute("pass")%>" required placeholder="密碼"/>
-     </div>
-          
-     <div class="icon1">
-      <span class="fa fa-lock"></span>
-      <input class="text verycode" type="text" name="veryCode" placeholder="驗證碼"  onblur="Checknum(this);" required/>      
-     </div>
-     
-<%--      <img id="veryCode" alt="看不清，換一張" style="cursor:hand; display: block; margin: 0 auto;" src="usernum?<%=new Date().getTime() %>" onclick="change(this)" /> --%>
-<!--      <span onclick="change(veryCode)" ><font style=' color: blue; font-weight: bold; margin-bottom: 10px; cursor: hand;'>換一張</font></span> -->
-      
-      <div style="text-align: center;">
-      
-           <img id="veryCode" alt="看不清，換一張" style="cursor: pointer; display: inline-block; outline: none; background: none;" src="${pageContext.request.contextPath}/front-end/usernum?<%=new Date().getTime() %>" onclick="change(this)" />
-          <span onclick="change(veryCode)">
-              <font style="color: white; font-weight: bold; margin-bottom: 10px; cursor: pointer;">換一張</font>
-          </span>
-      </div>
-      
-      
-     <div class="bottom">
-      <button class="btn" name="submit" id="sub" >Login</button>
-<!--       <label class="ui-green"><input type="submit" name="submit"id="sub" value="立即登录" /></label> -->
-     </div>
-     
-     <div class="links">
-      <p><a href="#">Forgot Password?</a></p>
-      <p class="right"><a href="register.jsp">新用戶？ 注冊</a></p>
-      <div class="clear"></div>
-     </div>
-     
-    </form> 
-   </div>
-  </div>
- </div>
-</div> 
->>>>>>> 9732d7a WWSSSWW
+
 <!-- //main -->
 
 </body>

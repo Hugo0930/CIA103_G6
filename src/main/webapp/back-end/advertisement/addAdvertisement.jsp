@@ -37,7 +37,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="advertisement.do" name="form1">
+<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/advertisement.do" name="form1">
 <table>
 	
 	<tr>
