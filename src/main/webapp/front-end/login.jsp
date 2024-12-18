@@ -72,16 +72,27 @@ function hideURLbar() {
  
  
 
+ 
+ 
+ 
+ 
+
+
 
  <div class="nav-links">
     <a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
     <a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
-    <a href="${pageContext.request.contextPath}/front-end/browsestore/shop.jsp">商城</a>
+    <a href="javascript:void(0);"onclick="document.getElementById('shopForm').submit();">商城</a>
+							<form id="shopForm"
+								action="${pageContext.request.contextPath}/prod/prod.do"
+								method="post" style="display: none;">
+								<input type="hidden" name="action" value="get_all">
+							</form>
     <a href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end">錄音室</a>
     <a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
     <a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
     <a href="${pageContext.request.contextPath}/front-end/register.jsp">注冊</a>
-    <a href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp">客服中心</a>
+    <a href="${pageContext.request.contextPath}/front-end/jsp/Service.jsp">客服中心</a>
  </div>
  
    

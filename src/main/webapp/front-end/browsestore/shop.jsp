@@ -24,27 +24,39 @@
 	rel="stylesheet" />
 </head>
 
-<!-- 如果這網頁不是首頁，可以不用在這裡下  -->
-<!-- ProdService prodSvc = new ProdService(); List -->
-<!-- <ProdVO> list = prodSvc.getAll();  -->
-<!-- req.setAttribute("list",list); -->
 
-
+<!-- ==================================================-->
+<%-- <% --%>
+<!--  ProdService prodSvc = new ProdService(); -->
+<!--  List<ProdVO> list = prodSvc.getAll(); -->
+<!--  pageContext.setAttribute("list", list); -->
+<%-- %> --%>
+<!--=================================================-->
 
 
 <body>
+	<!--=================================================-->
+	<c:set var="memVO" value="${sessionScope.mem}" />
 
+	<!--=================================================-->
 	<script>
     // 從後端頁面取得訊息
     var addedToCart = "<%=request.getAttribute("addedToCart") != null ? request.getAttribute("addedToCart") : ""%>";
-
+    var memberStatus = ${memVO != null ? memVO.memberStatus : 3};
     // 如果有成功訊息，顯示它
     if (addedToCart) {
         alert(addedToCart); // 彈跳視窗顯示訊息
     }
     
     function addToCart(prodId) {
-        const qty = $("#qty-" + prodId).val(); // 獲取數量
+        
+    	
+    	if (memberStatus != 0) {
+            alert('請先登入');
+            window.location.href = "/CIA103g6/front-end/login.jsp";
+        }else{
+    	   	  	
+    	const qty = $("#qty-" + prodId).val(); // 獲取數量
         $.ajax({
             type: "POST",
             url: "<%=request.getContextPath()%>/prod/prod.do",
@@ -63,6 +75,8 @@
                 alert("加入購物車失敗，請稍後再試。");
             }
         });
+      }
+        
     }
     
     
@@ -72,8 +86,9 @@
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container px-4 px-lg-5">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">VoiceBus</a>
-			
+			<a class="navbar-brand"
+				href="${pageContext.request.contextPath}/index.jsp">VoiceBus</a>
+
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -104,7 +119,10 @@
 						</ul></li>
 				</ul>
 				<div class="d-flex align-items-center me-3">
-					<span class="me-3">會員編號: ${param.memId != null ? param.memId : "3"}</span>
+
+					<c:if test="${memVO!=null}">
+						<span class="me-3">會員名稱: ${memVO.memberName}</span>
+					</c:if>
 					<a
 						href="<%=request.getContextPath()%>/orders/orders.do?action=get_member_orders"
 						class="btn btn-outline-dark me-2"> <i
@@ -122,6 +140,23 @@
 					</button>
 				</form>
 
+
+				<div class="d-flex align-items-center ms-3">
+					<c:if test="${memVO==null}">
+						<a href="<%=request.getContextPath()%>/front-end/login.jsp"
+							class="btn btn-outline-dark me-2"> <i
+							class="bi bi-file-text me-1"></i>登入
+						</a>
+					</c:if>
+					<c:if test="${memVO!=null}">
+						<form method="post"
+							action="${pageContext.request.contextPath}/back-end/logout">
+							<button type="submit" class="btn btn-outline-dark me-2"
+								id="log_out">登出</button>
+						</form>
+					</c:if>
+				</div>
+
 			</div>
 
 		</div>
@@ -132,7 +167,9 @@
 			<input type="hidden" name="action" value="search_prod" /> <input
 				class="form-control me-2" type="search" placeholder="輸入商品名稱"
 				name="keyword" aria-label="Search" required>
-			<button class="btn btn-outline-success" type="submit">搜尋</button>
+			<button class="btn btn-outline-success" type="submit"
+				style="display: inline-block; margin-left: 8px; padding: 8px 30px; line-height: 1; text-align: center; writing-mode: horizontal-tb; white-space: nowrap;">
+				搜尋</button>
 		</form>
 	</div>
 	<!-- Header-->
@@ -178,19 +215,20 @@
 				</c:forEach>
 			</div>
 		</div>
-		  <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <c:if test="${empty list}">
-                <div class="col-12 text-center">
-                    <h3>沒有找到相關商品</h3>
-                </div>
-            </c:if>
-            
-            <c:forEach var="prodVO" items="${list}">
-                <!-- 原有的商品顯示程式碼 -->
-            </c:forEach>
-        </div>
-    </div>
+		<div class="container px-4 px-lg-5 mt-5">
+			<div
+				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+				<c:if test="${empty list}">
+					<div class="col-12 text-center">
+						<h3>沒有找到相關商品</h3>
+					</div>
+				</c:if>
+
+				<c:forEach var="prodVO" items="${list}">
+					<!-- 原有的商品顯示程式碼 -->
+				</c:forEach>
+			</div>
+		</div>
 	</section>
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">

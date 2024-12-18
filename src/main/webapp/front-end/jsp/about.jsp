@@ -37,12 +37,11 @@
 		<nav class="navbar navbar-expand-lg">
 			<div class="container">
 				<a class="navbar-brand me-lg-5 me-0"
-					href="${pageContext.request.contextPath}/index.jsp">
-					<img
+					href="${pageContext.request.contextPath}/index.jsp"> <img
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-				
+
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
@@ -54,9 +53,19 @@
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
 							style="color: #000000; font-size: 18px;">關於我</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">商城</a></li>
-						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end"
+
+
+
+						<li class="nav-item"><a class="nav-link"
+							href="javascript:void(0);"
+							onclick="document.getElementById('shopForm').submit();"
+							style="color: #000000; font-size: 18px;">商城</a>
+							<form id="shopForm"
+								action="${pageContext.request.contextPath}/prod/prod.do"
+								method="post" style="display: none;">
+								<input type="hidden" name="action" value="get_all">
+							</form></li>
+							<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end"
 							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
@@ -77,41 +86,42 @@
 							<ul class="dropdown-menu dropdown-menu-light"
 								aria-labelledby="navbarLightDropdownMenuLink">
 								<li><a class="dropdown-item"
-									href="${pageContext.request.contextPath}">發案</a>
-								</li>
+									href="${pageContext.request.contextPath}">發案</a></li>
 								<li><a class="dropdown-item" href="#"
 									style="color: #000000;">接案</a></li>
 							</ul></li>
-													
+
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/Service.jsp"
 							style="color: #000000; font-size: 18px;">客服中心</a></li>
-							
-						<c:if test="${memVO==null}">	
-						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/front-end/login.jsp"
-							style="color: #000000; font-size: 18px;">會員登入</a></li>	
-						</c:if>		
-								
-						<c:if test="${memVO==null}">	
-						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/front-end/register.jsp"
-							style="color: #000000; font-size: 18px;">注冊</a></li>	
-						</c:if>		
-													
-						<c:if test="${memVO!=null}">	
-						<li class="nav-item"><a class="nav-link"						
-							style="color: #000000; font-size: 18px;">歡迎:${memVO.memberName}</a></li>
-						</c:if>	
-						
-						<c:if test="${memVO!=null}">	
-						<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/back-end/logout"
-							style="color: #000000; font-size: 18px;">退出</a></li>
-						</c:if>	
-							
-					</ul>													
+
+						<c:if test="${memVO==null}">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/front-end/login.jsp"
+								style="color: #000000; font-size: 18px;">會員登入</a></li>
+						</c:if>
+
+						<c:if test="${memVO==null}">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/front-end/register.jsp"
+								style="color: #000000; font-size: 18px;">注冊</a></li>
+						</c:if>
+
+						<c:if test="${memVO!=null}">
+							<li class="nav-item"><a class="nav-link"
+								style="color: #000000; font-size: 18px;">歡迎:${memVO.memberName}</a></li>
+						</c:if>
+
+						<c:if test="${memVO!=null}">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/back-end/logout"
+								style="color: #000000; font-size: 18px;">退出</a></li>
+						</c:if>
+
+					</ul>
 				</div>
-												
-				
+
+
 			</div>
 		</nav>
 <header class="site-header d-flex flex-column justify-content-center align-items-center">
