@@ -26,11 +26,11 @@
 
 
 <!-- ==================================================-->
-<%
-ProdService prodSvc = new ProdService();
-List<ProdVO> list = prodSvc.getAll();
-pageContext.setAttribute("list", list);
-%>
+<%-- <% --%>
+<!--  ProdService prodSvc = new ProdService(); -->
+<!--  List<ProdVO> list = prodSvc.getAll(); -->
+<!--  pageContext.setAttribute("list", list); -->
+<%-- %> --%>
 <!--=================================================-->
 
 
