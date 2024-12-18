@@ -300,7 +300,15 @@ public class OrderServlet extends HttpServlet {
         		String lastThreeNumber = req.getParameter("last_three_number");
         			System.out.println("lastThreeNumber : " + lastThreeNumber);
         		//錄音室ID
+<<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
+<<<<<<< Upstream, based on branch 'master' of https://github.com/Hugo0930/CIA103_G6.git
         		String id = (String) session2.getAttribute("stdId");
+=======
+        		String id = (String) session2.getAttribute("studId");
+>>>>>>> 09e13d5 上傳錄音室預約
+=======
+        		String id = (String) session2.getAttribute("stdId");
+>>>>>>> 9627c5a 123123123
         		System.out.println("id : " + id);
         		MemberVO mem = (MemberVO) session2.getAttribute("mem");
         		Integer memId = null;
