@@ -63,44 +63,53 @@ public class OrderServlet extends HttpServlet {
 	}
 
 	private void handleCheckout(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String[] prodIds = request.getParameterValues("prodIds");
-		String[] quantities = request.getParameterValues("quantities");
-		String[] prices = request.getParameterValues("prices");
+	        throws ServletException, IOException {
+	    // 直接取得 session 中的會員資訊
+	    HttpSession session = request.getSession();
+	    MemberVO memVO = (MemberVO) session.getAttribute("mem");
+	    Integer memId = memVO.getMemberId(); // 確保會員已登入，取得會員編號
 
-		if (prodIds == null || quantities == null || prices == null) {
-			response.sendRedirect(request.getContextPath() + "/front-end/browsestore/shopCartList.jsp");
-			return;
-		}
+	    // 獲取購物車提交的資料
+	    String[] prodIds = request.getParameterValues("prodIds");
+	    String[] quantities = request.getParameterValues("quantities");
+	    String[] prices = request.getParameterValues("prices");
 
-		List<Map<String, Object>> checkoutItems = new ArrayList<>();
-		int total = 0; // 改用 int 而不是 double
-		ProdService prodService = new ProdService();
+	    if (prodIds == null || quantities == null || prices == null) {
+	        response.sendRedirect(request.getContextPath() + "/front-end/browsestore/shopCartList.jsp");
+	        return;
+	    }
 
-		for (int i = 0; i < prodIds.length; i++) {
-			int prodId = Integer.parseInt(prodIds[i]);
-			int quantity = Integer.parseInt(quantities[i]);
-			int price = Integer.parseInt(prices[i]); // 改用 int
+	    // 建立結帳項目清單
+	    List<Map<String, Object>> checkoutItems = new ArrayList<>();
+	    int total = 0; // 總金額
+	    ProdService prodService = new ProdService();
 
-			ProdVO prodVO = prodService.getOneProd(prodId);
-			if (prodVO != null) {
-				int subtotal = quantity * price; // 改用 int
-				total += subtotal;
+	    for (int i = 0; i < prodIds.length; i++) {
+	        int prodId = Integer.parseInt(prodIds[i]);
+	        int quantity = Integer.parseInt(quantities[i]);
+	        int price = Integer.parseInt(prices[i]);
 
-				Map<String, Object> item = new HashMap<>();
-				item.put("prodId", prodId);
-				item.put("prodName", prodVO.getProdName());
-				item.put("prodImage", request.getContextPath() + "/prod/prod.do?action=get_pic&prodId=" + prodId);
-				item.put("quantity", quantity);
-				item.put("price", price);
-				item.put("subtotal", subtotal);
-				checkoutItems.add(item);
-			}
-		}
+	        ProdVO prodVO = prodService.getOneProd(prodId);
+	        if (prodVO != null) {
+	            int subtotal = quantity * price;
+	            total += subtotal;
 
-		request.setAttribute("checkoutItems", checkoutItems);
-		request.setAttribute("total", total);
-		request.getRequestDispatcher("/front-end/browsestore/checkOut.jsp").forward(request, response);
+	            Map<String, Object> item = new HashMap<>();
+	            item.put("prodId", prodId);
+	            item.put("prodName", prodVO.getProdName());
+	            item.put("prodImage", request.getContextPath() + "/prod/prod.do?action=get_pic&prodId=" + prodId);
+	            item.put("quantity", quantity);
+	            item.put("price", price);
+	            item.put("subtotal", subtotal);
+	            checkoutItems.add(item);
+	        }
+	    }
+
+	    // 傳遞資料到 JSP 頁面
+	    request.setAttribute("checkoutItems", checkoutItems);
+	    request.setAttribute("total", total);
+	    request.setAttribute("memberName", memVO.getMemberName()); // 傳遞會員名稱
+	    request.getRequestDispatcher("/front-end/browsestore/checkOut.jsp").forward(request, response);
 	}
 
 	// 新增處理提交訂單的方法
@@ -194,12 +203,15 @@ public class OrderServlet extends HttpServlet {
 	            return;
 	        }
 
-	        // 無錯誤，處理訂單邏輯
-	        OrdersService ordersService = new OrdersService();
-	        OrdersVO newOrder = ordersService.processCheckout(ordersAdd, ordersMemo, prodIds, quantities, prices);
-
 	        HttpSession session = request.getSession();
 	        session.setAttribute("cartTotal", 0);
+	        MemberVO memVO = (MemberVO) session.getAttribute("mem");
+	       Integer memId = memVO.getMemberId();
+	        // 無錯誤，處理訂單邏輯
+	        OrdersService ordersService = new OrdersService();
+	        OrdersVO newOrder = ordersService.processCheckout(memId ,ordersAdd, ordersMemo, prodIds, quantities, prices);
+
+	       
 
 
 	        request.setAttribute("orderVO", newOrder);
@@ -216,27 +228,25 @@ public class OrderServlet extends HttpServlet {
 	private void getMemberOrders(HttpServletRequest req, HttpServletResponse res) 
 	        throws ServletException, IOException {
 	    try {
-	        // 取得狀態參數
-	    	
-	    	
-	    	req.setCharacterEncoding("UTF-8");
-			res.setContentType("text/html; charset=UTF-8");
-			HttpSession session = req.getSession();		
-			MemberVO memVO = (MemberVO) session.getAttribute("mem");
-				
-			if(memVO == null)
-			{
-				
-				PrintWriter out = res.getWriter();
-				out.print("<script>");
-				out.print("alert('請先登入');");
-				out.print("location.href='/CIA103g6/front-end/login.jsp';");
-				out.print("</script>");
-				out.close();
-			}
-	    	
-	    	
-	    	
+	        req.setCharacterEncoding("UTF-8");
+	        res.setContentType("text/html; charset=UTF-8");
+	        HttpSession session = req.getSession();        
+	        MemberVO memVO = (MemberVO) session.getAttribute("mem");
+	            
+	        // 檢查會員是否登入
+	        if(memVO == null) {
+	            PrintWriter out = res.getWriter();
+	            out.print("<script>");
+	            out.print("alert('請先登入');");
+	            out.print("location.href='/CIA103g6/front-end/login.jsp';");
+	            out.print("</script>");
+	            out.close();
+	            return;
+	        }
+
+	        // 取得當前會員的ID
+	        Integer currentMemberId = memVO.getMemberId();
+
 	        String statusParam = req.getParameter("status");
 	        Byte status = (statusParam != null && !"all".equals(statusParam)) ? Byte.valueOf(statusParam) : null;
 
@@ -244,22 +254,30 @@ public class OrderServlet extends HttpServlet {
 	        OrdersService ordersService = new OrdersService();
 	        ProdService prodService = new ProdService();
 
-	        List<OrdersDetailsVO> orderDetails = ordersDetailsService.getAll();
+	        // 只取得當前會員的訂單
+	        List<OrdersVO> memberOrders = ordersService.getByMemId(currentMemberId);
 	        List<Map<String, Object>> orderDetailsList = new ArrayList<>();
 
-	        for (OrdersDetailsVO detail : orderDetails) {
-	            OrdersVO order = ordersService.getOneOrder(detail.getOrdersId());
-	            if (status == null || order.getOrdersStatus().equals(status)) { // 狀態過濾
-	                Map<String, Object> orderMap = new HashMap<>();
-	                ProdVO prod = prodService.getOneProd(detail.getProdId());
+	        // 遍歷會員的訂單
+	        for (OrdersVO order : memberOrders) {
+	            // 只處理符合狀態過濾條件的訂單
+	            if (status == null || order.getOrdersStatus().equals(status)) {
+	                // 獲取該訂單的所有明細
+	                List<OrdersDetailsVO> orderDetails = ordersDetailsService.getByOrdersId(order.getOrdersId());
+	                
+	                // 處理每個訂單明細
+	                for (OrdersDetailsVO detail : orderDetails) {
+	                    Map<String, Object> orderMap = new HashMap<>();
+	                    ProdVO prod = prodService.getOneProd(detail.getProdId());
 
-	                orderMap.put("ordersId", String.valueOf(detail.getOrdersId()));
-	                orderMap.put("prodId", detail.getProdId());
-	                orderMap.put("prodName", prod != null ? prod.getProdName() : "");
-	                orderMap.put("ordersQty", detail.getOrdersQty());
-	                orderMap.put("ordersUnitPrice", detail.getOrdersUnitPrice());
-	                orderMap.put("ordersStatus", order.getOrdersStatus());
-	                orderDetailsList.add(orderMap);
+	                    orderMap.put("ordersId", String.valueOf(order.getOrdersId()));
+	                    orderMap.put("prodId", detail.getProdId());
+	                    orderMap.put("prodName", prod != null ? prod.getProdName() : "");
+	                    orderMap.put("ordersQty", detail.getOrdersQty());
+	                    orderMap.put("ordersUnitPrice", detail.getOrdersUnitPrice());
+	                    orderMap.put("ordersStatus", order.getOrdersStatus());
+	                    orderDetailsList.add(orderMap);
+	                }
 	            }
 	        }
 

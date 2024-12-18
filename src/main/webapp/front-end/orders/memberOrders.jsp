@@ -85,7 +85,7 @@ td {
 						</ul></li>
 				</ul>
 				<div class="d-flex align-items-center me-3">
-					<span class="me-3">會員編號: ${param.memId != null ? param.memId : "3"}</span>
+					<span class="me-3">會員編號: ${memVO.memberName}</span>
 					<a
 						href="<%=request.getContextPath()%>/orders/orders.do?action=get_member_orders"
 						class="btn btn-outline-dark me-2"> <i
