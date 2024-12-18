@@ -25,7 +25,6 @@ public class ProdServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
 
-
 		if ("get_all".equals(action)) {
 			getAll(req, res);
 		} else if ("get_pic".equals(action)) {
@@ -43,27 +42,8 @@ public class ProdServlet extends HttpServlet {
 		}if ("search_prod".equals(action)) {
 		    searchProd(req, res);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	private void getAll(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		ProdService prodSvc = new ProdService();
 		List<ProdVO> list = prodSvc.getAll();
@@ -241,11 +221,21 @@ public class ProdServlet extends HttpServlet {
 	    out.flush();
 	}
 	private void searchProd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	    String keyword = req.getParameter("keyword"); // 從請求中取得搜尋關鍵字
+	    req.setCharacterEncoding("UTF-8");  // 設定請求編碼
+	    String keyword = req.getParameter("keyword");
+	    
+	    // 檢查編碼狀況
+	    //System.out.println("原始關鍵字: " + keyword);
+	    //System.out.println("轉換後關鍵字: " + new String(keyword.getBytes("ISO-8859-1"), "UTF-8"));
+	    
+	    // 進行編碼轉換
+	    keyword = new String(keyword.getBytes("ISO-8859-1"), "UTF-8");
+	    
 	    ProdService prodSvc = new ProdService();
 	    List<ProdVO> list = prodSvc.searchByProdName(keyword);
-
-	    req.setAttribute("list", list); // 將結果存入 request
+	    //System.out.println("搜尋結果數量: " + list.size());
+	    
+	    req.setAttribute("list", list);
 	    String url = "/front-end/browsestore/shop.jsp";
 	    RequestDispatcher successView = req.getRequestDispatcher(url);
 	    successView.forward(req, res);

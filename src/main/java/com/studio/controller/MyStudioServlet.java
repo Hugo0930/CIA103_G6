@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.*;
+import com.member.model.MemberVO;
 import com.studio.model.StudioPicVO;
 import com.studio.model.StudioService;
 import com.studio.model.StudioVO;
@@ -174,12 +175,25 @@ public class MyStudioServlet extends HttpServlet {
 					page = Integer.valueOf(req.getParameter("page"));
 				}
 				resultList = stdService.getAllStudioOn(page,req);
-				changeFirstPage(req);
-				req.setAttribute("resultList", resultList);
-				req.setAttribute("action", action);
+				String to = req.getParameter("to");
+				if("front-end".equals(to)) {
+					int toIndex;
+					if(resultList.size() >= 7) {
+						toIndex = 7;
+					}else {
+						toIndex = resultList.size();
+					}
+					req.setAttribute("resultList", resultList.subList(0, toIndex));
+					RequestDispatcher requestDispatcher = req.getRequestDispatcher("front-end/reserve/reserve.jsp");
+					requestDispatcher.forward(req, res);
+				}else {
+					changeFirstPage(req);
+					req.setAttribute("resultList", resultList);
+					req.setAttribute("action", action);
 					//System.out.println("resultList: " + resultList);
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("back-end/studio/studio_mgmt.jsp");
-				requestDispatcher.forward(req, res);
+					RequestDispatcher requestDispatcher = req.getRequestDispatcher("back-end/studio/studio_mgmt.jsp");
+					requestDispatcher.forward(req, res);
+				}
 				break;
 			}case "get_all_std_off":{
 				Integer page = null;
@@ -197,11 +211,22 @@ public class MyStudioServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher = req.getRequestDispatcher("back-end/studio/studio_mgmt.jsp");
 				requestDispatcher.forward(req, res);
 				break;
-
-			}
-			default:
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("back-end/homepage.jsp");
+			}case "toConfirm":{
+				
+				HttpSession session = req.getSession();
+				//MemberVO mem = (MemberVO)session.getAttribute("mem");
+				session.setAttribute("img", req.getParameter("img"));
+				session.setAttribute("stdName", req.getParameter("stdName"));
+				session.setAttribute("stdId", req.getParameter("stdId"));
+				RequestDispatcher requestDispatcher = null;
+				//if(mem != null) {
+					//requestDispatcher = req.getRequestDispatcher("/front-end/login.jsp");
+				//}else {
+					requestDispatcher = req.getRequestDispatcher("/front-end/studio/confirmDateTime.jsp");
+				//}
 				requestDispatcher.forward(req, res);
+				break;
+			}
 			}
 	}
 	

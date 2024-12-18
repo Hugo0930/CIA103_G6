@@ -150,7 +150,7 @@
                         <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/complaint/select_page.jsp" class="sub_btn_name">申訴案件管理</a></button>
                     </li>
                     <li class="match_sub_item">
-                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/apply/select_page.jsp" class="sub_btn_name">案件管理</a></button>
+                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/matchingcases/select_page.jsp" class="sub_btn_name">案件管理</a></button>
                     </li>
                 </ul>
             </div>

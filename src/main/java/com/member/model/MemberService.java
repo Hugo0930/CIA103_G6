@@ -50,12 +50,13 @@ public class MemberService {
 	 * @param memberPw     密碼
 	 * @return 更新後的 MemberVO，如果更新失敗則返回 null
 	 */
-	public MemberVO updateMember( String memberName, String memberUid, Date memberBth,
+	public MemberVO update(Integer memberId, String memberName, String memberUid, Date memberBth,
 			Byte memberGender, String memberEmail, String memberTel, String memberAdd, String memberAcc,
 			String memberPw) {
 
 		// 2. 構建 MemberVO，確保不更新會員等級和會員狀態
 		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberId(memberId);
 		memberVO.setMemberName(memberName);
 		memberVO.setMemberUid(memberUid);
 		memberVO.setMemberBth(memberBth);
@@ -67,16 +68,19 @@ public class MemberService {
 		memberVO.setMemberPw(memberPw);
 
 		// 3. 調用 DAO 進行更新操作
-		boolean isUpdated = dao.updatePersonalInfo(memberVO);
-
-		// 4. 如果更新失敗，則返回 null
-		if (!isUpdated) {
-			return null;
-		}
-
-		Integer memberId = null;
-		// 5. 返回更新後的會員資訊 (重新從數據庫獲取最新的數據)
-		return dao.findByPrimaryKey(memberId);
+//		boolean isUpdated = dao.updatePersonalInfo(memberVO);
+//
+//		// 4. 如果更新失敗，則返回 null
+//		if (!isUpdated) {
+//			return null;
+//		}
+//
+//		Integer memberId = null;
+//		// 5. 返回更新後的會員資訊 (重新從數據庫獲取最新的數據)
+//		return dao.findByPrimaryKey(memberId);
+		dao.update(memberVO);
+		return memberVO;
+		
 	}
 
 	public void deleteMember(Integer memberId) {

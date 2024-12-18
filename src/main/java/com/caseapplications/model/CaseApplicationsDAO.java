@@ -24,6 +24,8 @@ public class CaseApplicationsDAO implements CaseApplicationsDAO_interface {
 	private static final String FIND_BY_MEMBER_ID = "SELECT ca.APP_ID, ca.CASE_ID, ca.MEM_ID, ca.APPLY_TIME, ca.STATUS, mc.TITLE FROM CASE_APPLICATIONS ca JOIN MATCHING_CASES mc ON ca.CASE_ID = mc.CASE_ID WHERE ca.MEM_ID = ?";
 	// 會員可以看到幾位應徵人數
 	private static final String GET_APPLICANT_COUNT_BY_CASE = "SELECT CASE_ID, COUNT(*) AS applicant_count FROM CASE_APPLICATIONS GROUP BY CASE_ID";
+	//會員可以看到有幾位應徵人員的詳情
+	private static final String SELECT_APPLICANTS_BY_MEM_ID = "SELECT c.CASE_ID, c.TITLE, a.APP_ID, a.MEM_ID, m.MEM_NAME, a.APPLY_TIME, a.STATUS FROM CASE_APPLICATIONS a JOIN MATCHING_CASES c ON a.CASE_ID = c.CASE_ID JOIN MEMBER m ON a.MEM_ID = m.MEM_ID WHERE c.MEM_ID = ? AND a.STATUS = 0";
 
 	// 插入應徵記錄，appId是主鍵
 	@Override
@@ -136,5 +138,5 @@ public class CaseApplicationsDAO implements CaseApplicationsDAO_interface {
 
 		return resultList;
 	}
-
+	
 }

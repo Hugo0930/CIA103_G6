@@ -31,7 +31,6 @@ body {
 	font-family: 'Hind', sans-serif;
 } 
 /*-- main --*/ 
-
 h1 {
 	font-size: 45px;
 	color: #fff;
@@ -39,7 +38,7 @@ h1 {
 	text-transform: uppercase;
 	letter-spacing: 4px;
 	text-align: center;
-	padding: 1em 0 0.4em 0;
+	padding: 0.6em 0 0.4em 0;
 }
 /*-- slide --*/
 
