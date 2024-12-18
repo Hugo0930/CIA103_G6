@@ -44,6 +44,7 @@ div.table table th{
 	border-bottom-style:solid;
 	padding:3px 3px 3px 6px;
 	vertical-align: middle;
+    background-color: #fff;
 }
 div.table td{
 	font-size: 14px;
@@ -59,6 +60,7 @@ div.table table th{
 div.table table thead tr th:nth-child(1) {
 	width:120px;
 	height:var(--title-height);
+	border-top-left-radius: 15px;
 }
 
 div.table table thead tr th:nth-child(2) {
@@ -99,12 +101,15 @@ div.table table thead tr th:nth-child(8) {
 div.table table thead tr th:nth-child(9) {
 	width:90px;
 	height:var(--title-height);
+	border-top-right-radius: 15px;
 }
 /*****************分頁*******************/
 div.pagination_block{
 	/*border:1px solid green;*/
 	display: inline;
 	float: right;
+	background-color: #fff;
+	border-radius: 10px;
 }
 div.pagination_block ul{
 	/*border:1px solid blue;*/
