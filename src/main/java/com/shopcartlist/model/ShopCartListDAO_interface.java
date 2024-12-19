@@ -21,4 +21,5 @@ public interface ShopCartListDAO_interface {
     
     // 宣告根據會員ID取得購物車項目的方法
     public List<ShopCartListVO> getByMemId(Integer memId);
+    public void deleteByMemId(Integer memId);
 }

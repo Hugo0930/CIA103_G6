@@ -78,5 +78,7 @@ public class ShopCartListService {
     public List<ShopCartListVO> getByMemId(Integer memId) {
         return dao.getByMemId(memId);
     }
-
+    public void deleteAllCartItems(Integer memId) {
+        dao.deleteByMemId(memId);
+    }
 }
