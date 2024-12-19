@@ -110,7 +110,7 @@ td {
 	<header class="bg-dark py-5">
 		<div class="container text-center text-white">
 			<h1 class="display-4 fw-bolder">我的訂單</h1>
-			<p class="lead fw-normal text-white-50 mb-0">Order Details</p>
+<!-- 			<p class="lead fw-normal text-white-50 mb-0">Order Details</p> -->
 		</div>
 	</header>
 
