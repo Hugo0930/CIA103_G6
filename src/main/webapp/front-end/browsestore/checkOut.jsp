@@ -98,7 +98,7 @@
 
         <!-- 表單處理區塊 -->
         <div class="container px-4 px-lg-5 mt-5">
-            <form action="${pageContext.request.contextPath}/orders/orders.do" method="post" onsubmit="return validateForm();">
+            <form action="${pageContext.request.contextPath}/orders/orders.do" method="post">
                 <input type="hidden" name="action" value="submitOrder">
                 
                 <!-- 傳遞購物車商品資訊 -->
@@ -112,34 +112,26 @@
               <!-- 送貨地址 -->
 <div class="mb-3">
     <label for="ordersAdd" class="form-label">送貨地址：</label>
-    <div class="input-group">
-        <input type="text" 
-               class="form-control ${not empty addressError ? 'is-invalid' : ''}" 
-               id="ordersAdd" 
-               name="ordersAdd" 
-               value="${requestScope.ordersAdd != null ? requestScope.ordersAdd : ''}" 
-               required>
-        <c:if test="${not empty addressError}">
-            <div class="invalid-feedback d-block">
-                ${addressError}
-            </div>
-        </c:if>
+    <input type="text" 
+           class="form-control ${not empty addressError ? 'is-invalid' : ''}" 
+           id="ordersAdd" 
+           name="ordersAdd" 
+           value="${ordersAdd}" 
+           required>
+    <div class="invalid-feedback">
+        ${addressError}
     </div>
 </div>
 
 <!-- 備註 -->
 <div class="mb-3">
     <label for="ordersMemo" class="form-label">備註：</label>
-    <div class="input-group">
-        <textarea class="form-control ${not empty memoError ? 'is-invalid' : ''}" 
-                  id="ordersMemo" 
-                  name="ordersMemo" 
-                  rows="3">${requestScope.ordersMemo != null ? requestScope.ordersMemo : ''}</textarea>
-        <c:if test="${not empty memoError}">
-            <div class="invalid-feedback d-block">
-                ${memoError}
-            </div>
-        </c:if>
+    <textarea class="form-control ${not empty memoError ? 'is-invalid' : ''}" 
+              id="ordersMemo" 
+              name="ordersMemo" 
+              rows="3">${ordersMemo}</textarea>
+    <div class="invalid-feedback">
+        ${memoError}
     </div>
 </div>
 
@@ -163,50 +155,8 @@
         </div>
     </footer>
 
-    <!-- JavaScript: 驗證表單 -->
-    <script>
-    function validateForm() {
-        let isValid = true;
-
-        // 地址驗證
-        const ordersAdd = document.getElementById("ordersAdd");
-        const addressError = ordersAdd.nextElementSibling.querySelector('.invalid-feedback');
-        const addressRegex = /^[\u4e00-\u9fa5a-zA-Z0-9\s,，-]+$/;
-
-        if (!ordersAdd.value.trim() || !addressRegex.test(ordersAdd.value) || /^\d+$/.test(ordersAdd.value)) {
-            ordersAdd.classList.add("is-invalid");
-            if (addressError) {
-                addressError.textContent = "地址格式不正確，請輸入有效地址 (中文、數字、標點符號)！";
-                addressError.style.display = "block";
-            }
-            isValid = false;
-        } else {
-            ordersAdd.classList.remove("is-invalid");
-            if (addressError) {
-                addressError.style.display = "none";
-            }
-        }
-
-        // 備註驗證
-        const ordersMemo = document.getElementById("ordersMemo");
-        const memoError = ordersMemo.nextElementSibling.querySelector('.invalid-feedback');
-        if (ordersMemo.value.trim().length > 200) {
-            ordersMemo.classList.add("is-invalid");
-            if (memoError) {
-                memoError.textContent = "備註內容不能超過200個字！";
-                memoError.style.display = "block";
-            }
-            isValid = false;
-        } else {
-            ordersMemo.classList.remove("is-invalid");
-            if (memoError) {
-                memoError.style.display = "none";
-            }
-        }
-
-        return isValid;
-    }
-    </script>
+  
+  
 
     <!-- Bootstrap core JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

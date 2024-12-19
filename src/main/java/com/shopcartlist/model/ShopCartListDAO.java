@@ -16,7 +16,7 @@ public class ShopCartListDAO implements ShopCartListDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT MEM_ID, PROD_ID, CARTLIST_QTY FROM shop_cartlist WHERE MEM_ID=? AND PROD_ID=?";
 	private static final String GET_ALL_STMT = "SELECT MEM_ID, PROD_ID, CARTLIST_QTY FROM shop_cartlist";
 	private static final String GET_BY_MEMID = "SELECT MEM_ID, PROD_ID, CARTLIST_QTY FROM shop_cartlist WHERE MEM_ID = ?";
-
+	private static final String DELETE_BY_MEMID = "DELETE FROM shop_cartlist WHERE MEM_ID = ?";
 	@Override
 	public void insert(ShopCartListVO shopCartListVO) {
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
@@ -132,7 +132,18 @@ public class ShopCartListDAO implements ShopCartListDAO_interface {
 
 	    return list;
 	}
-	
+	@Override
+	public void deleteByMemId(Integer memId) {
+	    try (Connection con = DriverManager.getConnection(url, userid, passwd);
+	         PreparedStatement pstmt = con.prepareStatement(DELETE_BY_MEMID)) {
+
+	        pstmt.setInt(1, memId);
+	        pstmt.executeUpdate();
+
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Database error: " + e.getMessage());
+	    }
+	}
 
 
 	public static void main(String[] args) {
@@ -164,4 +175,5 @@ public class ShopCartListDAO implements ShopCartListDAO_interface {
 		// 刪除
 		dao.delete(1, 101);
 	}
+
 }
