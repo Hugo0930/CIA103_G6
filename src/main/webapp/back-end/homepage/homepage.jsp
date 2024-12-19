@@ -112,9 +112,7 @@
 							<input type="hidden" name="action" value="getOrderSummary">
 						</form>
 					</li>
-                    <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="./report_mgmt.html" class="sub_btn_name">評價檢舉管理</a></button>
-                    </li>
+                   
                 </ul>
             </div>
             <!-- 租借管理 -->

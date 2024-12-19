@@ -18,14 +18,14 @@
         <div class="logo">
             <span>Voice Bus</span>
         </div>
-        <nav>
-            <a href="#">關於 MicMind</a>
-            <a href="#">MicMind Studio</a>
-            <a href="#">錄音室租借</a>
-            <a href="#">Podcast 製作服務</a>
-            <a href="#">會員專區</a>
-            <a href="#">購物車</a>
-        </nav>
+<!--         <nav> -->
+<!--             <a href="#">關於 MicMind</a> -->
+<!--             <a href="#">MicMind Studio</a> -->
+<!--             <a href="#">錄音室租借</a> -->
+<!--             <a href="#">Podcast 製作服務</a> -->
+<!--             <a href="#">會員專區</a> -->
+<!--             <a href="#">購物車</a> -->
+<!--         </nav> -->
     </div>
 	<!-- 超連結 -->
     <div class="breadcrumb">
