@@ -35,16 +35,16 @@
 						<span>
 							<fmt:parseDate value="${bookingDate}" var="fmtBookDate" pattern="yyyy-MM-dd" />
 							<fmt:formatDate value="${fmtBookDate}" pattern="yyyy/MM/dd" />
-							${timeduration}
+							${timeSlot}
 						</span>
 					</div>
 					<div class="order-item">
 						<h3>使用時長 : </h3>
-						<span>${timeSlot}</span>
+						<span>${timeduration}小時</span>
 					</div>
 					<div class="order-total">
 						<h3>費用 : </h3>
-						<span>NT$${cost}</span>
+						<span>NT$${hourlyRate * timeduration}</span>
 					</div>
 				</div>
 				<div class="credit_card_block">

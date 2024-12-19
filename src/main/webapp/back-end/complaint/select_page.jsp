@@ -121,6 +121,12 @@ h3 {
 					查看全部案件
 				</a>
 			</li>
+			<li>
+				<a href="<%=request.getContextPath()%>/back-end/complaintphotos/listComplaintPhotos.jsp" class="btn btn-info">
+					<i class="fas fa-images"></i>
+					查看全部申訴圖片
+				</a>
+			</li>
 		</ul>
 	</div>
 
@@ -183,16 +189,17 @@ h3 {
 			return true;
 		}
 	</script>
-	<!-- 判斷有無登入且是否為管理員 -->
-	<c:set var="memVO" value="${sessionScope.mem}" />
-	<c:if test="${memVO.memberStatus != 1}">
-		<script type="text/javascript">
-			alert('請先登入');
+	<!-- 	<!-- 判斷有無登入且是否為管理員 -->
+	-->
+	<%-- 	<c:set var="memVO" value="${sessionScope.mem}" /> --%>
+	<%-- 	<c:if test="${memVO.memberStatus != 1}"> --%>
+	<!-- 		<script type="text/javascript"> -->
+	<!-- // 			alert('請先登入'); -->
 
-			location.href = "/CIA103g6/front-end/login.jsp";
-		</script>
+	<!-- // 			location.href = "/CIA103g6/front-end/login.jsp"; -->
+	<!-- 		</script> -->
 
-	</c:if>
+	<%-- 	</c:if> --%>
 
 	<!--  -->
 </body>

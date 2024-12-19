@@ -97,7 +97,7 @@ nav ul.func_name li.main_item :focus{
 nav.right_slide button.btn_func:hover,button.sub_btn_func a.sub_btn_name:hover{
     color: rgb(255, 255, 116);
 }
-nav.right_slide .btn_func:hover::after{
+nav.right_slide button.sub_btn_func:hover{
     color: rgb(255, 255, 116);
 }
 /*****************側邊選單按鈕*****************/
@@ -231,13 +231,13 @@ nav.right_slide .func_name .btn_name{
 }
 /*****************主內容*****************/
 div.container {
-    position: relative; /* 移除 `absolute`，改為 `relative` */
-    left: 0; /* 重設 `left` 為 0 */
-    margin-left: 150px; /* 保留側邊欄間距 */
-    width: calc(100% - 150px); /* 計算主內容區域寬度 */
-    height: auto;
-    overflow-x: auto;
-    box-sizing: border-box;
+    /* border: 1px solid purple; */
+    position: absolute;
+    top: 50px;
+    left: 150px;
+    width: calc(100% - 150px);
+    height: calc(100% - 50px);
+/*     overflow: hidden; */
 }
 div.container.active{
     transform: translateX(150px);

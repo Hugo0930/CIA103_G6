@@ -12,7 +12,7 @@
 <meta name="keywords" content="Slide Login Form template Responsive, Login form web template, Flat Pricing tables, Flat Drop downs Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
 
-<script type="text/javascript" src="loginfile/scripts/function.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/front-end/loginfile/scripts/function.js"></script>
 <script type="text/javascript">
 	function selectname(){
 	  	var name = document.getElementById("selectname").value;
@@ -32,13 +32,45 @@
 
 
 	<!-- Custom Theme files -->
-	<link href="loginfile/css/stylereg.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="loginfile/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="${pageContext.request.contextPath}/front-end/loginfile/css/stylereg.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="${pageContext.request.contextPath}/front-end/loginfile/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- //Custom Theme files -->
 
 	<!-- web font -->
 	<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
 	<!-- //web font -->
+
+
+<style>
+  .error-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+              
+   .nav-links {
+    display: flex; /* 使用 Flexbox */
+    justify-content: center; /* 對齊至右邊 */
+    gap: 20px; /* 設定各項之間的間隔 */
+    padding: 10px; /* 預留內邊距 */
+  }
+
+  .nav-links a {
+    color: white; /* 設定字體顏色 */
+    font-size: 23px; /* 字體大小 */
+    text-decoration: none; /* 移除底線 */
+    transition: color 0.3s; /* 顏色變化效果 */
+  }
+
+  .nav-links a:hover {
+    color: lightgray; /* 滑鼠懸停時顏色變淺 */
+  }
+          
+    </style>
+
+
+
+
 
 </head>
 
@@ -48,6 +80,23 @@
 <!-- main -->
 <div class="w3layouts-main"> 
 	<div class="bg-layer">
+	
+	 <div class="nav-links">
+    <a href="${pageContext.request.contextPath}/index.jsp">首頁</a>
+    <a href="${pageContext.request.contextPath}/front-end/jsp/about.jsp">關於我</a>
+    <a href="javascript:void(0);"onclick="document.getElementById('shopForm').submit();">商城</a>
+							<form id="shopForm"
+								action="${pageContext.request.contextPath}/prod/prod.do"
+								method="post" style="display: none;">
+								<input type="hidden" name="action" value="get_all">
+							</form>
+    <a href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end">錄音室</a>
+    <a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">配音員列表</a>
+    <a href="${pageContext.request.contextPath}/front-end/login.jsp">登入</a>
+    <a href="${pageContext.request.contextPath}/front-end/register.jsp">注冊</a>
+    <a href="${pageContext.request.contextPath}/front-end/jsp/Service.jsp">客服中心</a>
+ </div>
+		
 		<h1>VoiceBus-聲音巴士</h1>
 		<div class="header-main">
 		

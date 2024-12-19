@@ -169,7 +169,7 @@ public class OrdersService {
 		return SHIPPING_FEE;
 	}
 
-	public OrdersVO processCheckout(String ordersAdd, String ordersMemo, String[] prodIds, String[] quantities,
+	public OrdersVO processCheckout(Integer memId, String ordersAdd, String ordersMemo, String[] prodIds, String[] quantities,
 			String[] prices) {
 		try {
 // 準備結帳項目
@@ -182,8 +182,9 @@ public class OrdersService {
 			int totalWithShipping = itemsTotal + SHIPPING_FEE;
 
 // 建立訂單
+			
 			OrdersVO ordersVO = new OrdersVO();
-			ordersVO.setMemId(3);
+			ordersVO.setMemId(memId);
 			ordersVO.setOrdersDate(new Timestamp(System.currentTimeMillis()));
 			ordersVO.setOrdersAmount(itemsTotal); // 商品總金額（不含運費）
 			ordersVO.setOrdersShipFee(SHIPPING_FEE);
@@ -338,4 +339,5 @@ public class OrdersService {
 
 		return orderSummaryList;
 	}
+	
 }

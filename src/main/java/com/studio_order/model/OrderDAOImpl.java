@@ -214,8 +214,8 @@ public class OrderDAOImpl implements OrderDAO{
 				temp = cb.lessThan(root.get("bookDate"), Date.valueOf(map.get("end_date")[0]));
 				predicates.add(temp);
 			}
-			/**會員編號寫死*/
-			temp = cb.equal(root.get("memId"), 2);
+			/**會員編號寫死，從2改1*/
+			temp = cb.equal(root.get("memId"), 1);
 			predicates.add(temp);
 			/**保留上一次predicates**/
 			OrderDAOImpl.predicates = predicates;

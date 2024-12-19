@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.*;
 
 import javax.sql.DataSource;
-import com.hr.dao.Basedao;
 import com.utils.datasource.HikariDataSourceUtil;
 
 public class MemberDAO implements MemberDAO_interface {
@@ -14,7 +13,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status FROM member order by mem_id";
 	private static final String GET_ONE_STMT = "SELECT member_id, mem_lv_id, mem_name,mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status  FROM member where mem_id= ?";
 	private static final String DELETE = "DELETE FROM member where mem_id = ?";
-	private static final String UPDATE = "UPDATE member set mem_id=?, mem_lv_id=?, mem_name=?, mem_uid=?, mem_bth=?, mem_gender=?, mem_email=?, mem_tel=?, mem_add=?, mem_acc=? mem_pw=? mem_status=? where mem_id = ?";
+	private static final String UPDATE = "UPDATE member set  mem_name=?, mem_uid=?, mem_bth=?, mem_gender=?, mem_email=?, mem_tel=?, mem_add=?, mem_pw=?  where mem_id = ?";
 	// 查詢指定會員的 SQL 語句
 	private static final String FIND_BY_PRIMARY_KEY = "SELECT mem_id, mem_lv_id, mem_name, mem_uid, mem_bth, mem_gender, mem_email, mem_tel, mem_add, mem_acc, mem_pw, mem_status "
 			+ "FROM member WHERE mem_id = ?";
@@ -77,19 +76,17 @@ public class MemberDAO implements MemberDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, memberVO.getMemberId());
-			pstmt.setByte(2, memberVO.getMemberLvId());
-			pstmt.setString(3, memberVO.getMemberName());
-			pstmt.setString(4, memberVO.getMemberUid());
-			pstmt.setDate(5, memberVO.getMemberBth());
-			pstmt.setByte(6, memberVO.getMemberGender());
-			pstmt.setString(7, memberVO.getMemberEmail());
-			pstmt.setString(8, memberVO.getMemberTel());
-			pstmt.setString(9, memberVO.getMemberAdd());
-			pstmt.setString(10, memberVO.getMemberAcc());
-			pstmt.setString(11, memberVO.getMemberPw());
-			pstmt.setByte(12, memberVO.getMemberStatus());
-			pstmt.setInt(13, memberVO.getMemberId());
+			
+			
+			pstmt.setString(1, memberVO.getMemberName());
+			pstmt.setString(2, memberVO.getMemberUid());
+			pstmt.setDate(3, memberVO.getMemberBth());
+			pstmt.setByte(4, memberVO.getMemberGender());
+			pstmt.setString(5, memberVO.getMemberEmail());
+			pstmt.setString(6, memberVO.getMemberTel());
+			pstmt.setString(7, memberVO.getMemberAdd());
+			pstmt.setString(8, memberVO.getMemberPw());
+			pstmt.setInt(9, memberVO.getMemberId());
 
 			pstmt.executeUpdate();
 
@@ -271,10 +268,10 @@ public class MemberDAO implements MemberDAO_interface {
 		return list;
 	}
 
-	@Override
-	public boolean updatePersonalInfo(MemberVO memberVO) {
-		// 略 (之前的實作不變)
-		return false;
-	}
+//	@Override
+//	public boolean updatePersonalInfo(MemberVO memberVO) {
+//		// 略 (之前的實作不變)
+//		return ;
+//	}
 }
 	

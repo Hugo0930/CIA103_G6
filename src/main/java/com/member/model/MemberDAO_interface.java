@@ -13,7 +13,7 @@ public interface MemberDAO_interface {
 
 	public List<MemberVO> getAll();
 
-	public boolean updatePersonalInfo(MemberVO memberVO);
+//	public boolean updatePersonalInfo(MemberVO memberVO);
 
 }
 //        public List<MemberVO> getAll(Map<String, String[]> map); 

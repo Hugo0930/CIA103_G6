@@ -198,8 +198,11 @@ function check2(){
 			document.getElementById("sp").innerHTML="<div><font style=' color: red; font-weight: bold; margin-bottom: 10px;'>賬號已被注冊</font></div>";
 			//document.getElementById("sp").required.title="此用户名不可使用";
 			document.getElementById("sub").disabled=true;
-		}else{
+		}else if(str=='true'){
 			document.getElementById("sp").innerHTML="<div><font style=' color: green; font-weight: bold; margin-bottom: 10px;'>賬號可以使用</font></div>";
+			document.getElementById("sub").disabled=false;
+		}else if(str=='space'){
+			document.getElementById("sp").innerHTML="<div><font style=' color: red; font-weight: bold; margin-bottom: 10px;'>賬號不可空白</font></div>";
 			document.getElementById("sub").disabled=false;
 		}
 	}

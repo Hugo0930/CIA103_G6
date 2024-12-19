@@ -123,7 +123,7 @@ ComplaintPhotosService complaintphotsoSvc = new ComplaintPhotosService();
         </div>
         <div class="text-center mt-4">
             <a class="btn btn-outline-primary btn-lg"
-                href="${pageContext.request.contextPath}/back-end/complaintphotos/select_page.jsp">
+                href="${pageContext.request.contextPath}/back-end/complaint/select_page.jsp">
                 <i class="bi bi-house-door"></i> 回到首頁
             </a>
         </div>

@@ -6,7 +6,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>新增案件</title>
+    <title>發布案件</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>

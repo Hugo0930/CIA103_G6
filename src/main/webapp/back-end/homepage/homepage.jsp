@@ -105,9 +105,13 @@
                     <li class="shop_sub_item">
                         <button class="sub_btn_func"><a href="<%=request.getContextPath()%>/back-end/prodmanage/product_mgmt.jsp"  class="sub_btn_name">商品管理</a></button>
                     </li>
-                    <li class="shop_sub_item">
-                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/memberorders/memberorders.jsp" class="sub_btn_name">訂單管理</a></button>
-                    </li>
+                   <li class="shop_sub_item">
+						<form method="post"
+							action="${pageContext.request.contextPath}/orders/orders.do">
+							<button type="submit" class="sub_btn_func">訂單管理</button>
+							<input type="hidden" name="action" value="getOrderSummary">
+						</form>
+					</li>
                     <li class="shop_sub_item">
                         <button class="sub_btn_func"><a href="./report_mgmt.html" class="sub_btn_name">評價檢舉管理</a></button>
                     </li>
@@ -150,7 +154,7 @@
                         <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/complaint/select_page.jsp" class="sub_btn_name">申訴案件管理</a></button>
                     </li>
                     <li class="match_sub_item">
-                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/apply/select_page.jsp" class="sub_btn_name">案件管理</a></button>
+                        <button class="sub_btn_func"><a href="${pageContext.request.contextPath}/back-end/matchingcases/select_page.jsp" class="sub_btn_name">案件管理</a></button>
                     </li>
                 </ul>
             </div>

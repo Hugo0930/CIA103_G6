@@ -25,12 +25,12 @@
         <h2><i class="fa-solid fa-house"></i>租借訂單管理</h2>
         <hr>
         <div id="lookup_block">
-	        <select id="sort_type" style="position:absolute; top:115px; right:210px; height:20px; text-align:center">
-	        	<option>篩選方式</option>
-	        	<option value="std_on">僅顯示上架</option>
-	        	<option value="std_off">僅顯示下架</option>
-	        	<option value="std_all">顯示所有</option>
-	        </select>
+<!-- 	        <select id="sort_type" style="position:absolute; top:115px; right:210px; height:20px; text-align:center"> -->
+<!-- 	        	<option>篩選方式</option> -->
+<!-- 	        	<option value="std_on">僅顯示上架</option> -->
+<!-- 	        	<option value="std_off">僅顯示下架</option> -->
+<!-- 	        	<option value="std_all">顯示所有</option> -->
+<!-- 	        </select> -->
         </div>
         <button type="submit"  id="btn_add"><i class="fa-solid fa-plus"></i>新增租借訂單</button>
         <h3>總共${pageQty}頁，現在第${currentPage}頁</h3>
@@ -41,12 +41,12 @@
 		        	<th scope="col" id="memId">會員編號</th>
 		        	<th scope="col" id="studId">錄音室編號</th>
 		        	<th scope="col" id="orderStatus">訂單狀態</th>
-		        	<th scope="col" id="totalAmount">超時狀態</th>
-		        	<th scope="col" id="rentalHour">訂單金額</th>
-		        	<th scope="col" id="bookingDate">租借時數</th>
+		        	<th scope="col" id="totalAmount">訂單金額</th>
+		        	<th scope="col" id="rentalHour">租借時數</th>
+		        	<th scope="col" id="bookingDate">預定日期</th>
 		        	<th scope="col" id="startTime">開始時間</th>
 		        	<th scope="col" id="endTime">結束時間</th>
-		        	<th scope="col" id="orderTime">訂單日期</th>
+		        	<th scope="col" id="orderDate">成立訂單日期</th>
 		        	<th scope="col">操作</th>
 		        	
 		        	
@@ -72,9 +72,12 @@
 <%--                     <c:otherwise>FALSE(未超時)</c:otherwise> --%>
 <%--                 </c:choose> --%>
             </td> <!-- OVERTIME_STATUS -->
-            <td>${std.totalAmount}</td>   <!-- ORDER_AMOUNT -->
-            <td>${std.rentalHour}</td>    <!-- RENTAL_HOUR -->
-<%--             <td>${std.overtimeDuration}</td> <!-- OVERTIME_DURATION --> --%>
+            <td>${std.status}</td>   <!-- ORDER_AMOUNT -->
+            <td>${std.totalAmount}</td>    <!-- RENTAL_HOUR -->
+            <td>${std.rentalHour}</td> <!-- OVERTIME_DURATION -->
+            <td>
+                <fmt:formatDate value="${std.bookDate}" pattern="yyyy-MM-dd"/>
+            </td> <!-- ORDER_DATE -->
             <td>
                 <fmt:formatDate value="${std.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
             </td> <!-- START_TIME -->
@@ -84,6 +87,39 @@
             <td>
                 <fmt:formatDate value="${std.orderDate}" pattern="yyyy-MM-dd"/>
             </td> <!-- ORDER_DATE -->
+            <td>
+		 	        		<fmt:parseNumber  var="parsedNumber" value="${std.studioVO.hourlyRate}"/>
+		 	        		<div class="btn_block">		 	        		
+		        				<input type="submit" value="修改" class="update_btn" 
+			        				                                data-orderId="${std.orderId}" 
+									                                data-memId="${std.memId}" 
+									                                data-studId="${std.studioVO.studId}" 
+									                                data-orderStatus="${std.status}" 
+									                                data-totalAmount="${std.totalAmount}" 
+									                                data-rentalHour="${std.rentalHour}">
+<%-- 												        			data-img="${std.studioVO.imgBase64}"> --%>
+												        			
+			        			
+<%-- 			        			<form method="post" action="${pageContext.request.contextPath}/OrderServlet">  --%>
+<%--      				                <c:if test="${std.status == 0}"> --%>
+<!-- 				                        如果錄音室是上架狀態，顯示下架按鈕 -->
+<!-- 				                        <input type="submit" value="下架" class="off_btn"> -->
+<!-- 				                        <input type="hidden" name="action" value="std_off"> -->
+<%-- 				                        <input type="hidden" name="page" value="${currentPage}"> --%>
+<%-- 				                    </c:if> --%>
+<%-- 				                    <c:if test="${std.status == 1}"> --%>
+<!-- 				                        如果錄音室是下架狀態，顯示上架按鈕 -->
+<!-- 				                        <input type="submit" value="上架" class="on_btn"> -->
+<!-- 				                        <input type="hidden" name="action" value="std_on"> -->
+<%-- 				                        <input type="hidden" name="page" value="${currentPage}"> --%>
+<%-- 				                    </c:if>  --%>
+<%-- 				                    <input type="hidden" name="studio_id" value="${std.studioVO.studId}"> --%>
+<!-- 			        			</form>  -->
+		 	        		</div>
+		       			</td>
+          
+       
+       
         </tr>
     </c:forEach>
 </tbody>
@@ -156,15 +192,15 @@
 						    </tr>
 						
 						    <!-- 超時狀態 (OVERTIME_STATUS) -->
-						    <tr>
-						        <td>超時狀態</td>
-						        <td>
-						            <select name="overtime_status" id="overtime_status">
-						                <option value="0">FALSE (未超時)</option>
-						                <option value="1">TRUE (超時)</option>
-						            </select>
-						        </td>
-						    </tr>
+<!-- 						    <tr> -->
+<!-- 						        <td>超時狀態</td> -->
+<!-- 						        <td> -->
+<!-- 						            <select name="overtime_status" id="overtime_status"> -->
+<!-- 						                <option value="0">FALSE (未超時)</option> -->
+<!-- 						                <option value="1">TRUE (超時)</option> -->
+<!-- 						            </select> -->
+<!-- 						        </td> -->
+<!-- 						    </tr> -->
 						
 						    <!-- 訂單金額 (ORDER_AMOUNT) -->
 						    <tr>
@@ -178,11 +214,11 @@
 						        <td><input type="number" name="rental_hour" id="rental_hour"></td>
 						    </tr>
 						
-						    <!-- 超時時數 (OVERTIME_DURATION) -->
-						    <tr>
-						        <td>超時時數</td>
-						        <td><input type="number" name="overtime_duration" id="overtime_duration"></td>
-						    </tr>
+<!-- 						    超時時數 (OVERTIME_DURATION) -->
+<!-- 						    <tr> -->
+<!-- 						        <td>超時時數</td> -->
+<!-- 						        <td><input type="number" name="overtime_duration" id="overtime_duration"></td> -->
+<!-- 						    </tr> -->
 						
 						    <!-- 開始時間 (START_TIME) -->
 						    <tr>

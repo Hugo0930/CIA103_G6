@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+F<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <!doctype html>
@@ -8,10 +8,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
+
+
+
+<c:set var="memVO" value="${sessionScope.mem}" />
+
+
+
+
 <title>VoiceBus聲音巴士</title>
 <!-- CSS FILES -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com">
+
 <link
 	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
 	rel="stylesheet">
@@ -87,27 +96,39 @@ button {
 	<main>
 		<nav class="navbar navbar-expand-lg">
 			<div class="container">
+
 				<a class="navbar-brand me-lg-5 me-0"
-					href="${pageContext.request.contextPath}/front-end/jsp//index.jsp">
-					<img
+					href="${pageContext.request.contextPath}/index.jsp"> <img
 					src="${pageContext.request.contextPath}/front-end/images/動圖.gif"
 					class="logo-image img-fluid" alt="VoiceBus聲音巴士">
 				</a>
-				
+
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false"
 					aria-label="Toggle navigation">
+
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ms-lg-auto">
+
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/front-end/jsp/about.jsp"
 							style="color: #000000; font-size: 18px;">關於我</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">商城</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"
+
+
+
+						<li class="nav-item"><a class="nav-link"
+							href="javascript:void(0);"
+							onclick="document.getElementById('shopForm').submit();"
+							style="color: #000000; font-size: 18px;">商城</a>
+							<form id="shopForm"
+								action="${pageContext.request.contextPath}/prod/prod.do"
+								method="post" style="display: none;">
+								<input type="hidden" name="action" value="get_all">
+							</form></li>
+							<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/MyStudioServlet?action=get_all_std_on&to=front-end"
 							style="color: #000000; font-size: 18px;">錄音室</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
@@ -128,25 +149,51 @@ button {
 							<ul class="dropdown-menu dropdown-menu-light"
 								aria-labelledby="navbarLightDropdownMenuLink">
 								<li><a class="dropdown-item"
-									href="${pageContext.request.contextPath}">發案</a>
-								</li>
+									href="${pageContext.request.contextPath}">發案</a></li>
 								<li><a class="dropdown-item" href="#"
 									style="color: #000000;">接案</a></li>
+                <li>
+									<a class="dropdown-item" href="${pageContext.request.contextPath}/back-end/member/addComplaint.jsp" style="color: #000000;">申訴案件</a>
+								</li>
 							</ul></li>
-						<li class="nav-item"><a class="nav-link" href="#"
-							style="color: #000000; font-size: 18px;">會員登入</a></li>
+
 						<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/front-end/jsp/Customer-Service.jsp"
+							href="${pageContext.request.contextPath}/front-end/jsp/Service.jsp"
 							style="color: #000000; font-size: 18px;">客服中心</a></li>
+
+						<c:if test="${memVO==null}">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/front-end/login.jsp"
+								style="color: #000000; font-size: 18px;">會員登入</a></li>
+						</c:if>
+
+						<c:if test="${memVO==null}">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/front-end/register.jsp"
+								style="color: #000000; font-size: 18px;">注冊</a></li>
+						</c:if>
+
+						<c:if test="${memVO!=null}">
+							<li class="nav-item"><a class="nav-link"
+								style="color: #000000; font-size: 18px;">歡迎:${memVO.memberName}</a></li>
+						</c:if>
+
+						<c:if test="${memVO!=null}">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/back-end/logout"
+								style="color: #000000; font-size: 18px;">退出</a></li>
+						</c:if>
+
 					</ul>
 				</div>
+
+
 			</div>
 		</nav>
 		<section class="hero-section">
 			<h1 class="text-black" style="text-align: center;">VoiceBus聲音巴士</h1>
 			<div style="text-align: center;">
-				<a href="#section_2" class="btn custom-btn smoothscroll mt-3"
-					style="margin-bottom: 50px;">Start listening</a>
+				<a href="#section_2" class="btn custom-btn smoothscroll mt-3" style="margin-bottom: 50px;">Start listening</a>
 			</div>
 			<style>
 /* 統一輪播框架樣式 */
@@ -182,78 +229,70 @@ button {
 			<div class="owl-carousel owl-theme">
 				<!-- 輪播項目 1 -->
 				<div class="owl-carousel-info-wrap item">
-					<img
-						src="${pageContext.request.contextPath}/front-end/images/me.jpg"
-						class="owl-carousel-image img-fluid" alt="歆雅">
+					<img src="${pageContext.request.contextPath}/front-end/images/me.jpg" class="owl-carousel-image img-fluid" alt="歆雅">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">
-							歆雅 <img
-								src="${pageContext.request.contextPath}/front-end/images/verified.png"
-								class="owl-carousel-verified-image img-fluid" alt="">
+							歆雅
+							<img src="${pageContext.request.contextPath}/front-end/images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
 						</h4>
-						<span class="badge">商業配音</span> <span class="badge">青年</span>
+						<span class="badge">商業配音</span>
+						<span class="badge">青年</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 				<!-- 輪播項目 2 -->
 				<div class="owl-carousel-info-wrap item">
-					<img
-						src="${pageContext.request.contextPath}/front-end/images/浩鈞.jpg"
-						class="owl-carousel-image img-fluid" alt="浩鈞">
+					<img src="${pageContext.request.contextPath}/front-end/images/浩鈞.jpg" class="owl-carousel-image img-fluid" alt="浩鈞">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">
-							浩鈞 <img src="images/verified.png"
-								class="owl-carousel-verified-image img-fluid" alt="">
+							浩鈞
+							<img src="images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
 						</h4>
-						<span class="badge">青年</span> <span class="badge">角色配音</span>
+						<span class="badge">青年</span>
+						<span class="badge">角色配音</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 				<!-- 輪播項目 3 -->
 				<div class="owl-carousel-info-wrap item">
-					<img
-						src="${pageContext.request.contextPath}/front-end/images/文成.png"
-						class="owl-carousel-image img-fluid" alt="文成">
+					<img src="${pageContext.request.contextPath}/front-end/images/文成.png" class="owl-carousel-image img-fluid" alt="文成">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">文成</h4>
-						<span class="badge">商業配音</span> <span class="badge">青年</span>
+						<span class="badge">商業配音</span>
+						<span class="badge">青年</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 				<!-- 輪播項目 4 -->
 				<div class="owl-carousel-info-wrap item">
-					<img
-						src="${pageContext.request.contextPath}/front-end/images/阿偷2.jpg"
-						class="owl-carousel-image img-fluid" alt="薪壬">
+					<img src="${pageContext.request.contextPath}/front-end/images/阿偷2.jpg" class="owl-carousel-image img-fluid" alt="薪壬">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">薪壬</h4>
-						<span class="badge">青年</span> <span class="badge">商業配音</span>
+						<span class="badge">青年</span>
+						<span class="badge">商業配音</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 				<!-- 輪播項目 5 -->
 				<div class="owl-carousel-info-wrap item">
-					<img
-						src="${pageContext.request.contextPath}/front-end/images/章.jpg"
-						class="owl-carousel-image img-fluid" alt="章峻">
+					<img src="${pageContext.request.contextPath}/front-end/images/章.jpg" class="owl-carousel-image img-fluid" alt="章峻">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">
-							章峻 <img
-								src="${pageContext.request.contextPath}/front-end/images/verified.png"
-								class="owl-carousel-verified-image img-fluid" alt="">
+							章峻
+							<img src="${pageContext.request.contextPath}/front-end/images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
 						</h4>
-						<span class="badge">中文</span> <span class="badge">商業配音</span>
+						<span class="badge">中文</span>
+						<span class="badge">商業配音</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
 				<!-- 輪播項目 6 -->
 				<div class="owl-carousel-info-wrap item">
-					<img
-						src="${pageContext.request.contextPath}/front-end/images/辰正1.jpg"
-						class="owl-carousel-image img-fluid" alt="辰正">
+					<img src="${pageContext.request.contextPath}/front-end/images/辰正1.jpg" class="owl-carousel-image img-fluid" alt="辰正">
 					<div class="owl-carousel-info">
 						<h4 class="mb-2">辰正</h4>
-						<span class="badge">商業配音</span> <span class="badge">中文</span>
+						<span class="badge">商業配音</span>
+						<span class="badge">中文</span>
 					</div>
 					<div class="social-share"></div>
 				</div>
@@ -268,6 +307,7 @@ button {
 		</div>
 		</div>
 		</section>
+
 		<section class="latest-podcast-section section-padding pb-0"
 			id="section_2">
 			<div class="container">
@@ -285,13 +325,11 @@ button {
 									<div class="custom-block-icon-wrap">
 										<div class="section-overlay"></div>
 										<!-- 圖片區域 -->
-										<a href="#" class="custom-block-image-wrap"> <img
-											src="${pageContext.request.contextPath}/front-end/images/podcast/11683425_4790593.jpg"
-											class="custom-block-image img-fluid" alt="Podcast Cover">
+										<a href="#" class="custom-block-image-wrap">
+											<img src="${pageContext.request.contextPath}/front-end/images/podcast/11683425_4790593.jpg" class="custom-block-image img-fluid" alt="Podcast Cover">
 										</a>
 										<!-- 撥放按鈕區域 -->
-										<a href="#" class="custom-block-icon"
-											onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/口香糖廣告.mp3')">
+										<a href="#" class="custom-block-icon" onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/口香糖廣告.mp3')">
 											<i class="bi-play-fill"></i>
 										</a>
 										<!-- 隱藏的音樂播放器 -->
@@ -323,26 +361,33 @@ button {
 								<!-- 包含播客的相關信息，如名稱、描述等。 -->
 								<div class="custom-block-top d-flex mb-1"></div>
 								<h5 class="mb-2">
-									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp"> 商業配音 </a>
+									<a
+										href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">
+										商業配音 </a>
 								</h5>
 								<div class="profile-block d-flex">
-									<img
-										src="${pageContext.request.contextPath}/front-end/images/me.jpg"
-										class="profile-block-image img-fluid" alt="">
+									<img src="${pageContext.request.contextPath}/front-end/images/me.jpg" class="profile-block-image img-fluid" alt="">
 									<p>
-										歆雅 <img
-											src="${pageContext.request.contextPath}/front-end/images/verified.png"
-											class="verified-image img-fluid" alt=""> <strong>青年商業配音</strong>
+										歆雅
+										<img src="${pageContext.request.contextPath}/front-end/images/verified.png" class="verified-image img-fluid" alt="">
+										<strong>青年商業配音</strong>
 									</p>
 								</div>
 								<p class="mb-0">清晰薄荷口香糖</p>
+
 								<div
 									class="custom-block-bottom d-flex justify-content-between mt-3">
 									<a href="#" class="bi-headphones me-1"> <!-- 創建一個連結，帶有耳機圖標，用於顯示播放次數。 -->
 										<span>12</span>
-									</a> <a href="#" class="bi-heart me-1"> <span>4</span>
-									</a> <a href="#" class="bi-chat me-1"> <span>11</span>
-									</a> <a href="#" class="bi-download"> <span>5</span>
+									</a>
+									<a href="#" class="bi-heart me-1">
+										<span>4</span>
+									</a>
+									<a href="#" class="bi-chat me-1">
+										<span>11</span>
+									</a>
+									<a href="#" class="bi-download">
+										<span>5</span>
 									</a>
 								</div>
 							</div>
@@ -359,13 +404,13 @@ button {
 									<div class="custom-block-icon-wrap">
 										<div class="section-overlay"></div>
 										<!-- 圖片區域 -->
+
 										<a href="#" class="custom-block-image-wrap"> <img
-										src="${pageContext.request.contextPath}/front-end/images/podcast/12577967_02.jpg"
+											src="${pageContext.request.contextPath}/front-end/images/podcast/12577967_02.jpg"
 											class="custom-block-image img-fluid" alt="Podcast Cover">
 										</a>
 										<!-- 撥放按鈕區域 -->
-										<a href="#" class="custom-block-icon"
-											onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/聲音巴士專題報導.mp3')">
+										<a href="#" class="custom-block-icon" onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/聲音巴士專題報導.mp3')">
 											<i class="bi-play-fill"></i>
 										</a>
 										<!-- 隱藏的音樂播放器 -->
@@ -397,27 +442,30 @@ button {
 								<!-- 包含播客的相關信息，如名稱、描述等。 -->
 								<div class="custom-block-top d-flex mb-1"></div>
 								<h5 class="mb-2">
-									<a href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">商業配音 </a>
+									<a
+										href="${pageContext.request.contextPath}/front-end/jsp/listing-page.jsp">商業配音
+									</a>
 								</h5>
 								<div class="profile-block d-flex">
-									<img
-										src="${pageContext.request.contextPath}/front-end/images/浩鈞.jpg"
-										class="profile-block-image img-fluid" alt="">
+									<img src="${pageContext.request.contextPath}/front-end/images/浩鈞.jpg" class="profile-block-image img-fluid" alt="">
 									<p>
-										浩鈞<img
-											src="${pageContext.request.contextPath}/front-end/images/verified.png"
-											class="verified-image img-fluid" alt=""> <strong>中文商業配音</strong>
+										浩鈞
+										<img src="${pageContext.request.contextPath}/front-end/images/verified.png" class="verified-image img-fluid" alt="">
+										<strong>中文商業配音</strong>
 									</p>
 								</div>
 
 
+
+
 								<p class="mb-0">聲音巴士專題報導，12/18號隆重登場 </p>
+
 
 								<div
 									class="custom-block-bottom d-flex justify-content-between mt-3">
 									<a href="#" class="bi-headphones me-1"> <!-- 創建一個連結，帶有耳機圖標，用於顯示播放次數。 -->
 										<span>18</span>
-										</a> <a href="#" class="bi-heart me-1"> <span>6</span>
+									</a> <a href="#" class="bi-heart me-1"> <span>6</span>
 									</a> <a href="#" class="bi-chat me-1"> <span>16</span>
 									</a> <a href="#" class="bi-download"> <span>10</span>
 									</a>
@@ -432,6 +480,7 @@ button {
 						<div class="container" style="padding: 0; margin: 0;">
 							<div class="row" style="padding: 0; margin: 0;">
 								<div class="col-lg-12 col-12" style="padding: 0; margin: 0;">
+
 					<div class="col-lg-12 col-12">
 						<div class="section-title-wrap mb-5">
 							<h4 class="section-title">配音廣告</h4>
@@ -581,21 +630,62 @@ button {
 													<h5 class="mb-1">文稿架</h5>
 												</div>
 											</div>
+
 										</div>
-										<div class="owl-carousel-info-wrap item" style="margin: 0;">
-											<div class="custom-block custom-block-overlay"
-												style="margin: 0;">
-												<a href="商城.html" class="custom-block-image-wrap"
-													style="margin: 0;"> <img
-													src="${pageContext.request.contextPath}/front-end/images/商品列表/麥克風_resized.png"
-													class="custom-block-image img-fluid" alt="麥克風"
-													style="height: 500px; width: 100%; object-fit: contain; transform: translateY(-35px);">
-												</a>
-												<div class="custom-block-info custom-block-overlay-info"
-													style="margin-top: 0;">
-													<h5 class="mb-1">麥克風</h5>
+
+										<section class="topics-section section-padding pb-0"
+											id="section_3">
+											<div class="container-fluid" style="padding: 0; margin: 0;">
+												<div class="row" style="padding: 0; margin: 0;">
+													<div class="col-lg-12 col-12"
+														style="padding: 0; margin: 0;">
+														<div class="owl-carousel owl-theme">
+															<!-- 第一張圖片 -->
+															<div class="item">
+																<div class="custom-block custom-block-overlay"
+																	style="margin: 0;">
+																	<img
+																		src="${pageContext.request.contextPath}/front-end/images/3.png"
+																		class="img-fluid" alt="Image 3"
+																		style="width: 100%; height: auto; object-fit: contain;">
+																</div>
+															</div>
+															<!-- 第二張圖片 -->
+															<div class="item">
+
+																<div class="custom-block custom-block-overlay"
+																	style="margin: 0;">
+																	<img
+																		src="${pageContext.request.contextPath}/front-end/images/2.png"
+																		class="img-fluid" alt="Image 2"
+																		style="width: 100%; height: auto; object-fit: contain;">
+																</div>
+															</div>
+															<!-- 第三張圖片 -->
+															<div class="item">
+
+																<div class="custom-block custom-block-overlay"
+																	style="margin: 0;">
+																	<img
+																		src="${pageContext.request.contextPath}/front-end/images/1.png"
+																		class="img-fluid" alt="Image 1"
+																		style="width: 100%; height: auto; object-fit: contain;">
+																</div>
+															</div>
+															<div class="item">
+																<div class="custom-block custom-block-overlay"
+																	style="margin: 0;">
+																	<img
+																		src="${pageContext.request.contextPath}/front-end/images/4.png"
+																		class="img-fluid" alt="Image 1"
+																		style="width: 100%; height: auto; object-fit: contain;">
+																</div>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
+
 										</div>
 									</div>
 								</div>
@@ -625,6 +715,7 @@ button {
 						});
 					</script>
 		</section>
+
 	</main>
 	<section class="trending-podcast-section section-padding">
 		<div class="container">
@@ -665,40 +756,42 @@ button {
 				<div class="row align-items-center">
 					<div class="col-lg-7 col-md-9 col-12">
 						<ul class="site-footer-links">
+
+
 							<li class="site-footer-link-item"><a href="front-end/jsp/questions.jsp"
+
 								class="site-footer-link" style="color: black; font-size: 18px;">Q&A問題</a>
 							</li>
 							<li class="site-footer-link-item"><a href="front-end/jsp/Service.jsp"
 								class="site-footer-link" style="color: black; font-size: 18px;">服務條款</a>
 							</li>
-						
+
 							<div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0 mb-lg-0"
 								style="margin-left: auto; color: black;">
 								<h6 class="site-footer-title mb-3" style="color: black;">聯絡方式</h6>
 								<p class="mb-2" style="color: black;">
-									<strong class="d-inline me-2">電話:</strong>03-429-1340
+									<strong class="d-inline me-2">電話:</strong>
+									03-429-1340
 								</p>
 								<p style="color: black;">
-									<strong class="d-inline me-2">Email:</strong>VOICEBUS@pod.com
+									<strong class="d-inline me-2">Email:</strong>
+									VOICEBUS@pod.com
 								</p>
 							</div>
 						</ul>
 					</div>
 					<div class="col-lg-3 col-12">
-						<br> <br>
+						<br>
+						<br>
 					</div>
 				</div>
 			</div>
 		</footer>
 		<!-- JS -->
-		<script
-			src="${pageContext.request.contextPath}/front-end/js/jquery.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/front-end/js/bootstrap.bundle.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/front-end/js/owl.carousel.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/front-end/js/custom.js"></script>
+		<script src="${pageContext.request.contextPath}/front-end/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/front-end/js/bootstrap.bundle.min.js"></script>
+		<script src="${pageContext.request.contextPath}/front-end/js/owl.carousel.min.js"></script>
+		<script src="${pageContext.request.contextPath}/front-end/js/custom.js"></script>
 </body>
 </html>
 

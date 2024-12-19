@@ -53,10 +53,12 @@ td {
 
 </head>
 <body>
+<c:set var="memVO" value="${sessionScope.mem}" />
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container px-4 px-lg-5">
-			<a class="navbar-brand" href="#!">VoiceBus</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">VoiceBus</a>
+			
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -83,7 +85,7 @@ td {
 						</ul></li>
 				</ul>
 				<div class="d-flex align-items-center me-3">
-					<span class="me-3">會員編號: ${param.memId != null ? param.memId : "3"}</span>
+					<span class="me-3">會員編號: ${memVO.memberName}</span>
 					<a
 						href="<%=request.getContextPath()%>/orders/orders.do?action=get_member_orders"
 						class="btn btn-outline-dark me-2"> <i
@@ -108,7 +110,7 @@ td {
 	<header class="bg-dark py-5">
 		<div class="container text-center text-white">
 			<h1 class="display-4 fw-bolder">我的訂單</h1>
-			<p class="lead fw-normal text-white-50 mb-0">Order Details</p>
+<!-- 			<p class="lead fw-normal text-white-50 mb-0">Order Details</p> -->
 		</div>
 	</header>
 

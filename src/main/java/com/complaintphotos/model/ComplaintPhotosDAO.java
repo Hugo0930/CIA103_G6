@@ -1,4 +1,4 @@
-	package com.complaintphotos.model;
+package com.complaintphotos.model;
 
 import javax.sql.DataSource;
 
@@ -14,6 +14,8 @@ public class ComplaintPhotosDAO implements ComplaintPhotosDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO complaint_photos (COM_ID, COM_PIC, FILE_NAME, MIME_TYPE, UPLOAD_TIME) VALUES (?, ?, ?, ?, NOW())";
 	private static final String UPDATE_STMT = "UPDATE complaint_photos SET COM_ID = ?, COM_PIC = ?, FILE_NAME = ?, MIME_TYPE = ?, UPLOAD_TIME = NOW() WHERE COM_PIC_ID = ?";
 	private static final String FIND_ALL_STMT = "SELECT COM_PIC_ID, COM_ID, COM_PIC, FILE_NAME, MIME_TYPE, UPLOAD_TIME FROM complaint_photos";
+//根據complaint_Id找到圖片
+	private static final String GET_PHOTOS_BY_COMPLAINT_ID = "SELECT COM_PIC_ID, COM_PIC, FILE_NAME, MIME_TYPE, UPLOAD_TIME FROM COMPLAINT_PHOTOS WHERE COM_ID = ?";
 
 	// 新增
 	@Override
@@ -50,7 +52,6 @@ public class ComplaintPhotosDAO implements ComplaintPhotosDAO_interface {
 		}
 	}
 
-	
 	// 查看所有圖片
 	@Override
 	public List<ComplaintPhotosVO> findAll() {
@@ -77,6 +78,29 @@ public class ComplaintPhotosDAO implements ComplaintPhotosDAO_interface {
 
 		return list;
 	}
+	@Override
+    public List<ComplaintPhotosVO> findPhotosByComplaintId(Integer complaintId) {
+        List<ComplaintPhotosVO> list = new ArrayList<>();
+        try (Connection conn = ds.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(GET_PHOTOS_BY_COMPLAINT_ID)) {
+            pstmt.setInt(1, complaintId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    ComplaintPhotosVO photo = new ComplaintPhotosVO();
+                    photo.setComPicId(rs.getInt("COM_PIC_ID"));
+                    photo.setComPic(rs.getBytes("COM_PIC"));
+                    photo.setFileName(rs.getString("FILE_NAME"));
+                    photo.setMimeType(rs.getString("MIME_TYPE"));
+                    photo.setUploadTime(rs.getDate("UPLOAD_TIME"));
+                    list.add(photo);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+}
 //	public static void main(String[] args) {
 //		ComplaintPhotosDAO dao = new ComplaintPhotosDAO();
 ////
@@ -125,5 +149,4 @@ public class ComplaintPhotosDAO implements ComplaintPhotosDAO_interface {
 //					+ photo.getFileName() + ", MIME 類型：" + photo.getMimeType() + ", 上傳時間：" + photo.getUploadTime());
 //		}
 //	}
-}
 
