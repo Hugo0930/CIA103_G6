@@ -304,7 +304,7 @@
 
 							<!-- 撥放按鈕區域 -->
 							<a href="#" class="custom-block-icon"
-								onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/口香糖廣告.mp3')">
+								onclick="playAudio(event, '${pageContext.request.contextPath}/front-end/mp3/薪壬音檔.mp3')">
 								<i class="bi-play-fill"></i>
 							</a>
 
@@ -349,11 +349,11 @@
 						<p>
 							薪壬 <img
 								src="${pageContext.request.contextPath}/front-end/images/verified.png"
-								class="verified-image img-fluid" alt=""> <strong>青年商業配音</strong>
+								class="verified-image img-fluid" alt=""> <strong>中文角色配音</strong>
 						</p>
 					</div>
 
-					<p class="mb-0">從現在開始，大聲笑出來！</p>
+					<p class="mb-0">突擊！</p>
 
 					<div
 						class="custom-block-bottom d-flex justify-content-between mt-3">
