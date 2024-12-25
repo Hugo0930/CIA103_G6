@@ -33,7 +33,7 @@
 <!-- 	        </select> -->
         </div>
         <button type="submit"  id="btn_add"><i class="fa-solid fa-plus"></i>新增租借訂單</button>
-        <h3>總共${pageQty}頁，現在第${currentPage}頁</h3>
+<%--         <h3>總共${pageQty}頁，現在第${currentPage}頁</h3> --%>
 	   	<table>
 	     	<thead>
 	     		<tr>
