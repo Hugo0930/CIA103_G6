@@ -89,7 +89,7 @@ table {
 }
 
 table thead th, table tbody tr td {
-    width: 80px; /* 調小儲存格的寬度 */
+    width: 90px; /* 調小儲存格的寬度 */
     text-align: center;
 }
 

@@ -33,7 +33,7 @@
 <!-- 	        </select> -->
         </div>
         <button type="submit"  id="btn_add"><i class="fa-solid fa-plus"></i>新增租借訂單</button>
-        <h3>總共${pageQty}頁，現在第${currentPage}頁</h3>
+<%--         <h3>總共${pageQty}頁，現在第${currentPage}頁</h3> --%>
 	   	<table>
 	     	<thead>
 	     		<tr>
@@ -66,13 +66,12 @@
                     <c:when test="${std.status == 3}">COMPLETED(完成)</c:when>
                 </c:choose>
             </td> <!-- ORDER_STATUS -->
-            <td>
+<!--             <td> -->
 <%--                 <c:choose> --%>
 <%--                     <c:when test="${std.overtimeStatus}">TRUE(超時)</c:when> --%>
 <%--                     <c:otherwise>FALSE(未超時)</c:otherwise> --%>
 <%--                 </c:choose> --%>
-            </td> <!-- OVERTIME_STATUS -->
-            <td>${std.status}</td>   <!-- ORDER_AMOUNT -->
+<!--             </td> OVERTIME_STATUS -->
             <td>${std.totalAmount}</td>    <!-- RENTAL_HOUR -->
             <td>${std.rentalHour}</td> <!-- OVERTIME_DURATION -->
             <td>
@@ -87,6 +86,7 @@
             <td>
                 <fmt:formatDate value="${std.orderDate}" pattern="yyyy-MM-dd"/>
             </td> <!-- ORDER_DATE -->
+<%--             <td>${std.status}</td>   <!-- ORDER_AMOUNT --> --%>
             <td>
 		 	        		<fmt:parseNumber  var="parsedNumber" value="${std.studioVO.hourlyRate}"/>
 		 	        		<div class="btn_block">		 	        		
@@ -250,7 +250,7 @@
 	    </div>
    	</div>
    	<%-- 修改錄音室表單 --%>
- 	<jsp:include page="/back-end/studioOrder/studioOrder_update.jsp"/>
+<%--  	<jsp:include page="/back-end/studioOrder/studioOrder_update.jsp"/> --%>
 <!--     <script src="https://kit.fontawesome.com/155106be6f.js" crossorigin="anonymous"></script> -->
 <%--     <script src="${pageContext.request.contextPath}/back-end/vendor/jquery-3.7.1.min.js"></script> --%>
 <%--     <script src="${pageContext.request.contextPath}/back-end/homepage/js/homepage.js"></script> --%>
